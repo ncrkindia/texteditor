@@ -1,6 +1,6 @@
-# NCRK TextEditor v1.1.1 🎉
+# NCRK TextEditor v1.1.2 🎉
 
-A lightweight, simple Desktop Text Editor built using Java AWT and Swing. This is the **v1.1.1 stable release**, offering core text editing functionalities similar to classic Notepad with a fully modular graphical interface.
+A lightweight, simple Desktop Text Editor built using Java AWT and Swing. This is the **v1.1.2 stable release**, offering core text editing functionalities similar to classic Notepad with a fully modular graphical interface.
 
 ## 🚀 Features
 
@@ -9,6 +9,7 @@ A lightweight, simple Desktop Text Editor built using Java AWT and Swing. This i
 *   **Search**: Find/Replace All dialog logic.
 *   **View Customization**: Dynamic text Zoom In/Out, Font dialog selection, and customizable Foreground/Background Colors.
 *   **Modular GUI**: De-coupled forms using NetBeans GUI Builder, breaking logic down into multiple specialized `.java` and `.form` components (unified under `MainFrame`).
+*   **Accessibility**: Built-in On-Screen Virtual Keyboard and dedicated native Help system.
 *   **Live Status**: Integrated background threading for real-time Date and Time status updates.
 *   **Cross-Platform**: Built purely with Java Swing, making it platform-independent (Windows, macOS, Linux).
 
@@ -62,6 +63,12 @@ You can directly run the editor without compiling the source code using the dist
 *   **Official Website**: [www.ncrkindia.in](http://www.ncrkindia.in)
 
 ## 🆕 Changelog
+
+### v1.1.2
+*   **New Feature - Virtual Keyboard**: Designed and integrated a native on-screen virtual keyboard (`Keyboard.java` & `Keyboard.form`) for enhanced accessibility.
+*   **Data Binding Integration**: Introduced the `beansbinding-1.2.1.jar` library dependency, pointing towards modernizing the GUI architecture with structured data-bound properties.
+*   **Comprehensive Documentation**: Generated and published full HTML JavaDoc API documentation, newly accessible inside the `dist/javadoc/` directory.
+*   **Rich Asset Expansion**: Massively expanded the user interface with numerous atmospheric background images and tool graphics (`bg.jpg`, `tool.jpg`, `view.jpg`, `title*`).
 
 ### v1.1.1
 *   **New Feature - Help System**: Completely integrated a new Help module (`HelpBook.java` & `HelpBook1.java`) to provide internal user guidance.

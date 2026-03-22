@@ -51,10 +51,10 @@ class FontDialog extends JDialog implements java.awt.event.ItemListener{
         add(ch3);
         l3.setBounds(50, 110, 150, 25);
         add(l3);
-        textArea.setFont(new Font(outer.getPro().getFont_name(),outer.getPro().getFont_style(),outer.getPro().getFont_size()));
+        textArea.setFont(new Font(outer.pro.getFont_name(),outer.pro.getFont_style(),outer.pro.getFont_size()));
         add(textArea);
-        textArea.setBackground(outer.getPro().getBgcolor());
-        textArea.setForeground(outer.getPro().getFgcolor());
+        textArea.setBackground(outer.pro.getBgcolor());
+        textArea.setForeground(outer.pro.getFgcolor());
         textArea.setEditable(false);
         textArea.setBounds(10,150,335,100);
         b1.setBounds(50,260, 100, 25);
@@ -92,13 +92,13 @@ class FontDialog extends JDialog implements java.awt.event.ItemListener{
                 dispose();
             }
         });
-        ch1.select(outer.getPro().getFont_name());
-        ch3.select(outer.getPro().getFont_size()+"");
+        ch1.select(outer.pro.getFont_name());
+        ch3.select(outer.pro.getFont_size()+"");
         
-        if(outer.getPro().getFont_style()==0) ch2.select("Plain");
-        else if(outer.getPro().getFont_style()==1) ch2.select("Bold");
-        else if(outer.getPro().getFont_style()==2) ch2.select("Italic");
-        else if(outer.getPro().getFont_style()==3) ch2.select("Bold Italic");
+        if(outer.pro.getFont_style()==0) ch2.select("Plain");
+        else if(outer.pro.getFont_style()==1) ch2.select("Bold");
+        else if(outer.pro.getFont_style()==2) ch2.select("Italic");
+        else if(outer.pro.getFont_style()==3) ch2.select("Bold Italic");
         // ch1.addItemListener(new ItemListener(){public void itemStateChanged(ItemEvent e){changefont(e);}});
         // ch2.addItemListener(new ItemListener(){public void itemStateChanged(ItemEvent e){changefont(e);}});
         // ch3.addItemListener(new ItemListener(){public void itemStateChanged(ItemEvent e){changefont(e);}});
@@ -126,10 +126,10 @@ class FontDialog extends JDialog implements java.awt.event.ItemListener{
         // font=new Font(nm,style,size);
         if(setFont)
         {
-            outer.getPro().setFont_style(style);
-            outer.getPro().setFont_size(size);
-            outer.getPro().setFont_name(nm);
-            getOuter()._setFontStyle();
+            outer.pro.setFont_style(style);
+            outer.pro.setFont_size(size);
+            outer.pro.setFont_name(nm);
+            outer._setFontStyle();
         }
         else
         {

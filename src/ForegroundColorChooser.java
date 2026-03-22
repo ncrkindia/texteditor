@@ -93,10 +93,10 @@ class ForegroundColorChooser extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
-        outer.getPro().setFgcolor(jColorChooser1.getColor());
+        outer.pro.setFgcolor(jColorChooser1.getColor());
 
-        for (int temp = 0; temp <= outer.getI(); temp++) {
-            outer.textArea.get(temp).setForeground(outer.getPro().getFgcolor());
+        for (int temp = 0; temp <= outer.i; temp++) {
+            outer.textArea.get(temp).setForeground(outer.pro.getFgcolor());
         }
     }
 

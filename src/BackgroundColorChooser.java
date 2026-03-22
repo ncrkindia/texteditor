@@ -95,10 +95,10 @@ class BackgroundColorChooser extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
-        outer.getPro().setBgcolor(jColorChooser1.getColor());
+        outer.pro.setBgcolor(jColorChooser1.getColor());
 
-        for (int temp = 0; temp <= outer.getI(); temp++) {
-            outer.textArea.get(temp).setBackground(outer.getPro().getBgcolor());
+        for (int temp = 0; temp <= outer.i; temp++) {
+            outer.textArea.get(temp).setBackground(outer.pro.getBgcolor());
         }
     }
 

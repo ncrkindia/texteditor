@@ -6,7 +6,8 @@ import javax.swing.*;
  *
  * @author NCRK (नवीन चौहान राजपूत खरदौनी)
  */
-public class Starting extends JWindow implements Runnable {
+public class Starting extends JWindow implements Runnable 
+{
     private JLabel    ime;
     String            n, c, r, k;
     String            name;
@@ -17,8 +18,10 @@ public class Starting extends JWindow implements Runnable {
     JTextField        t;
     Thread            th;
 
-    public Starting() {
-        splashImage = new JLabel(new ImageIcon(getClass().getResource("Images/3.jpg")));
+    public Starting() 
+    {
+        super();
+        splashImage = new JLabel(new ImageIcon(getClass().getResource("Images/starting.jpg")));
         n           = "नवीन";
         c           = "चौहान";
         r           = "राजपूत";
@@ -45,6 +48,7 @@ public class Starting extends JWindow implements Runnable {
         t.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         th = new Thread(this);
         th.start();
+        this.setVisible(true);
     }
 
     public void run() {
@@ -78,6 +82,7 @@ public class Starting extends JWindow implements Runnable {
             } catch (Exception e) {}
         }
     }
+  
 }
 
 

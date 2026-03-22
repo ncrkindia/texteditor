@@ -5,13 +5,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Vector;
 
 /**
  *
  * @author NCRK (नवीन चौहान राजपूत खरदौनी)
  */
 public class Property implements java.io.Serializable {
-    private static String path = System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.1";
+    
+    Vector<String> savedFilesPath;
+    Vector<String> savedFilesName;
+    int savedFilesCount;
+    boolean isWordWrap;
+    
+    private static String path = System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.2";
     private static File   file;
     private Color         bgcolor;
     private char[]        ch;
@@ -23,41 +30,51 @@ public class Property implements java.io.Serializable {
     String theme;
     String encodingName;
     private static Dimension     screensize;
-    private Rectangle rect ;
+     Rectangle rect ;
     String javaCompiler;
     String javaAppletViewer;
     String javaExecute;
     String cppCompiler;
     int cppCompilerType;//0 for not set ,1 for TCC , 2 for GNU
-    private Property() {
+    private Property() 
+    {
+        savedFilesPath = new Vector<String>();
+        savedFilesName = new Vector<String>();
+        savedFilesCount = 0;
+        isWordWrap = true;
+        
         fgcolor           = new Color(255,255,255);
-        bgcolor           = new Color(99,0,0);
+        bgcolor           = new Color(100,100,150);
         font_size         = 20;
         font_name         = null;
         font_style        = 0;
         screensize        = Toolkit.getDefaultToolkit().getScreenSize();
-        screensize.height -= 20;
+        screensize.height -= 40;
         look              = "Nimbus";
         theme = null;
         encodingName = "UTF-8";
-        rect = new Rectangle(0,0,screensize.width,screensize.width);
+        rect = new Rectangle(0,0,screensize.width,screensize.height);
         try
         {
-            File f =  new File(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.1");
+            File f =  new File(path);
             f.mkdirs();
-            f = new File(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.1\\visit.bat");
+            f = new File(path+"\\visit.bat");
             FileOutputStream fout = new FileOutputStream(f);
             fout.write("start http://sourceForge.net/u/ncrkrajput".getBytes());
             fout.close();
             
-            f = new File(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.1\\mailAtEngineer.bat");
+            f = new File(path+"\\mailAtEngineer.bat");
             fout = new FileOutputStream(f);
             fout.write("start mailto:ncrkrajput@engineer.com".getBytes());
             fout.close();
             
-            f = new File(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.1\\mailAtProgrammer.bat");
+            f = new File(path+"\\mailAtProgrammer.bat");
             fout = new FileOutputStream(f);
             fout.write("start mailto:ncrkrajput@programmer.net".getBytes());
+            fout.close();
+            f = new File(path+"\\facebook.bat");
+            fout = new FileOutputStream(f);
+            fout.write("start http://www.facebook.com/NCRK.Inc ".getBytes());
             fout.close();
             if(System.getProperty("java.home")!=null)
             {
@@ -80,69 +97,29 @@ public class Property implements java.io.Serializable {
         
     }
 
-     /**
-     * @return the path
-     */
-    public Rectangle getRect() {
-        return rect;
-    }
-
-    /**
-     * @param arect
-     */
-    public  void setRect(Rectangle arect) {
-        rect = arect;
-    }
-    /**
-     * @return the path
-     */
-    public static String getPath() {
-        return path;
-    }
-
-    /**
-     * @param aPath the path to set
-     */
-    public static void setPath(String aPath) {
-        path = aPath;
-    }
-
-    /**
-     * @return the file
-     */
-    public static File getFile() {
-        return file;
-    }
-
-    /**
-     * @param aFile the file to set
-     */
-    public static void setFile(File aFile) {
-        file = aFile;
-    }
-
     public static Property getProperty(boolean RESET) {
-        System.out.println(getPath());
+        System.out.println(path);
 
         Property pro = null;
 
         try {
-            setFile(new File(getPath()));
+            file=new File(path);
 
             if (!file.exists()&&!RESET) {
-                getFile().mkdirs();
+                file.mkdirs();
             }
+            String s = path;
             if(!RESET)
             {
-                path  = path + "\\NCRK_TextEditor_v1.1.1_Property.ncrk" ;
+                s = path + "\\NCRK_TextEditor_v1.1.2_Property.ncrk" ;
             }
-            file = new File(path);
+            file = new File(s);
 
-            if (getFile().exists() && !RESET) {
+            if (file.exists() && !RESET) {
                 System.out.println("File exist");
 
                 ObjectInputStream ois;
-                FileInputStream   fis = new FileInputStream(getFile());
+                FileInputStream   fis = new FileInputStream(file);
 
                 ois = new ObjectInputStream(fis);
                 pro = (Property) ois.readObject();
@@ -151,7 +128,7 @@ public class Property implements java.io.Serializable {
                 System.out.println("File  not exist");
                 pro = new Property();
             }
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (Exception e) {
             //e.printStackTrace();
             pro = new Property();
             //System.exit(0);
@@ -161,13 +138,14 @@ public class Property implements java.io.Serializable {
     }
 
     public void writeProperties() {
-        try {
-            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(getFile()))) {
+       
+        try  
+        {
+                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
                 oos.writeObject(this);
-            }
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }   
     }
 
     /**

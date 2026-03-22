@@ -19,33 +19,41 @@ import static javax.swing.JOptionPane.QUESTION_MESSAGE;
  */
 public class MainFrame extends javax.swing.JFrame implements KeyListener
 {
-private Property pro ;
-
+    Property pro ;
+    static Starting starting;
+    TabbedPaneKeyMouseListenerImplementation tabbedPaneKeyMouseListenerImplementation;
+    //ScrollPaneFocusListenerImplementation scrollPaneFocusListener;
+    String applicationDir = System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.2";
     public MainFrame(Property pro) 
     {
-        this.path = new  java.util.Vector<>();
-        this.filename = new java.util.Vector<>();
-        this.textArea = new java.util.Vector<>();
-        this.scrollPane = new java.util.Vector<>();
-        this.countTab = new java.util.Vector<>();
-        this.countSpace = new java.util.Vector<>();
+        //ScrollPaneFocusListenerImplementation scrollPaneFocusListener = new ScrollPaneFocusListenerImplementation(this);
+        this.path = new  java.util.Vector<String>();
+        this.filename = new java.util.Vector<String>();
+        this.textArea = new java.util.Vector<JTextArea>();
+        this.scrollPane = new java.util.Vector<JScrollPane>();
+        this.countTab = new java.util.Vector<Integer>();
+        this.countSpace = new java.util.Vector<Integer>();
         this.pro = pro;
         initComponents();
+        tabbedPaneKeyMouseListenerImplementation = new TabbedPaneKeyMouseListenerImplementation(this);
+        this.jTabbedPane2.addKeyListener(tabbedPaneKeyMouseListenerImplementation);
+        this.jTabbedPane2.addMouseListener(tabbedPaneKeyMouseListenerImplementation);
         this.jToolBar1.setFloatable(false);
         this.jToolBar1.setRollover(true);
         this._changeEncoding(this.pro.encodingName);
-        this.setBounds(this.pro.getRect());
+        this.setBounds(this.pro.rect);
         try
         {
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage("title.jpg"));
+            this.setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/icon1.jpg")));
         }
         catch(Exception e)
         {
             
         }
-        setTitle("NCRK :: TextEditor v1.1.1");
+        setTitle("NCRK :: TextEditor");
         new TimeDateUpdationThread(this.jLabel1);
         _resigisterToolTipsText();
+        this.jCheckBoxMenuItem1.setSelected(pro.isWordWrap);
         if(this.pro.getFont_style()==1) 
         {
             jToggleButton1.setSelected(true);
@@ -55,7 +63,10 @@ private Property pro ;
             jToggleButton2.setSelected(true);
         }
         this.i = -1;
+        ni=-1;
        jTabbedPane2.setTabPlacement(JTabbedPane.TOP);
+       deserializeSavedFiles();
+       if(i==-1)
        {
         ++i;
         ++ni;
@@ -65,6 +76,11 @@ private Property pro ;
        
         _addTrayIcon();
        
+        int index = this.getjTabbedPane2().getSelectedIndex();
+        int length = this.textArea.get(index).getText().getBytes().length;
+        String p = this.path.get(index);
+        this.jLabel2.setText("Size:"+length+" bytes     Lines:"+this.textArea.get(index).getLineCount()+"      FILE:"+p);
+        
     }
 
     /**
@@ -97,6 +113,7 @@ private Property pro ;
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -122,6 +139,7 @@ private Property pro ;
         jMenuItem15 = new javax.swing.JMenuItem();
         jMenuItem26 = new javax.swing.JMenuItem();
         jSeparator9 = new javax.swing.JPopupMenu.Separator();
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jMenuItem27 = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
         jMenu11 = new javax.swing.JMenu();
@@ -169,6 +187,7 @@ private Property pro ;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setPreferredSize(new java.awt.Dimension(830, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -332,6 +351,10 @@ private Property pro ;
 
         jScrollPane1.setViewportView(jToolBar1);
 
+        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 608));
+
+        jTabbedPane2.setBackground(new java.awt.Color(0, 51, 255));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -340,14 +363,14 @@ private Property pro ;
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1013, Short.MAX_VALUE)
+            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,6 +378,9 @@ private Property pro ;
         );
 
         jLabel1.setText("Date and Time");
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         jMenu1.setText("File");
 
@@ -503,6 +529,15 @@ private Property pro ;
         });
         jMenu3.add(jMenuItem26);
         jMenu3.add(jSeparator9);
+
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("WordWrap");
+        jCheckBoxMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jCheckBoxMenuItem1);
 
         jMenuItem27.setText("Font");
         jMenuItem27.addActionListener(new java.awt.event.ActionListener() {
@@ -781,9 +816,10 @@ private Property pro ;
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 830, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -794,7 +830,9 @@ private Property pro ;
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -802,15 +840,15 @@ private Property pro ;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
          
-         setI(getI() + 1);
-        setNi(getNi() + 1);
-        if(getI()<getMaxTab()) _new();
+         i++;
+        ni++;
+        if(i<getMaxTab()) _new();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
          
-        setI(getI() + 1);
-       if(getI()<getMaxTab()) {
+        i++;
+       if(i<getMaxTab()) {
            _open(true);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -848,7 +886,7 @@ private Property pro ;
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
          
-        setI(getI() + 1);
+        i++;
        if(getjTabbedPane2().getTabCount()<getMaxTab()) {
            _open(true);
       }
@@ -856,8 +894,8 @@ private Property pro ;
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
          
-        setI(getI() + 1);
-        setNi(getNi() + 1);
+        i++;
+        ni++;
         if(getjTabbedPane2().getTabCount()<getMaxTab()) {
             _new();
         }
@@ -929,19 +967,19 @@ private Property pro ;
         boolean italic = getjToggleButton2().isSelected();
         if(!bold && !italic)
         {
-            getPro().setFont_style(0); 
+            pro.setFont_style(0); 
         }
         else if(bold && !italic)
         {
-            getPro().setFont_style(1);
+            pro.setFont_style(1);
         }
         else
         {
             getjToggleButton2().setSelected(false);
-            getPro().setFont_style(1);
+            pro.setFont_style(1);
         }
-        for(int temp =0;temp<=getI();temp++) {
-            textArea.get(temp).setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
+        for(int temp =0;temp<=i;temp++) {
+            textArea.get(temp).setFont(new Font(pro.getFont_name(), pro.getFont_style(), pro.getFont_size()));
         }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
@@ -951,19 +989,19 @@ private Property pro ;
         if(!bold && !italic)
         {
        
-            getPro().setFont_style(0); 
+            pro.setFont_style(0); 
         }
         else if(!bold && italic)
         {
-            getPro().setFont_style(2);
+            pro.setFont_style(2);
         }
         else
         {
             getjToggleButton1().setSelected(false);
-            getPro().setFont_style(2);
+            pro.setFont_style(2);
         }
-        for(int temp =0;temp<=getI();temp++) {
-            textArea.get(temp).setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
+        for(int temp =0;temp<=i;temp++) {
+            textArea.get(temp).setFont(new Font(pro.getFont_name(), pro.getFont_style(), pro.getFont_size()));
         }
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
@@ -1002,7 +1040,7 @@ private Property pro ;
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
-        // TODO add your handling code here:
+        
         m32_Click(evt);
     }//GEN-LAST:event_jMenuItem27ActionPerformed
 
@@ -1011,13 +1049,39 @@ private Property pro ;
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        /*
         int choice = JOptionPane.showConfirmDialog(this,"Are you sure to exit ?", "Exit", 1,QUESTION_MESSAGE);
         if(choice==0) 
         {
-            pro.setRect(this.getBounds());
-            getPro().writeProperties();
-            System.exit(0);
+            pro.rect=this.getBounds();
+            
+            
         }
+        */
+        /*
+            Added in v1.1.2 to temporary save the unsaved file
+        */   
+        try
+        {
+            new File(applicationDir+"\\temp").mkdirs();
+            for(int k=0;k<=i;k++)
+            {
+                String content = this.textArea.elementAt(k).getText();
+                FileOutputStream fout = new FileOutputStream(this.applicationDir+"\\temp\\"+k);
+                fout.write(content.getBytes(this.pro.encodingName));
+                fout.close();
+                pro.savedFilesName.add(this.filename.elementAt(k));
+                pro.savedFilesPath.add(this.path.elementAt(k));
+                pro.savedFilesCount++;
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        pro.rect=this.getBounds();
+        pro.writeProperties();
+        System.exit(0);
     }//GEN-LAST:event_formWindowClosing
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
@@ -1034,9 +1098,9 @@ private Property pro ;
                     break;
                 }
             }
-            getPro().setLook("Nimbus");
-            getPro().theme = null;
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            pro.setLook("Nimbus");
+            pro.theme = null;
+        } catch (Exception ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
        javax.swing.SwingUtilities.updateComponentTreeUI(this);
@@ -1050,9 +1114,9 @@ private Property pro ;
                     break;
                 }
             }
-            getPro().setLook("Windows");
-            getPro().theme = null;
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            pro.setLook("Windows");
+            pro.theme = null;
+        } catch (Exception ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
       javax.swing.SwingUtilities.updateComponentTreeUI(this);
@@ -1066,8 +1130,8 @@ private Property pro ;
                     break;
                 }
             }
-            getPro().setLook("Windows Classic");
-            getPro().theme = null;
+            pro.setLook("Windows Classic");
+            pro.theme = null;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -1082,8 +1146,8 @@ private Property pro ;
                     break;
                 }
             }
-            getPro().setLook("CDE/Motif");
-            getPro().theme = null;
+            pro.setLook("CDE/Motif");
+            pro.theme = null;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -1124,8 +1188,8 @@ private Property pro ;
             } catch (IllegalAccessException ex) {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-            getPro().setLook("MetalLookAndFeel");
-            getPro().theme = "Ocean";
+            pro.setLook("MetalLookAndFeel");
+            pro.theme = "Ocean";
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -1145,8 +1209,8 @@ private Property pro ;
            } catch (IllegalAccessException ex) {
                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
            }
-    getPro().setLook("MetalLookAndFeel");
-    getPro().theme = "Steel";
+    pro.setLook("MetalLookAndFeel");
+    pro.theme = "Steel";
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -1191,7 +1255,7 @@ private Property pro ;
 
        try
        {
-        Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.1\\visit.bat");
+        Runtime.getRuntime().exec(applicationDir+"\\visit.bat");
        }
        catch(Exception e)
        {
@@ -1224,25 +1288,38 @@ private Property pro ;
         _runCppProgram();
     }//GEN-LAST:event_jMenuItem29ActionPerformed
 
+    private void jCheckBoxMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem1ActionPerformed
+        pro.isWordWrap=!pro.isWordWrap;
+        for(int temp = 0;temp<=i;temp++)
+            {
+                this.textArea.get(temp).setLineWrap(pro.isWordWrap);
+            }
+    }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
+
     
 void _new()
 {
-        this.textArea.add(getI(), new JTextArea("")) ;
-        this.scrollPane.add(getI(), new JScrollPane());
-        this.scrollPane.get(getI()).setViewportView(this.textArea.get(getI()));
-        this.textArea.get(getI()).setTabSize(4);
-        this.getjTabbedPane2().addTab("New "+getNi(),this.scrollPane.get(getI()));
-        this.getjTabbedPane2().setToolTipTextAt(getI(), "New "+getNi()); // Add in v1.0.1
-        this.textArea.get(getI()).setFont(new Font(getPro().getFont_name(), this.getPro().getFont_style(), getPro().getFont_size()));
-        this.textArea.get(getI()).setBackground(getPro().getBgcolor());
-        this.textArea.get(getI()).setForeground(getPro().getFgcolor());
-        this.textArea.get(getI()).select(0, 0);
-        this.textArea.get(getI()).addKeyListener(this);
+        this.textArea.add(i, new JTextArea("")) ;
+        this.scrollPane.add(i, new JScrollPane());
+        this.scrollPane.get(i).setViewportView(this.textArea.get(i));
+        this.textArea.get(i).setTabSize(4);
+        this.getjTabbedPane2().addTab("New "+ni,this.scrollPane.get(i));
+        this.getjTabbedPane2().setToolTipTextAt(i, "New "+ni); // Add in v1.0.1
+        this.textArea.get(i).setFont(new Font(pro.getFont_name(), this.pro.getFont_style(), pro.getFont_size()));
+        this.textArea.get(i).setBackground(pro.getBgcolor());
+        this.textArea.get(i).setForeground(pro.getFgcolor());
+        this.textArea.get(i).select(0, 0);
+        this.textArea.get(i).addKeyListener(this);
+        //this.scrollPane.get(i).addFocusListener(scrollPaneFocusListener);
         this.path.add("");
         this.filename.add("");
         jTabbedPane2.grabFocus();
-        this.scrollPane.get(getI()).grabFocus();
-       this.textArea.get(getI()).grabFocus();
+        //jTabbedPane2.add
+        this.scrollPane.get(i).grabFocus();
+       this.textArea.get(i).grabFocus();
+       //this.textArea.get(i).addFocusListener(scrollPaneFocusListener);
+       this.textArea.get(i).addKeyListener(this.tabbedPaneKeyMouseListenerImplementation);
+       this.textArea.get(i).setLineWrap(pro.isWordWrap);
 }
     
 void _open(boolean _new)
@@ -1250,48 +1327,51 @@ void _open(boolean _new)
 		//_close();
         if(_new)
         {
-	setO(new FileDialog(this,"Open Files"));
-        getO().setVisible(true);
+	o=new FileDialog(this,"Open Files");
+        o.setVisible(true);
         }
-        if(getO().getFile()!=null||!_new)
+        if(o.getFile()!=null||!_new)
         {
             if(_new)
             {
-                path.add(getI(),getO().getDirectory()+getO().getFile());
-                filename.add(getI(),getO().getFile());
+                path.add(i,o.getDirectory()+o.getFile());
+                filename.add(i,o.getFile());
             }
             
             try 
-            ( //for byte oriented i/o
-                    FileInputStream fin = new FileInputStream(path.get(getI()))) 
             {
+                FileInputStream fin = new FileInputStream(path.get(i));
                 int length = fin.available();
                 byte b[] = new byte[length];
                 fin.read(b, 0, length);
                 String str = new String(b, this.pro.encodingName);
-                this.textArea.add(getI(), new JTextArea(""));
-                this.textArea.get(getI()).setTabSize(2); this.textArea.get(getI()).grabFocus();
-                this.textArea.get(getI()).setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
-                this.textArea.get(getI()).setBackground(getPro().getBgcolor());
-                this.textArea.get(getI()).setForeground(getPro().getFgcolor());
-                this.textArea.get(getI()).setText(str);
-                this.textArea.get(getI()).setTabSize(4);
-                this.scrollPane.add(getI(), new JScrollPane());
-                this.scrollPane.get(getI()).setViewportView( this.textArea.get(getI()));
-                this.getjTabbedPane2().addTab(getO().getFile(), this.scrollPane.get(getI()));
-                this.scrollPane.get(getI()).setEnabled(true);
-                this.scrollPane.get(getI()).setWheelScrollingEnabled(true);
-                this.jTabbedPane2.setToolTipTextAt(getI(), this.filename.get(getI())); //Add in v1.0.1
-                _setTitleAt(getI(),this.filename.get(getI())); //Add in v1.0.1
-                PopupMenuAtTextArea._addPopupMenuAtRightClick(this,getI());
+                this.textArea.add(i, new JTextArea(str));
+                this.textArea.get(i).setLineWrap(pro.isWordWrap);
+                this.textArea.get(i).setTabSize(2); this.textArea.get(i).grabFocus();
+                this.textArea.get(i).setFont(new Font(pro.getFont_name(), pro.getFont_style(), pro.getFont_size()));
+                this.textArea.get(i).setBackground(pro.getBgcolor());
+                this.textArea.get(i).setForeground(pro.getFgcolor());
+                //this.textArea.get(i).addFocusListener(scrollPaneFocusListener);
+                this.textArea.get(i).setTabSize(4);
+                this.scrollPane.add(i, new JScrollPane());
+                this.scrollPane.get(i).setViewportView( this.textArea.get(i));
+                this.getjTabbedPane2().addTab(o.getFile(), this.scrollPane.get(i));
+                this.scrollPane.get(i).setEnabled(true);
+                this.scrollPane.get(i).setWheelScrollingEnabled(true);
+                this.jTabbedPane2.setToolTipTextAt(i, this.filename.get(i)); //Add in v1.0.1
+                //this.scrollPane.get(i).addFocusListener(scrollPaneFocusListener);
+                _setTitleAt(i,this.filename.get(i)); //Add in v1.0.1
+                PopupMenuAtTextArea._addPopupMenuAtRightClick(this,i);
+                this.textArea.get(i).addKeyListener(this.tabbedPaneKeyMouseListenerImplementation);
+                fin.close();
             }catch(IOException e)
         {
-            javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to read the file\n "+path.get(getI())+e,"Error",0);
-                this.textArea.get(getI()).setText("");
+            javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to read the file\n "+path.get(i)+e,"Error",0);
+                this.textArea.get(i).setText("");
         }
         }
         else {
-            setI(getI() - 1);
+            i--;
             }
 	}
 
@@ -1299,21 +1379,23 @@ void _save(int i)
 {
 	if(path.get(i).equals(""))
         {
-            setO(new FileDialog(this,"Save",1));
-            getO().setVisible(true);   
-        if( getO().getFile()!=null)
+            o=new FileDialog(this,"Save",1);
+            o.setVisible(true);   
+        if( o.getFile()!=null)
         {
-                filename.setElementAt(getO().getFile(), i);
-                path.setElementAt(getO().getDirectory()+filename.get(i), i);
+                filename.setElementAt(o.getFile(), i);
+                path.setElementAt(o.getDirectory()+filename.get(i), i);
         }
         else
         {
             return;
         }
 	}    
-        try (FileOutputStream fout = new FileOutputStream(path.get(i))) {
+        try  {
+            FileOutputStream fout = new FileOutputStream(path.get(i));
                 byte b[] =  textArea.get(i).getText().getBytes(this.pro.encodingName);
                 fout.write(b);
+                fout.close();
              getjTabbedPane2().setToolTipTextAt(i, filename.get(i)); //Add in v1.0.1
              _setTitleAt(i,this.filename.get(i)); //Add in v1.0.1
         }catch(Exception e)
@@ -1327,12 +1409,12 @@ void _save(int i)
     void _saveAs(int i)
 {
     
-	setO(new FileDialog(this,"Save As",1));
-        getO().setVisible(true);
-        if(getO().getFile()!=null)
+	o=new FileDialog(this,"Save As",1);
+        o.setVisible(true);
+        if(o.getFile()!=null)
         {
-            filename.setElementAt(getO().getFile(), i);
-            path.setElementAt(getO().getDirectory()+filename.get(i), i);
+            filename.setElementAt(o.getFile(), i);
+            path.setElementAt(o.getDirectory()+filename.get(i), i);
             try (FileOutputStream fout = new FileOutputStream(path.get(i))) {
             String txt = textArea.get(i).getText();
             byte[] b = txt.getBytes(this.pro.encodingName);
@@ -1398,7 +1480,7 @@ void _save(int i)
                     System.out.println(e);
                 }
             }
-            this.setI(this.getI()-1);
+            i--;
             this.textArea.remove(si);
             this.scrollPane.remove(si);
             path.remove(si);
@@ -1449,21 +1531,21 @@ void _save(int i)
     }
 void _zoomIn()
 {
-	if(getPro().getFont_size()<72)
+	if(pro.getFont_size()<72)
 	{
-            getPro().setFont_size(getPro().getFont_size() + 2);
-            for(int temp=0;temp<=getI();temp++) {
-                this.textArea.get(temp).setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
+            pro.setFont_size(pro.getFont_size() + 2);
+            for(int temp=0;temp<=i;temp++) {
+                this.textArea.get(temp).setFont(new Font(pro.getFont_name(), pro.getFont_style(), pro.getFont_size()));
             }
         }
 }
 void _zoomOut()
 {
-	if(getPro().getFont_size()>12)
+	if(pro.getFont_size()>12)
 	{
-            getPro().setFont_size(getPro().getFont_size() - 2);
-            for(int temp=0;temp<=getI();temp++) {
-                this.textArea.get(temp).setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
+            pro.setFont_size(pro.getFont_size() - 2);
+            for(int temp=0;temp<=i;temp++) {
+                this.textArea.get(temp).setFont(new Font(pro.getFont_name(), pro.getFont_style(), pro.getFont_size()));
             }
 	}
         
@@ -1482,17 +1564,31 @@ void _backgroundColorChooser()
 }
 void _aboutus()
 {
+    /*
+    this.setVisible(false);
+    starting.enable();
+    starting.setVisible(true);
+    try
+     {
+            Thread.sleep(5000);
+            
+    }
+    catch(InterruptedException e)
+    {  
+    }
+    starting.enable();
+    starting.setVisible(false);
+    */
     AboutUs aboutus = new AboutUs(this);
-    
+    //this.setVisible(true);
 }
 
 public void _print()
 {
     PrintJob p = jTabbedPane2.getTabComponentAt(jTabbedPane2.getSelectedIndex()).getToolkit().getPrintJob(this,"NCRK", null);
-
-       Graphics g1 =p.getGraphics();
-       g1.dispose();
-       p.end(); 
+    Graphics g1 =p.getGraphics();
+    g1.dispose();
+    p.end(); 
 }
 
 void _setFontStyle()
@@ -1500,22 +1596,22 @@ void _setFontStyle()
     boolean state = getjToggleButton2().isSelected();
         if(state)
         {
-            for(int temp = 0;temp<=getI();temp++)
+            for(int temp = 0;temp<=i;temp++)
             {
-                this.textArea.get(temp).setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
+                this.textArea.get(temp).setFont(new Font(pro.getFont_name(), pro.getFont_style(), pro.getFont_size()));
             }
         }
         else
         {
-            for(int temp = 0;temp<=getI();temp++)
+            for(int temp = 0;temp<=i;temp++)
             {
-                this.textArea.get(temp).setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
+                this.textArea.get(temp).setFont(new Font(pro.getFont_name(), pro.getFont_style(), pro.getFont_size()));
             }
         }
 }
 
 /*
-Add in v1.0.1 
+Added in v1.0.1 
 */
 public void _changeEncoding(String encoding)
 {
@@ -1548,7 +1644,7 @@ public void _changeEncoding(String encoding)
     }
 }
 /*
-Add in v1.0.1 
+Added in v1.0.1 
 */
 public void _resigisterToolTipsText()
 {
@@ -1577,7 +1673,7 @@ public void _resigisterToolTipsText()
 }
 
 /*
-Add in v1.0.1
+Added in v1.0.1
 */
 public void _setTitleAt(int index , String text)
 {
@@ -1603,7 +1699,7 @@ public void _setTitleAt(int index , String text)
             if(choice==0) System.exit(0);
        }
        /*
-       Add in v1.0.1
+       Added in v1.0.1
        */
        public void _addTrayIcon()
        {
@@ -1629,7 +1725,7 @@ public void _setTitleAt(int index , String text)
                         {
                             try
                             {
-                                 Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.1\\visit.bat");
+                                 Runtime.getRuntime().exec(applicationDir+"\\visit.bat");
                             }
                             catch(Exception e)
                             {
@@ -1651,8 +1747,8 @@ public void _setTitleAt(int index , String text)
                     popupMenu.add(mi1);
                     popupMenu.add(mi2);
                     popupMenu.add(mi3);
-                    TrayIcon ti = new java.awt.TrayIcon(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("images/title1.jpg")), "NCRK :: TextEditor",popupMenu);
-                    //ti.setImageAutoSize(true);
+                    TrayIcon ti = new java.awt.TrayIcon(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/icon2.jpg")), "NCRK :: TextEditor",popupMenu);
+                    
                  st.add(ti);
                 }  
             }
@@ -1664,7 +1760,7 @@ public void _setTitleAt(int index , String text)
        
        
        /*
-       Add in v1.1.0 to compile Java Program if the selcted file is .java File
+       Added in v1.1.0 to compile Java Program if the selcted file is .java File
        */
        public void _compileJavaFile()
        {
@@ -1729,7 +1825,7 @@ public void _setTitleAt(int index , String text)
                 try
                 {
                     
-                    String path1 = System.getProperty("user.home")+ "\\NCRK\\TextEditor\\v1.1.1\\temp";
+                    String path1 = applicationDir+"\\temp";
                     File f =  new File(path1);
                     f.mkdir();
                     String path2 = path1+"\\compile_"+this.filename.get(index)+".bat";
@@ -1848,8 +1944,7 @@ public void _setTitleAt(int index , String text)
                 //File is JAVA File(.java)
                 try
                 {
-                    
-                    String path1 = System.getProperty("user.home")+ "\\NCRK\\TextEditor\\v1.1.1\\temp";
+                    String path1 = applicationDir+"\\temp";
                     File f =  new File(path1);
                     f.mkdir();
                     String path2 = path1+"\\runJavaProgram_"+this.filename.get(index)+".bat";
@@ -1883,7 +1978,7 @@ public void _setTitleAt(int index , String text)
        
        
        /*
-       Add in v1.1.0 to compile Java Program if the selcted file is .java File
+       Added in v1.1.0 to compile Java Program if the selcted file is .java File
        */
        public void _runJavaApplet()
        {
@@ -1947,7 +2042,7 @@ public void _setTitleAt(int index , String text)
                 try
                 {
                     
-                    String path1 = System.getProperty("user.home")+ "\\NCRK\\TextEditor\\v1.1.1\\temp";
+                    String path1 = applicationDir+"\\temp";
                     File f =  new File(path1);
                     f.mkdir();
                     String path2 = path1+"\\runApplet_"+this.filename.get(index)+".bat";
@@ -1979,7 +2074,7 @@ public void _setTitleAt(int index , String text)
        }
        
        /*
-       Add in v1.1.1 for Tool Configuratin
+       Added in v1.1.1 for Tool Configuratin
        */
        public void _toolConfiguration()
        {
@@ -1988,7 +2083,7 @@ public void _setTitleAt(int index , String text)
        
        
        /*
-       Add in v1.1.1 to compile C/C++ Program if the selcted file is . File
+       Added in v1.1.1 to compile C/C++ Program if the selcted file is . File
        */
        public void _compileCppFile()
        {
@@ -2049,7 +2144,7 @@ public void _setTitleAt(int index , String text)
                 try
                 {
                     
-                    String path1 = System.getProperty("user.home")+ "\\NCRK\\TextEditor\\v1.1.1\\temp";
+                    String path1 = applicationDir+"\\temp";
                     File f =  new File(path1);
                     f.mkdir();
                     String path2 = path1+"\\compile_"+this.filename.get(index)+".bat";
@@ -2078,7 +2173,9 @@ public void _setTitleAt(int index , String text)
                 JOptionPane.showMessageDialog(this, "Sorry ,File at selected Tab is not C/C++ File. \n C/C++ File must have .c/.cpp/.h extention .", "Error:: Not a C/C++ File", JOptionPane.INFORMATION_MESSAGE);
             }
        }
-       
+        /*
+       Added in v1.1.1 to compile C/C++ Program if the selcted file is . File
+       */
        void _runCppProgram()
        {
            if(pro.cppCompilerType==-1)
@@ -2118,7 +2215,7 @@ public void _setTitleAt(int index , String text)
                 {
                     if((new File(outFilePathName+".exe").exists()))
                     {
-                    String path1 = System.getProperty("user.home")+ "\\NCRK\\TextEditor\\v1.1.1\\temp";
+                    String path1 = applicationDir+"\\temp";
                     File f =  new File(path1);
                     f.mkdir();
                     String path2 = path1+"\\runCpp_"+this.filename.get(index)+".bat";
@@ -2152,8 +2249,69 @@ public void _setTitleAt(int index , String text)
                 JOptionPane.showMessageDialog(this, "Sorry ,File at selected Tab is not C/C++ File. \n C/C++ File must have .c/.cpp/.h extention .", "Error:: Not a C/C++ File", JOptionPane.INFORMATION_MESSAGE);
             }
        }
-       
-       
+        /*
+       Added in v1.1.2 to deserialize saved files
+       */
+       void deserializeSavedFiles()
+       {
+           System.out.println("Dese");
+           try
+           {
+           for(int k=0;k<pro.savedFilesCount;k++)
+           {
+               i++;
+               System.out.println("Dese"+k);
+               FileInputStream fin = new FileInputStream(applicationDir+"\\temp\\"+k);
+                int length = fin.available();
+                byte b[] = new byte[length];
+                fin.read(b, 0, length);
+                fin.close();
+                String str = new String(b, this.pro.encodingName);
+                this.textArea.add(i, new JTextArea(str)) ;
+                this.scrollPane.add(i, new JScrollPane());
+                this.scrollPane.get(i).setViewportView(this.textArea.get(i));
+                this.textArea.get(i).setTabSize(4);
+                if(pro.savedFilesPath.elementAt(k).equals(""))
+                {
+                    ni++;
+                    this.path.add("");
+                    this.filename.add("");
+                    this.getjTabbedPane2().addTab("New"+ni,this.scrollPane.get(i));
+                    this.getjTabbedPane2().setToolTipTextAt(i,"New"+ni); // Add in v1.0.1
+                }
+                else
+                {
+                    this.path.add(pro.savedFilesPath.elementAt(k));
+                    this.filename.add(pro.savedFilesName.elementAt(k));
+                    this.getjTabbedPane2().addTab(pro.savedFilesName.elementAt(k),this.scrollPane.get(i));
+                    this.getjTabbedPane2().setToolTipTextAt(i,pro.savedFilesName.elementAt(k)); // Add in v1.0.1
+                }
+                this.textArea.get(i).setFont(new Font(pro.getFont_name(), this.pro.getFont_style(), pro.getFont_size()));
+                this.textArea.get(i).setBackground(pro.getBgcolor());
+                this.textArea.get(i).setForeground(pro.getFgcolor());
+                this.textArea.get(i).select(0, 0);
+                this.textArea.get(i).addKeyListener(this);
+                //this.textArea.get(i).addFocusListener(scrollPaneFocusListener);
+                this.textArea.get(i).addKeyListener(this.tabbedPaneKeyMouseListenerImplementation);
+                jTabbedPane2.grabFocus();
+                this.scrollPane.get(i).grabFocus();
+                this.textArea.get(i).grabFocus();
+                this.textArea.get(i).setLineWrap(pro.isWordWrap);
+                new File(applicationDir+"\\temp\\"+k).delete();
+           }
+           pro.savedFilesCount=0;
+           pro.savedFilesName.clear();
+           pro.savedFilesPath.clear();
+           }
+           catch(Exception e)
+           {
+               i--;
+               e.printStackTrace();
+           }
+            pro.savedFilesCount=0;
+           pro.savedFilesName.clear();
+           pro.savedFilesPath.clear();
+       }
        
        public  void keyPressed(KeyEvent ke)
        {
@@ -2180,7 +2338,6 @@ public void _setTitleAt(int index , String text)
        }
        public  void keyReleased(KeyEvent ke)
        {
-           
        }
 void db_click_open(String [] args)
 {
@@ -2188,35 +2345,35 @@ void db_click_open(String [] args)
     while(j<args.length)
     {
             j++;
-            setI(getI() + 1);
-            textArea.add(getI(), new JTextArea(""));
-            textArea.get(getI()).setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
-	    path.add(getI(), args[j-1]);
+            i++;
+            textArea.add(i, new JTextArea(""));
+            textArea.get(i).setFont(new Font(pro.getFont_name(), pro.getFont_style(), pro.getFont_size()));
+	    path.add(i, args[j-1]);
             byte[] b;
             try { //for byte oriented i/o
-                FileInputStream fin = new FileInputStream(path.get(getI()));
+                FileInputStream fin = new FileInputStream(path.get(i));
                 int n = fin.available();
                 b = new byte[n];
                 fin.read(b,0,n);  
                 fin.close();
                 String str = new String(b);
-                textArea.get(getI()).setText(str);
-                textArea.get(getI()).setTabSize(2);
+                textArea.get(i).setText(str);
+                textArea.get(i).setTabSize(2);
             
-                scrollPane.add(getI(), new JScrollPane());
-                scrollPane.get(getI()).setViewportView(textArea.get(getI()));
-                getjTabbedPane2().addTab(getO().getFile(), scrollPane.get(getI()));
-                scrollPane.get(getI()).setEnabled(true);
-                scrollPane.get(getI()).setWheelScrollingEnabled(rootPaneCheckingEnabled);
+                scrollPane.add(i, new JScrollPane());
+                scrollPane.get(i).setViewportView(textArea.get(i));
+                getjTabbedPane2().addTab(o.getFile(), scrollPane.get(i));
+                scrollPane.get(i).setEnabled(true);
+                scrollPane.get(i).setWheelScrollingEnabled(rootPaneCheckingEnabled);
                 
         }catch(IOException e)
         {
-            javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to read the file\n "+path.get(getI())+e,"Error",0);
-                textArea.get(getI()).setText("");
-                setI(getI() - 1);
+            javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to read the file\n "+path.get(i)+e,"Error",0);
+                textArea.get(i).setText("");
+               i--;
         }catch(Exception e)
         {
-            setI(getI()-1);
+            i--;
         }
         
         //else i--;
@@ -2272,21 +2429,21 @@ public javax.swing.JTabbedPane getjTabbedPane2()
         //</editor-fold>
 
         /* Create and display the form */
-        Starting s = new Starting();
-        s.setVisible(true);
-        
+        starting = new Starting(); starting.disable();
+        f =  new MainFrame(pro);
         try
         {
-            Thread.sleep(5000);
+            Thread.sleep(1000);
             
         }
         catch(InterruptedException e)
         {
             
         }
-        s.dispose();
-                f =  new MainFrame(pro);
-                 f.setVisible(true);
+        starting.dispose();
+        //starting.disable();
+        //starting.setVisible(false);
+        f.setVisible(true);
 //           System.out.println(args[0]);
           
           
@@ -2308,7 +2465,7 @@ java.util.Vector<String> path;
 java.util.Vector<String> filename;
 java.util.Vector<Integer> countTab;
 java.util.Vector<Integer> countSpace;
-private int i=-1;
+int i=-1;
 private int ni;//for indexing of New Tab (un-Saved)
 java.util.Vector<JTextArea> textArea ;
 java.util.Vector<JScrollPane> scrollPane ;
@@ -2327,7 +2484,9 @@ private GraphicsEnvironment g;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
@@ -2404,20 +2563,8 @@ private GraphicsEnvironment g;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 
-    /**
-     * @return the pro
-     */
-    public Property getPro() {
-        return pro;
-    }
 
-    /**
-     * @param pro the pro to set
-     */
-    public void setPro(Property pro) {
-        this.pro = pro;
-    }
-
+   
     /**
      * @return the MaxTab
      */
@@ -2432,48 +2579,7 @@ private GraphicsEnvironment g;
         this.MaxTab = MaxTab;
     }
 
-    /**
-     * @return the o
-     */
-    public FileDialog getO() {
-        return o;
-    }
-
-    /**
-     * @param o the o to set
-     */
-    public void setO(FileDialog o) {
-        this.o = o;
-    }
-
-    /**
-     * @return the i
-     */
-    public int getI() {
-        return i;
-    }
-
-    /**
-     * @param i the i to set
-     */
-    public void setI(int i) {
-        this.i = i;
-    }
-
-    /**
-     * @return the ni
-     */
-    public int getNi() {
-        return ni;
-    }
-
-    /**
-     * @param ni the ni to set
-     */
-    public void setNi(int ni) {
-        this.ni = ni;
-    }
-
+   
     /**
      * @return the copiedText
      */

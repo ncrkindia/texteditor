@@ -11,7 +11,8 @@ import java.awt.event.*;
  */
 public class AboutUs extends JDialog {
     
-    AboutUs(JFrame f)
+    static String path = System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.2";
+    AboutUs(MainFrame f)
     {
         super(f, "About us", true);
         this.setResizable(false);
@@ -42,7 +43,7 @@ public class AboutUs extends JDialog {
         l3.setBounds(0, 150, 200, 30);
         this.add(l3);
 
-        JLabel l4 = new JLabel(" ncrkrajput@programmer.net  ");
+        final JLabel l4 = new JLabel(" ncrkrajput@programmer.net  ");
         l4.setToolTipText("Mail at : ncrkrajput@programmer.net");
         l4.addMouseListener(
                 new java.awt.event.MouseAdapter()
@@ -59,7 +60,7 @@ public class AboutUs extends JDialog {
                    {
                        try
                         {
-                            Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.1\\mailAtProgrammer.bat");
+                            Runtime.getRuntime().exec(path+"\\mailAtProgrammer.bat");
                         }
                         catch(Exception e)
                         {
@@ -73,7 +74,7 @@ public class AboutUs extends JDialog {
         l4.setBounds(200, 150, 400, 30);
         this.add(l4);
 
-        JLabel l4_ = new JLabel(" ncrkrajput@engineer.com ");
+        final JLabel l4_ = new JLabel(" ncrkrajput@engineer.com ");
         l4_.setToolTipText("Mail at : ncrkrajput@engineer.com");
         l4_.addMouseListener(
                 new java.awt.event.MouseAdapter()
@@ -90,7 +91,7 @@ public class AboutUs extends JDialog {
                    {
                        try
                         {
-                            Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.1\\mailAtEngineer.bat");
+                            Runtime.getRuntime().exec(path+"\\mailAtEngineer.bat");
                         }
                         catch(Exception e)
                         {
@@ -108,7 +109,7 @@ public class AboutUs extends JDialog {
         l5.setBounds(0, 220, 200, 30);
         this.add(l5);
 
-        JLabel l6 = new JLabel("NCRK :: TextEditor ");
+        JLabel l6 = new JLabel("TextEditor ");
         l6.setFont(new Font(null, 1, 18));
         l6.setBounds(200, 220, 200, 30);
         this.add(l6);
@@ -117,7 +118,7 @@ public class AboutUs extends JDialog {
         l7.setBounds(0, 270, 200, 30);
         this.add(l7);
 
-        JLabel l8 = new JLabel("v1.1.1  ");
+        JLabel l8 = new JLabel("v1.1.2  ");
         l8.setFont(new Font(null, 1, 15));
         l8.setBounds(200, 270, 100, 30);
         this.add(l8);
@@ -126,7 +127,7 @@ public class AboutUs extends JDialog {
         l9.setBounds(0, 320, 200, 30);
         this.add(l9);
 
-        JLabel l10 = new JLabel("SourceForge.net/u/ncrkrajput ");
+        final JLabel l10 = new JLabel("SourceForge.net/u/ncrkrajput ");
         l10.setToolTipText("Click for free Source code & apps at : http://SourceForge.net/u/ncrkrajput");
         l10.addMouseListener(
                 new java.awt.event.MouseAdapter()
@@ -143,7 +144,7 @@ public class AboutUs extends JDialog {
                    {
                        try
                         {
-                            Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.1\\visit.bat");
+                            Runtime.getRuntime().exec(path+"\\visit.bat");
                         }
                         catch(Exception e)
                         {
@@ -157,13 +158,48 @@ public class AboutUs extends JDialog {
         l10.setBounds(200, 320, 400, 30);
         this.add(l10);
         
+        JLabel l9a = new JLabel("Facebook Page : ", JLabel.RIGHT);
+        l9a.setBounds(0, 370, 200, 30);
+        this.add(l9a);
+
+        final JLabel l10a = new JLabel("www.facebook.com/NCRK.Inc ");
+        l10a.setToolTipText("visit at FaceBook Page of NCRK Inc.");
+        l10a.addMouseListener(
+                new java.awt.event.MouseAdapter()
+                {
+                   public void mouseEntered(MouseEvent evt)
+                   {
+                       l10a.setForeground(Color.blue);
+                   }
+                   public void mouseExited(MouseEvent evt)
+                   {
+                       l10a.setForeground(Color.black);
+                   }
+                   public void mouseClicked(MouseEvent evt)
+                   {
+                       try
+                        {
+                            Runtime.getRuntime().exec(path+"\\facebook.bat");
+                        }
+                        catch(Exception e)
+                        {
+                            //JOptionPane.showMessageDialog(this, e, "Error",JOptionPane.INFORMATION_MESSAGE);
+                            System.out.println(e);
+                        }
+                   }
+                });
+        l10a.setCursor(new java.awt.Cursor(Cursor.HAND_CURSOR));
+        l10a.setFont(new Font(null, 1, 15));
+        l10a.setBounds(200, 370, 400, 30);
+        this.add(l10a);
+        
         JLabel l11 = new JLabel("Release Date: ", JLabel.RIGHT);
-        l11.setBounds(0, 370, 200, 30);
+        l11.setBounds(0, 420, 200, 30);
         this.add(l11);
         
-        JLabel l12 = new JLabel("Tuesday March 1, 2016");
+        JLabel l12 = new JLabel("Friday April 1, 2016");
         l12.setFont(new Font(null, 1, 15));
-        l12.setBounds(200, 370, 400, 30);
+        l12.setBounds(200, 420, 400, 30);
         this.add(l12);
         
         this.setVisible(true);
