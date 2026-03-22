@@ -74,7 +74,7 @@ public class AboutUs extends JDialog {
         l7.setBounds(0, 270, 150, 30);
         this.add(l7);
 
-        JLabel l8 = new JLabel("v4.0  ");
+        JLabel l8 = new JLabel("v4.1  ");
 
         l8.setFont(new Font(null, 1, 15));
         l8.setBounds(150, 270, 100, 30);

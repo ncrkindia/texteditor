@@ -13,9 +13,9 @@ class ForegroundColorChooser extends javax.swing.JDialog {
 
     // End of variables declaration
 
-    private final JFrame1             outer;
+    private final MainFrame             outer;
 
-    public ForegroundColorChooser(javax.swing.JFrame f, final JFrame1 outer) {
+    public ForegroundColorChooser(javax.swing.JFrame f, final MainFrame outer) {
         super(f, "Foreground Color Chooser", true);
         this.outer = outer;
         initComponents();

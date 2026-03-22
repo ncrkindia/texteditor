@@ -52,25 +52,21 @@ public class Starting extends JWindow implements Runnable {
             case 1 :
                 name    = c + " " + r + " " + k + " " + n;
                 pattern = 2;
-                t.setBackground(Color.pink);
                 break;
 
             case 2 :
                 name    = r + " " + k + " " + n + " " + c;
                 pattern = 3;
-                t.setBackground(Color.green);
                 break;
 
             case 3 :
                 name    = k + " " + n + " " + c + " " + r;
                 pattern = 4;
-                t.setBackground(Color.blue);
                 break;
 
             case 4 :
                 name    = n + " " + c + " " + r + " " + k;
                 pattern = 1;
-                t.setBackground(Color.white);
                 break;
             }
 

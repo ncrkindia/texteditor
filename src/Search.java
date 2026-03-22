@@ -4,13 +4,13 @@
  */
 public class Search extends javax.swing.JDialog {
 
-    JFrame1 f;
+    MainFrame f;
     int i; //to trace the location of last search
     int r;//to trace location of last replcement
     /**
      * Creates new form Search
      */
-    public Search(JFrame1 f,int find) {
+    public Search(MainFrame f,int find) {
         super(f,true);
         //this.setUndecorated(true);
         this.f = f;

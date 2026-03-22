@@ -21,9 +21,9 @@ class FontDialog extends JDialog {
     private Choice  ch3 = new Choice();JLabel l3 = new JLabel("Font-Size");
     private JButton b1  = new JButton("OK");JButton b2  = new JButton("CANCEL");
     private Font    fnt;
-    private JFrame1 outer;
+    private MainFrame outer;
 
-    FontDialog(final JFrame1 outer) {
+    FontDialog(final MainFrame outer) {
         super(outer, "Choose Font", true);
         this.outer = outer;
         setSize(300, 250);
@@ -195,14 +195,14 @@ class FontDialog extends JDialog {
     /**
      * @return the outer
      */
-    public JFrame1 getOuter() {
+    public MainFrame getOuter() {
         return outer;
     }
 
     /**
      * @param outer the outer to set
      */
-    public void setOuter(JFrame1 outer) {
+    public void setOuter(MainFrame outer) {
         this.outer = outer;
     }
 }
