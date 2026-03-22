@@ -58,7 +58,7 @@ You can directly run the editor without compiling the source code using the dist
    ```
 
 ## 📜 About
-*   **Developer**: NCRK Rajput at SUNRISE Technologies.
+*   **Developer**: Naveen Chauhan at SUNRISE Technologies.
 *   **Repository URL**: [https://github.com/ncrkindia/texteditor.git](https://github.com/ncrkindia/texteditor.git)
 *   **Official Website**: [www.ncrkindia.in](http://www.ncrkindia.in)
 
