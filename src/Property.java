@@ -11,7 +11,7 @@ import java.io.ObjectOutputStream;
  * @author NCRK (नवीन चौहान राजपूत खरदौनी)
  */
 public class Property implements java.io.Serializable {
-    private static String path = System.getProperty("user.home") + "\\NCRK\\TextEditor\\v4.2";
+    private static String path = System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.0";
     private static File   file;
     private Color         bgcolor;
     private char[]        ch;
@@ -20,6 +20,7 @@ public class Property implements java.io.Serializable {
     private int           font_size;
     private int           font_style;
     private String        look;
+    String theme;
     private static Dimension     screensize;
     private Rectangle rect ;
 
@@ -32,6 +33,7 @@ public class Property implements java.io.Serializable {
         screensize        = Toolkit.getDefaultToolkit().getScreenSize();
         screensize.height -= 20;
         look              = "Nimbus";
+        theme = null;
         rect = new Rectangle(0,0,screensize.width,screensize.width);
     }
 
@@ -89,7 +91,7 @@ public class Property implements java.io.Serializable {
             }
             if(!RESET)
             {
-                path  = path + "\\NCRK_TextEditor_v4.2_Property.ncrk" ;
+                path  = path + "\\NCRK_TextEditor_v1.0.0_Property.ncrk" ;
             }
             file = new File(path);
 

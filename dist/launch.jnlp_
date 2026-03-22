@@ -6,12 +6,18 @@
         <homepage href=""/>
         <description>NCRK TextEditor v1.0.0</description>
         <description kind="short">NCRK TextEditor v1.0.0</description>
+        
+        
     </information>
     <update check="always"/>
+    
     <resources>
         <j2se version="1.8+"/>
         <jar href="NCRK_TextEditor_v1.0.0.jar" main="true"/>
+        
+        
     </resources>
     <application-desc main-class="MainFrame">
+        
     </application-desc>
 </jnlp>

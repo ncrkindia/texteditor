@@ -26,7 +26,7 @@ private Property pro ;
         initComponents();
         this.setBounds(this.pro.getRect());
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("Images/all.gif"));
-        setTitle("NCRK :: TextEditor v4.2");
+        setTitle("NCRK :: TextEditor v1.0.0");
         new TimeDateUpdationThread(this.jLabel1);
         
         if(this.pro.getFont_style()==1) 
@@ -68,8 +68,6 @@ private Property pro ;
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
         jToggleButton1 = new javax.swing.JToggleButton();
         jToggleButton2 = new javax.swing.JToggleButton();
@@ -90,12 +88,9 @@ private Property pro ;
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem9 = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
@@ -113,22 +108,14 @@ private Property pro ;
         jMenu13 = new javax.swing.JMenu();
         jMenuItem34 = new javax.swing.JMenuItem();
         jMenuItem36 = new javax.swing.JMenuItem();
-        jMenuItem42 = new javax.swing.JMenuItem();
         jMenuItem33 = new javax.swing.JMenuItem();
         jMenuItem32 = new javax.swing.JMenuItem();
         jMenuItem30 = new javax.swing.JMenuItem();
-        jMenuItem37 = new javax.swing.JMenuItem();
-        jMenuItem39 = new javax.swing.JMenuItem();
-        jMenuItem40 = new javax.swing.JMenuItem();
-        jMenuItem41 = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenuItem19 = new javax.swing.JMenuItem();
-        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem20 = new javax.swing.JMenuItem();
         jMenuItem21 = new javax.swing.JMenuItem();
-        jMenuItem22 = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
         jMenuItem23 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
@@ -267,23 +254,6 @@ private Property pro ;
         });
         jToolBar1.add(jButton10);
 
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/undo.gif"))); // NOI18N
-        jButton11.setFocusable(false);
-        jButton11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton11.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton11);
-
-        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/redo.gif"))); // NOI18N
-        jButton12.setFocusable(false);
-        jButton12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton12.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jButton12);
-
         jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/find.gif"))); // NOI18N
         jButton13.setFocusable(false);
         jButton13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -399,6 +369,11 @@ private Property pro ;
 
         jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem7.setText(bundle.getString("SAVE ALL")); // NOI18N
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem7);
         jMenu1.add(jSeparator2);
 
@@ -420,16 +395,6 @@ private Property pro ;
         });
         jMenu1.add(jMenuItem6);
         jMenu1.add(jSeparator3);
-
-        jMenuItem9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/print.gif"))); // NOI18N
-        jMenuItem9.setText(bundle.getString("PRINT")); // NOI18N
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem9);
         jMenu1.add(jSeparator4);
 
         jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK));
@@ -444,21 +409,6 @@ private Property pro ;
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText(bundle.getString("EDIT")); // NOI18N
-
-        jMenuItem10.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/undo.gif"))); // NOI18N
-        jMenuItem10.setText("Undo");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem10);
-
-        jMenuItem11.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/redo.gif"))); // NOI18N
-        jMenuItem11.setText("Redo");
-        jMenu2.add(jMenuItem11);
         jMenu2.add(jSeparator5);
 
         jMenuItem12.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
@@ -561,14 +511,6 @@ private Property pro ;
 
         jMenu11.add(jMenu13);
 
-        jMenuItem42.setText("Nimbus1");
-        jMenuItem42.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem42ActionPerformed(evt);
-            }
-        });
-        jMenu11.add(jMenuItem42);
-
         jMenuItem33.setText("Windows");
         jMenuItem33.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -592,38 +534,6 @@ private Property pro ;
             }
         });
         jMenu11.add(jMenuItem30);
-
-        jMenuItem37.setText("GTK");
-        jMenuItem37.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem37ActionPerformed(evt);
-            }
-        });
-        jMenu11.add(jMenuItem37);
-
-        jMenuItem39.setText("Basic");
-        jMenuItem39.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem39ActionPerformed(evt);
-            }
-        });
-        jMenu11.add(jMenuItem39);
-
-        jMenuItem40.setText("Synth");
-        jMenuItem40.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem40ActionPerformed(evt);
-            }
-        });
-        jMenu11.add(jMenuItem40);
-
-        jMenuItem41.setText("Multiplexing");
-        jMenuItem41.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem41ActionPerformed(evt);
-            }
-        });
-        jMenu11.add(jMenuItem41);
 
         jMenu3.add(jMenu11);
 
@@ -651,26 +561,9 @@ private Property pro ;
 
         jMenu3.add(jMenu9);
 
-        jRadioButtonMenuItem1.setSelected(true);
-        jRadioButtonMenuItem1.setText("Keyboard");
-        jRadioButtonMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jRadioButtonMenuItem1);
-
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Search");
-
-        jMenuItem20.setText("Find Previous");
-        jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem20ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem20);
 
         jMenuItem21.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/find.gif"))); // NOI18N
@@ -681,9 +574,6 @@ private Property pro ;
             }
         });
         jMenu4.add(jMenuItem21);
-
-        jMenuItem22.setText("Find Next");
-        jMenu4.add(jMenuItem22);
         jMenu4.add(jSeparator8);
 
         jMenuItem23.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
@@ -730,8 +620,8 @@ private Property pro ;
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(130, 130, 130)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(58, 58, 58)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -775,22 +665,17 @@ private Property pro ;
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-         
-        _close();
+         int si = getjTabbedPane2().getSelectedIndex();
+            if(si==-1) {
+                return;
+            }
+        _close(si);
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-         
-    }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         int choice = JOptionPane.showConfirmDialog(this,"Are you sure to exit ?", "Exit", 1,QUESTION_MESSAGE);
         if(choice==0) System.exit(0);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
-
-    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-         
-    }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
          
@@ -801,10 +686,6 @@ private Property pro ;
          
         _zoomOut();
     }//GEN-LAST:event_jMenuItem19ActionPerformed
-
-    private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
-         
-    }//GEN-LAST:event_jMenuItem20ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
          
@@ -838,8 +719,11 @@ private Property pro ;
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-         
-        _close();
+         int si = getjTabbedPane2().getSelectedIndex();
+            if(si==-1) {
+                return;
+            }
+        _close(si);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
@@ -937,10 +821,6 @@ private Property pro ;
         _paste();
     }//GEN-LAST:event_jButton10ActionPerformed
 
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        _print();
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
-
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
          
         _selectAll();
@@ -987,13 +867,14 @@ private Property pro ;
        try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
-                    UIManager.put("nimbusBase", new Color(255,100,100));
-               UIManager.put("control", new Color(255,0,100));
+                    //UIManager.put("nimbusBase", new Color(255,100,100));
+               //UIManager.put("control", new Color(255,0,100));
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
             getPro().setLook("Nimbus");
+            getPro().theme = null;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -1009,6 +890,7 @@ private Property pro ;
                 }
             }
             getPro().setLook("Windows");
+            getPro().theme = null;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -1024,6 +906,7 @@ private Property pro ;
                 }
             }
             getPro().setLook("Windows Classic");
+            getPro().theme = null;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -1039,6 +922,7 @@ private Property pro ;
                 }
             }
             getPro().setLook("CDE/Motif");
+            getPro().theme = null;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -1079,7 +963,8 @@ private Property pro ;
             } catch (IllegalAccessException ex) {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-            getPro().setLook("OceanTheme");
+            getPro().setLook("MetalLookAndFeel");
+            getPro().theme = "Ocean";
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -1099,7 +984,8 @@ private Property pro ;
            } catch (IllegalAccessException ex) {
                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
            }
-    
+    getPro().setLook("MetalLookAndFeel");
+    getPro().theme = "Steel";
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -1107,103 +993,6 @@ private Property pro ;
         Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
 }
     }//GEN-LAST:event_jMenuItem34ActionPerformed
-
-    private void jMenuItem37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem37ActionPerformed
-        
-              try {
-           
-           try {
-              
-               UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-               javax.swing.SwingUtilities.updateComponentTreeUI(this);
-           } catch (InstantiationException ex) {
-           } catch (IllegalAccessException ex) {
-           }
-    
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-        }
-         catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-  
-    }//GEN-LAST:event_jMenuItem37ActionPerformed
-
-    private void jMenuItem39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem39ActionPerformed
-      
-              try {
-           
-           try {
-              
-               UIManager.setLookAndFeel("javax.swing.plaf.basic.BasicLookAndFeel");
-               javax.swing.SwingUtilities.updateComponentTreeUI(this);
-           } catch (InstantiationException ex) {
-           } catch (IllegalAccessException ex) {
-           }
-    
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-        }
-         catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
- 
-    }//GEN-LAST:event_jMenuItem39ActionPerformed
-
-    private void jMenuItem40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem40ActionPerformed
-           try {
-           
-           try {
-              
-               UIManager.setLookAndFeel("javax.swing.plaf.synth.SynthLookAndFeel");
-               javax.swing.SwingUtilities.updateComponentTreeUI(this);
-           } catch (InstantiationException ex) {
-           } catch (IllegalAccessException ex) {
-           }
-    
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-        }
-         catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-     
-    }//GEN-LAST:event_jMenuItem40ActionPerformed
-
-    private void jMenuItem41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem41ActionPerformed
-        try {
-          
-           try {
-              
-               UIManager.setLookAndFeel("javax.swing.plaf.multi.MultiLookAndFeel");
-               javax.swing.SwingUtilities.updateComponentTreeUI(this);
-           } catch (InstantiationException ex) {
-           } catch (IllegalAccessException ex) {
-           }
-    
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-        }
-         catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-   
-    }//GEN-LAST:event_jMenuItem41ActionPerformed
-
-    private void jMenuItem42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem42ActionPerformed
-           try {
-          
-           try {
-              
-               UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-               javax.swing.SwingUtilities.updateComponentTreeUI(this);
-           } catch (InstantiationException ex) {
-           } catch (IllegalAccessException ex) {
-           }
-    
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-        }
-         catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-      
-    }//GEN-LAST:event_jMenuItem42ActionPerformed
 
     private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem24ActionPerformed
         this._aboutus();
@@ -1213,9 +1002,9 @@ private Property pro ;
       _print();
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void jRadioButtonMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem1ActionPerformed
-        new Keyboard().setVisible(true);
-    }//GEN-LAST:event_jRadioButtonMenuItem1ActionPerformed
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+      _saveAll();
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 void _new()
 {
         this.textArea.add(getI(), new JTextArea("")) ;
@@ -1251,19 +1040,12 @@ void _open(boolean _new)
             
             try 
             ( //for byte oriented i/o
-                    FileReader fin = new FileReader(path.get(getI()))) 
+                    FileInputStream fin = new FileInputStream(path.get(getI()))) 
             {
-                int size =0;
-                int temp=0;
-                do
-                {   
-                    size++;
-                    temp = fin.read();
-                }while(temp!=-1);
-                char[] ch = new char[size];
-                fin.read(ch, 0, size);
-                String str = new String(ch);
-                
+                int length = fin.available();
+                byte b[] = new byte[length];
+                fin.read(b, 0, length);
+                String str = new String(b);
                 this.textArea.add(getI(), new JTextArea(""));
                 this.textArea.get(getI()).setTabSize(2); this.textArea.get(getI()).grabFocus();
                 this.textArea.get(getI()).setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
@@ -1339,17 +1121,56 @@ void _save(int i)
 }
     void _saveAll()
     {
-        for(int temp = 0;temp<=getI();temp++)
-        {
-            this._save(temp);
-        }
+        int count = this.textArea.size();
+            for(int index =0;index<count;index++)
+            {
+                _save(index);
+            }
     }
 
-    void _close()
+    void _close(int si)
 	{
-            int si = getjTabbedPane2().getSelectedIndex();
-            if(si==-1) {
-                return;
+            
+            if(this.path.get(i).equals(""))
+            {
+                int choice = javax.swing.JOptionPane.showConfirmDialog(this, "Do you want to save the document before exiting ?", "confirmation", javax.swing.JOptionPane.YES_NO_CANCEL_OPTION , javax.swing.JOptionPane.QUESTION_MESSAGE);
+                if(choice == 0)
+                {
+                    _save(si);
+                }
+                else if(choice == 2)
+                {
+                    return;
+                }
+            }
+            else
+            {
+                try
+                {
+                    FileInputStream fin = new FileInputStream(this.path.get(si));
+                    int length = fin.available();
+                    byte[] b = new byte[length];
+                    fin.read(b, 0, length);
+                    fin.close();
+                    String savedText = new java.lang.String(b);
+                    String currentText = this.textArea.get(si).getText();
+                    if(!savedText.equals(currentText))
+                    {
+                        int choice = javax.swing.JOptionPane.showConfirmDialog(this, "Do you want to save the changes in document before exiting ?", "confirmation", javax.swing.JOptionPane.YES_NO_CANCEL_OPTION , javax.swing.JOptionPane.QUESTION_MESSAGE);
+                        if(choice == 0)
+                        {
+                            _save(si);
+                        }
+                        else if(choice == 2)
+                        {
+                            return;
+                        }
+                    }
+                }
+                catch(Exception e)
+                {
+                    System.out.println(e);
+                }
             }
             this.setI(this.getI()-1);
             this.textArea.remove(si);
@@ -1361,10 +1182,23 @@ void _save(int i)
    
      void _closeAll()
     {
-        int choice = JOptionPane.showConfirmDialog(this,"Do you want to save the changes before exiting exiting?");
+        int choice = JOptionPane.showConfirmDialog(this,"Do you want to exit without saving the documents/changes in those?");
 	if(choice == 0)
         {
-                            
+             System.exit(0);
+        }
+        else if(choice == 1)
+        {
+            int count = this.textArea.size();
+            for(int index =0;index<count;index++)
+            {
+                _save(0);
+                _close(0);
+            }
+        }
+        else
+        {
+            return;
         }
     }
     void _cut()
@@ -1558,6 +1392,19 @@ public javax.swing.JTabbedPane getjTabbedPane2()
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
+            if(pro.theme!=null)
+            {
+                 javax.swing.plaf.metal.MetalTheme theme = null;
+                if(pro.theme.equals("Steel"))
+                {
+                    theme =new javax.swing.plaf.metal.DefaultMetalTheme();
+                }
+                else if(pro.theme.equals("Ocean"))
+                {
+                    theme=new javax.swing.plaf.metal.OceanTheme();
+                }
+                javax.swing.plaf.metal.MetalLookAndFeel.setCurrentTheme(theme);
+            }
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if (pro.getLook().equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -1617,8 +1464,6 @@ private GraphicsEnvironment g;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton2;
@@ -1641,8 +1486,6 @@ private GraphicsEnvironment g;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
@@ -1652,9 +1495,7 @@ private GraphicsEnvironment g;
     private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem21;
-    private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem23;
     private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem26;
@@ -1667,20 +1508,13 @@ private GraphicsEnvironment g;
     private javax.swing.JMenuItem jMenuItem34;
     private javax.swing.JMenuItem jMenuItem35;
     private javax.swing.JMenuItem jMenuItem36;
-    private javax.swing.JMenuItem jMenuItem37;
-    private javax.swing.JMenuItem jMenuItem39;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem40;
-    private javax.swing.JMenuItem jMenuItem41;
-    private javax.swing.JMenuItem jMenuItem42;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
@@ -1824,33 +1658,6 @@ private GraphicsEnvironment g;
         this.jButton10 = jButton10;
     }
 
-    /**
-     * @return the jButton11
-     */
-    public javax.swing.JButton getjButton11() {
-        return jButton11;
-    }
-
-    /**
-     * @param jButton11 the jButton11 to set
-     */
-    public void setjButton11(javax.swing.JButton jButton11) {
-        this.jButton11 = jButton11;
-    }
-
-    /**
-     * @return the jButton12
-     */
-    public javax.swing.JButton getjButton12() {
-        return jButton12;
-    }
-
-    /**
-     * @param jButton12 the jButton12 to set
-     */
-    public void setjButton12(javax.swing.JButton jButton12) {
-        this.jButton12 = jButton12;
-    }
 
     /**
      * @return the jButton13
@@ -2118,33 +1925,7 @@ private GraphicsEnvironment g;
         this.jMenuItem1 = jMenuItem1;
     }
 
-    /**
-     * @return the jMenuItem10
-     */
-    public javax.swing.JMenuItem getjMenuItem10() {
-        return jMenuItem10;
-    }
-
-    /**
-     * @param jMenuItem10 the jMenuItem10 to set
-     */
-    public void setjMenuItem10(javax.swing.JMenuItem jMenuItem10) {
-        this.jMenuItem10 = jMenuItem10;
-    }
-
-    /**
-     * @return the jMenuItem11
-     */
-    public javax.swing.JMenuItem getjMenuItem11() {
-        return jMenuItem11;
-    }
-
-    /**
-     * @param jMenuItem11 the jMenuItem11 to set
-     */
-    public void setjMenuItem11(javax.swing.JMenuItem jMenuItem11) {
-        this.jMenuItem11 = jMenuItem11;
-    }
+ 
 
     /**
      * @return the jMenuItem12
@@ -2272,20 +2053,7 @@ private GraphicsEnvironment g;
         this.jMenuItem2 = jMenuItem2;
     }
 
-    /**
-     * @return the jMenuItem20
-     */
-    public javax.swing.JMenuItem getjMenuItem20() {
-        return jMenuItem20;
-    }
-
-    /**
-     * @param jMenuItem20 the jMenuItem20 to set
-     */
-    public void setjMenuItem20(javax.swing.JMenuItem jMenuItem20) {
-        this.jMenuItem20 = jMenuItem20;
-    }
-
+  
     /**
      * @return the jMenuItem21
      */
@@ -2298,20 +2066,6 @@ private GraphicsEnvironment g;
      */
     public void setjMenuItem21(javax.swing.JMenuItem jMenuItem21) {
         this.jMenuItem21 = jMenuItem21;
-    }
-
-    /**
-     * @return the jMenuItem22
-     */
-    public javax.swing.JMenuItem getjMenuItem22() {
-        return jMenuItem22;
-    }
-
-    /**
-     * @param jMenuItem22 the jMenuItem22 to set
-     */
-    public void setjMenuItem22(javax.swing.JMenuItem jMenuItem22) {
-        this.jMenuItem22 = jMenuItem22;
     }
 
     /**
@@ -2507,20 +2261,7 @@ private GraphicsEnvironment g;
         this.jMenuItem8 = jMenuItem8;
     }
 
-    /**
-     * @return the jMenuItem9
-     */
-    public javax.swing.JMenuItem getjMenuItem9() {
-        return jMenuItem9;
-    }
-
-    /**
-     * @param jMenuItem9 the jMenuItem9 to set
-     */
-    public void setjMenuItem9(javax.swing.JMenuItem jMenuItem9) {
-        this.jMenuItem9 = jMenuItem9;
-    }
-
+   
     /**
      * @return the jPanel1
      */

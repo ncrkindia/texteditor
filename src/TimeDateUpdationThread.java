@@ -20,6 +20,7 @@ public class TimeDateUpdationThread extends Thread{
     int minutes;String sMinutes;
     int hours;String sHours;
     int seconds;String sSeconds;
+    int day;String sDay;
     String s;
     TimeDateUpdationThread(javax.swing.JLabel l)
     {
@@ -34,6 +35,8 @@ public class TimeDateUpdationThread extends Thread{
     public void run()
     {
         date = new java.util.Date();
+        day  = date.getDay();
+        sDay = this.getDayName(day);
          _date = date.getDate();
             if(_date<10)
             {
@@ -61,15 +64,20 @@ public class TimeDateUpdationThread extends Thread{
         {
             date = new java.util.Date();
             hours = date.getHours();
-            if(hours>12)
+            if(hours>=12)
             {
                 s="PM";
-                hours-=12;
             }
             else
             {
                 s="AM";
             }
+            
+            if(hours>12)
+            {
+                hours-=12;
+            }
+            
             if(hours<10)
             {
                 sHours = "0"+hours;
@@ -96,7 +104,7 @@ public class TimeDateUpdationThread extends Thread{
             {
                 sSeconds = ""+seconds;
             }
-            l.setText(sDate +" "+ sMonth +" "+ year+"    " + sHours+":"+sMinutes+":"+sSeconds+" "+s);
+            l.setText( sDay+"  "+ sMonth +" "+sDate +", "+ year+"    " + sHours+":"+sMinutes+":"+sSeconds+" "+s);
             try
             {
                 Thread.sleep(1000);
@@ -112,21 +120,33 @@ public class TimeDateUpdationThread extends Thread{
     {
         switch(month)
         {
-            case 1:return "January";
-            case 2: return "Febuary";
-            case 3: return "March";
-            case 4: return "April";
+            case 1:return "Jan";
+            case 2: return "Feb";
+            case 3: return "Mar";
+            case 4: return "Apr";
             case 5: return "May";
-            case 6: return "June";
-            case 7: return "July";
-            case 8: return "August";
-            case 9: return "October";
-            case 10: return "September";
-            case 11: return "November";
-            case 12: return "December";
-            
+            case 6: return "Jun";
+            case 7: return "Jul";
+            case 8: return "Aug";
+            case 9: return "Oct";
+            case 10: return "Sep";
+            case 11: return "Nov";
+            case 12: return "Dec";
         }
         return "";
     }
-    
+     public String getDayName(int day)
+    {
+        switch(day)
+        {
+            case 0:return "Sunday";
+            case 1:return "Monday";
+            case 2: return "Tuesday";
+            case 3: return "Wednesday";
+            case 4: return "Thursday";
+            case 5: return "Friday";
+            case 6: return "Saturday";
+        }
+        return "";
+    }
 }
