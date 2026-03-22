@@ -2,6 +2,10 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+/**
+ *
+ * @author NCRK (नवीन चौहान राजपूत खरदौनी)
+ */
 public class HelpBook1 extends JFrame
 {
 	JPanel indexPanel;

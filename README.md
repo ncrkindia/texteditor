@@ -1,6 +1,6 @@
-# NCRK TextEditor v1.1.0 🎉
+# NCRK TextEditor v1.1.1 🎉
 
-A lightweight, simple Desktop Text Editor built using Java AWT and Swing. This is the **v1.1.0 stable release**, offering core text editing functionalities similar to classic Notepad with a fully modular graphical interface.
+A lightweight, simple Desktop Text Editor built using Java AWT and Swing. This is the **v1.1.1 stable release**, offering core text editing functionalities similar to classic Notepad with a fully modular graphical interface.
 
 ## 🚀 Features
 
@@ -62,6 +62,11 @@ You can directly run the editor without compiling the source code using the dist
 *   **Official Website**: [www.ncrkindia.in](http://www.ncrkindia.in)
 
 ## 🆕 Changelog
+
+### v1.1.1
+*   **New Feature - Help System**: Completely integrated a new Help module (`HelpBook.java` & `HelpBook1.java`) to provide internal user guidance.
+*   **Application Polish**: Rolled out a new dynamic asset loader screen (`WaitImage.java`), injected further localization strings (`Bundle.properties`), and updated existing components (`AboutUs`, `MainFrame`).
+*   **Deployment Rebranding**: Standardized the naming convention of archived deployment JARs located in `/dist` to utilize the `NCRK_TextEditor_*` branded prefix.
 
 ### v1.1.0
 *   **Archival Deployment Hub**: Populated the `dist` deploy folder with several pre-compiled permutations of the engine (e.g. `TextEditor_v1.0.jar`, `TextEditor_v4.2.jar`) alongside the foundational `TextEditor.jar`. 

@@ -43,7 +43,7 @@ private Property pro ;
         {
             
         }
-        setTitle("NCRK :: TextEditor v1.1.0");
+        setTitle("NCRK :: TextEditor v1.1.1");
         new TimeDateUpdationThread(this.jLabel1);
         _resigisterToolTipsText();
         if(this.pro.getFont_style()==1) 
@@ -153,6 +153,10 @@ private Property pro ;
         jMenuItem25 = new javax.swing.JMenuItem();
         jMenuItem22 = new javax.swing.JMenuItem();
         jMenuItem20 = new javax.swing.JMenuItem();
+        jMenu12 = new javax.swing.JMenu();
+        jMenuItem28 = new javax.swing.JMenuItem();
+        jMenuItem29 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem35 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
@@ -315,6 +319,7 @@ private Property pro ;
         jToolBar1.add(jToggleButton2);
 
         jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/question.gif"))); // NOI18N
+        jButton16.setToolTipText("About us");
         jButton16.setFocusable(false);
         jButton16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton16.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -703,6 +708,34 @@ private Property pro ;
         jMenu10.add(jMenuItem20);
 
         jMenu8.add(jMenu10);
+
+        jMenu12.setText("C/C++ Tools");
+
+        jMenuItem28.setText("Compile");
+        jMenuItem28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem28ActionPerformed(evt);
+            }
+        });
+        jMenu12.add(jMenuItem28);
+
+        jMenuItem29.setText("Run");
+        jMenuItem29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem29ActionPerformed(evt);
+            }
+        });
+        jMenu12.add(jMenuItem29);
+
+        jMenu8.add(jMenu12);
+
+        jMenuItem10.setText("Tools Configuration");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jMenuItem10);
 
         jMenuBar1.add(jMenu8);
 
@@ -1158,7 +1191,7 @@ private Property pro ;
 
        try
        {
-        Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.1\\visit.bat");
+        Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.1\\visit.bat");
        }
        catch(Exception e)
        {
@@ -1178,13 +1211,26 @@ private Property pro ;
     private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
        _runJavaApplet();
     }//GEN-LAST:event_jMenuItem20ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+       _toolConfiguration();
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenuItem28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem28ActionPerformed
+        _compileCppFile();
+    }//GEN-LAST:event_jMenuItem28ActionPerformed
+
+    private void jMenuItem29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem29ActionPerformed
+        _runCppProgram();
+    }//GEN-LAST:event_jMenuItem29ActionPerformed
+
+    
 void _new()
 {
         this.textArea.add(getI(), new JTextArea("")) ;
         this.scrollPane.add(getI(), new JScrollPane());
         this.scrollPane.get(getI()).setViewportView(this.textArea.get(getI()));
         this.textArea.get(getI()).setTabSize(4);
-        this.textArea.get(getI()).grabFocus();
         this.getjTabbedPane2().addTab("New "+getNi(),this.scrollPane.get(getI()));
         this.getjTabbedPane2().setToolTipTextAt(getI(), "New "+getNi()); // Add in v1.0.1
         this.textArea.get(getI()).setFont(new Font(getPro().getFont_name(), this.getPro().getFont_style(), getPro().getFont_size()));
@@ -1194,6 +1240,9 @@ void _new()
         this.textArea.get(getI()).addKeyListener(this);
         this.path.add("");
         this.filename.add("");
+        jTabbedPane2.grabFocus();
+        this.scrollPane.get(getI()).grabFocus();
+       this.textArea.get(getI()).grabFocus();
 }
     
 void _open(boolean _new)
@@ -1580,7 +1629,7 @@ public void _setTitleAt(int index , String text)
                         {
                             try
                             {
-                                 Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.1\\visit.bat");
+                                 Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.1\\visit.bat");
                             }
                             catch(Exception e)
                             {
@@ -1619,6 +1668,56 @@ public void _setTitleAt(int index , String text)
        */
        public void _compileJavaFile()
        {
+           
+           if(pro.javaCompiler==null)
+           {
+                if(System.getProperty("java.home")!=null)
+                {
+                    pro.javaExecute = System.getProperty("java.home")+"/bin/java";
+                    File jdk = new File(new File(System.getProperty("java.home")).getParent()+"\\jdk"+System.getProperty("java.version"));
+                    System.out.println(jdk);
+                    if(jdk.exists())
+                    {
+                       System.out.println(jdk+" exist");
+                        pro.javaCompiler = jdk+"/bin/javac";
+                        pro.javaAppletViewer = jdk+"/bin/appletviewer";
+                    }
+                }
+           }
+           /*
+           if(pro.javaCompiler==null)
+           {
+               int option = JOptionPane.showConfirmDialog(this,"Sorry ,IDE is not able to detect Java Compiler.\nDo you want to set manually?", "Java Compiler not detected !", JOptionPane.YES_NO_OPTION);
+               if(option==0)
+               {
+                   System.out.println("Yes");
+                   java.awt.FileDialog fd = new java.awt.FileDialog(this,"Specify the Java Compiler ...", FileDialog.LOAD);
+                   fd.setVisible(true);
+                   String jc = fd.getFile();
+                   if(jc==null)
+                   {
+                       return;
+                   }
+                   else
+                   {
+                       pro.javaCompiler = jc;
+                   }
+               }
+               else
+               {
+                    return;
+               }
+           }
+           */
+           if(pro.javaCompiler==null)
+           {
+               int option = JOptionPane.showConfirmDialog(this,"Sorry ,IDE is not able to detect Java Compiler.\nDo you want to set manually?", "Java Compiler not detected !", JOptionPane.YES_NO_OPTION);
+                if(option==0)
+                    {
+                        this._toolConfiguration();
+                    }
+               return;
+           }
            int index = this.jTabbedPane2.getSelectedIndex();
            if(index==-1) return;
            _save(index);
@@ -1630,21 +1729,24 @@ public void _setTitleAt(int index , String text)
                 try
                 {
                     
-                    String path1 = System.getProperty("user.home")+ "\\NCRK\\TextEditor\\v1.1.0\\temp";
+                    String path1 = System.getProperty("user.home")+ "\\NCRK\\TextEditor\\v1.1.1\\temp";
                     File f =  new File(path1);
                     f.mkdir();
                     String path2 = path1+"\\compile_"+this.filename.get(index)+".bat";
                     f = new File(path2);
                     System.out.println(path);
-                    f.createNewFile();
+                    //f.createNewFile();
                     FileOutputStream fout = new FileOutputStream(f);
-                    String contentToWrite = "javac \""+ this.path.get(index)+ "\" \n pause \nexit";
+                    String filePath = path.get(index).substring(0,path.get(index).length()-filename.get(index).length()-1);
+                    filePath = filePath.substring(0, 2)+"\ncd \""+filePath+"\"\ncls\n";
+                    String contentToWrite = filePath+"\""+pro.javaCompiler+"\" \""+ this.path.get(index)+ "\" \n pause \nexit";
                     fout.write(contentToWrite.getBytes());
                     fout.close();
                     ProcessBuilder pb = new ProcessBuilder("cmd.exe","/c","start "+path2);
                     Process p = pb.start();
                     int ev = p.waitFor();
-                    f.deleteOnExit();                    /*
+                    f.deleteOnExit();                    
+                    /*
                     File errorStream = new File(path1+"\\ERROR_STREAM_"+this.filename.get(index)+".errors");
                     //pb.redirectError(errorStream);
                     FileInputStream resultStream = new FileInputStream(path1+"\\ERROR_STREAM_"+this.filename.get(index)+".errors");
@@ -1687,6 +1789,55 @@ public void _setTitleAt(int index , String text)
        */
        public void _runJavaProgram()
        {
+           if(pro.javaExecute==null)
+           {
+                if(System.getProperty("java.home")!=null)
+                {
+                    pro.javaExecute = System.getProperty("java.home")+"/bin/java";
+                    File jdk = new File(new File(System.getProperty("java.home")).getParent()+"\\jdk"+System.getProperty("java.version"));
+                    System.out.println(jdk);
+                    if(jdk.exists())
+                    {
+                       System.out.println(jdk+" exist");
+                        pro.javaCompiler = jdk+"/bin/javac";
+                        pro.javaAppletViewer = jdk+"/bin/appletviewer";
+                    }
+                }
+           }
+           /*
+           if(pro.javaExecute==null)
+           {
+               int option = JOptionPane.showConfirmDialog(this,"Sorry ,IDE is not able to detect Java Command.\nDo you want to set manually?", "Java Compiler not detected !", JOptionPane.YES_NO_OPTION);
+               if(option==0)
+               {
+                   System.out.println("Yes");
+                   java.awt.FileDialog fd = new java.awt.FileDialog(this,"Specify the Java Command ...", FileDialog.LOAD);
+                   fd.setVisible(true);
+                   String jc = fd.getFile();
+                   if(jc==null)
+                   {
+                       return;
+                   }
+                   else
+                   {
+                       pro.javaExecute = jc;
+                   }
+               }
+               else
+               {
+                    return;
+               }
+            }
+           */
+           if(pro.javaExecute==null)
+           {
+               int option = JOptionPane.showConfirmDialog(this,"Sorry ,IDE is not able to detect Java Command.\nDo you want to set manually?", "Java Compiler not detected !", JOptionPane.YES_NO_OPTION);
+               if(option==0)
+                    {
+                        this._toolConfiguration();
+                    }
+               return;
+           }
            int index = this.jTabbedPane2.getSelectedIndex();
            if(index==-1) return;
            _save(index);
@@ -1698,16 +1849,18 @@ public void _setTitleAt(int index , String text)
                 try
                 {
                     
-                    String path1 = System.getProperty("user.home")+ "\\NCRK\\TextEditor\\v1.1.0\\temp";
+                    String path1 = System.getProperty("user.home")+ "\\NCRK\\TextEditor\\v1.1.1\\temp";
                     File f =  new File(path1);
                     f.mkdir();
-                    String path2 = path1+"\\runProgram_"+this.filename.get(index)+".bat";
+                    String path2 = path1+"\\runJavaProgram_"+this.filename.get(index)+".bat";
                     f = new File(path2);
                     System.out.println(path);
-                    f.createNewFile();
+                    //f.createNewFile();
                     FileOutputStream fout = new FileOutputStream(f);
+                    String filePath = path.get(index).substring(0,path.get(index).length()-filename.get(index).length()-1);
+                    filePath = filePath.substring(0, 2)+"\ncd \""+filePath+"\"\ncls\n";
                     String classpath = path.get(index).substring(0,path.get(index).length()-filename.get(index).length()-1);
-                    String contentToWrite = "set classpath="+classpath+";%classpath% \n set path="+classpath+";%path% \ncls\n java "+ this.filename.get(index).substring(0,li)+ " \n pause\nexit";
+                    String contentToWrite = filePath+"set classpath="+classpath+";%classpath% \n set path="+classpath+";%path% \ncls\n \""+pro.javaExecute+"\"  "+ this.filename.get(index).substring(0,li)+ " \n pause\nexit";
                     fout.write(contentToWrite.getBytes());
                     fout.close();
                     ProcessBuilder pb = new ProcessBuilder("cmd.exe","/c","start "+path2);
@@ -1734,6 +1887,55 @@ public void _setTitleAt(int index , String text)
        */
        public void _runJavaApplet()
        {
+           if(pro.javaAppletViewer==null)
+           {
+                if(System.getProperty("java.home")!=null)
+                {
+                    pro.javaExecute = System.getProperty("java.home")+"/bin/java";
+                    File jdk = new File(new File(System.getProperty("java.home")).getParent()+"\\jdk"+System.getProperty("java.version"));
+                    System.out.println(jdk);
+                    if(jdk.exists())
+                    {
+                       System.out.println(jdk+" exist");
+                        pro.javaCompiler = jdk+"/bin/javac";
+                        pro.javaAppletViewer = jdk+"/bin/appletviewer";
+                    }
+                }
+           }
+           /*
+           if(pro.javaAppletViewer==null)
+           {
+               int option = JOptionPane.showConfirmDialog(this,"Sorry ,IDE is not able to detect Java AppletViewer.\nDo you want to set manually?", "Java Compiler not detected !", JOptionPane.YES_NO_OPTION);
+               if(option==0)
+               {
+                   System.out.println("Yes");
+                   java.awt.FileDialog fd = new java.awt.FileDialog(this,"Specify the Java AppletViewer ...", FileDialog.LOAD);
+                   fd.setVisible(true);
+                   String jav = fd.getFile();
+                   if(jav==null)
+                   {
+                       return;
+                   }
+                   else
+                   {
+                       pro.javaAppletViewer = jav;
+                   }
+               }
+               else
+               {
+                    return;
+               }
+           }
+           */
+           if(pro.javaAppletViewer==null)
+           {
+               int option = JOptionPane.showConfirmDialog(this,"Sorry ,IDE is not able to detect Java AppletViewer.\nDo you want to set manually?", "Java Compiler not detected !", JOptionPane.YES_NO_OPTION);
+               if(option==0)
+               {
+                  this._toolConfiguration();
+               }
+               return;
+           }
            int index = this.jTabbedPane2.getSelectedIndex();
            if(index==-1) return;
            _save(index);
@@ -1745,16 +1947,18 @@ public void _setTitleAt(int index , String text)
                 try
                 {
                     
-                    String path1 = System.getProperty("user.home")+ "\\NCRK\\TextEditor\\v1.1.0\\temp";
+                    String path1 = System.getProperty("user.home")+ "\\NCRK\\TextEditor\\v1.1.1\\temp";
                     File f =  new File(path1);
                     f.mkdir();
                     String path2 = path1+"\\runApplet_"+this.filename.get(index)+".bat";
                     f = new File(path2);
                     System.out.println(path);
-                    f.createNewFile();
+                    //f.createNewFile();
                     FileOutputStream fout = new FileOutputStream(f);
+                    String filePath = path.get(index).substring(0,path.get(index).length()-filename.get(index).length()-1);
+                    filePath = filePath.substring(0, 2)+"\ncd \""+filePath+"\"\ncls\n";
                     String classpath = path.get(index).substring(0,path.get(index).length()-filename.get(index).length()-1);
-                    String contentToWrite = "set classpath="+classpath+";%classpath% \n set path="+classpath+";%path% \ncls\n appletviewer \""+ this.path.get(index)+ "\" \n pause\nexit";
+                    String contentToWrite = filePath+"set classpath="+classpath+";%classpath% \n set path="+classpath+";%path% \ncls\n \""+pro.javaAppletViewer+"\" \""+ this.path.get(index)+ "\" \n pause\nexit";
                     fout.write(contentToWrite.getBytes());
                     fout.close();
                     ProcessBuilder pb = new ProcessBuilder("cmd.exe","/c","start "+path2);
@@ -1774,12 +1978,183 @@ public void _setTitleAt(int index , String text)
             }
        }
        
+       /*
+       Add in v1.1.1 for Tool Configuratin
+       */
+       public void _toolConfiguration()
+       {
+           new Tools_Configuration(pro).setVisible(true);
+       }
        
        
        /*
-        Key Event handler Functions
-       
+       Add in v1.1.1 to compile C/C++ Program if the selcted file is . File
        */
+       public void _compileCppFile()
+       {
+           /*
+           if(pro.cppCompiler==null)
+           {
+                if(System.getProperty("java.home")!=null)
+                {
+                    pro.javaExecute = System.getProperty("java.home")+"/bin/java";
+                    File jdk = new File(new File(System.getProperty("java.home")).getParent()+"\\jdk"+System.getProperty("java.version"));
+                    System.out.println(jdk);
+                    if(jdk.exists())
+                    {
+                       System.out.println(jdk+" exist");
+                        pro.javaCompiler = jdk+"/bin/javac";
+                        pro.javaAppletViewer = jdk+"/bin/appletviewer";
+                    }
+                }
+           }
+           */
+           if(pro.cppCompilerType==-1)
+           {
+               int option = JOptionPane.showConfirmDialog(this,"Sorry ,IDE is not able to detect C/C++ Compiler.\nDo you want to set manually?", "C/C++ Compiler not detected !", JOptionPane.YES_NO_OPTION);
+               if(option==0)
+               {
+                  this._toolConfiguration();
+               }
+               return;
+           }
+           int index = this.jTabbedPane2.getSelectedIndex();
+           if(index==-1) return;
+           _save(index);
+           String outFileName = "";
+           String fnm = this.filename.get(index);
+            int lc = fnm.toLowerCase().lastIndexOf(".c");
+            int lcpp = fnm.toLowerCase().lastIndexOf(".cpp");
+            int lh = fnm.toLowerCase().lastIndexOf(".h");
+            if(pro.cppCompilerType==1)
+            {
+                if(((fnm.length()-2)==lc) && (lc!=-1))
+                {
+                    outFileName = this.filename.get(index).substring(0, lc);
+                }
+                else if(((fnm.length()-4)==lcpp) && (lcpp!=-1))
+                {
+                    outFileName = this.filename.get(index).substring(0, lcpp);
+                }
+                else if(((fnm.length()-2)==lh) && (lh!=-1))
+                {
+                    outFileName = this.filename.get(index).substring(0,lh );
+                }
+                //System.out.print("File : "+outFileName);
+                outFileName = " -o "+outFileName+"  ";
+            }
+            if((((fnm.length()-2)==lc) || ((fnm.length()-4)==lcpp) || ((fnm.length()-2)==lh)) && (lc!=-1 || lcpp!=-1 || lh!=-1 ))
+            {
+                //File is C/C++ File
+                try
+                {
+                    
+                    String path1 = System.getProperty("user.home")+ "\\NCRK\\TextEditor\\v1.1.1\\temp";
+                    File f =  new File(path1);
+                    f.mkdir();
+                    String path2 = path1+"\\compile_"+this.filename.get(index)+".bat";
+                    f = new File(path2);
+                    System.out.println(path);
+                    //f.createNewFile();
+                    FileOutputStream fout = new FileOutputStream(f);
+                    String filePath = path.get(index).substring(0,path.get(index).length()-filename.get(index).length()-1);
+                    filePath = filePath.substring(0, 2)+"\ncd \""+filePath+"\"\ncls\n";
+                    String contentToWrite = filePath+"\""+pro.cppCompiler+"\" \""+ this.path.get(index)+ "\" "+outFileName+"\n pause \nexit";
+                    fout.write(contentToWrite.getBytes());
+                    fout.close();
+                    ProcessBuilder pb = new ProcessBuilder("cmd.exe","/c","start "+path2);
+                    Process p = pb.start();
+                    int ev = p.waitFor();
+                    f.deleteOnExit(); 
+                }
+                catch(Exception e)
+                {
+                    JOptionPane.showMessageDialog(this, e.getMessage(),"Error::Compilation Failed", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            else
+            {
+                //File is not C/C++ File
+                JOptionPane.showMessageDialog(this, "Sorry ,File at selected Tab is not C/C++ File. \n C/C++ File must have .c/.cpp/.h extention .", "Error:: Not a C/C++ File", JOptionPane.INFORMATION_MESSAGE);
+            }
+       }
+       
+       void _runCppProgram()
+       {
+           if(pro.cppCompilerType==-1)
+           {
+               int option = JOptionPane.showConfirmDialog(this,"Sorry ,IDE is not able to detect C/C++ Compiler.\nDo you want to set manually?", "C/C++ Compiler not detected !", JOptionPane.YES_NO_OPTION);
+               if(option==0)
+               {
+                  this._toolConfiguration();
+               }
+               return;
+           }
+           int index = this.jTabbedPane2.getSelectedIndex();
+           if(index==-1) return;
+           _save(index);
+           String fnm = this.path.get(index);
+            int lc = fnm.toLowerCase().lastIndexOf(".c");
+            int lcpp = fnm.toLowerCase().lastIndexOf(".cpp");
+            int lh = fnm.toLowerCase().lastIndexOf(".h");
+            String outFilePathName = "";
+                if(((fnm.length()-2)==lc) && (lc!=-1))
+                {
+                    outFilePathName = this.path.get(index).substring(0, lc);
+                }
+                else if(((fnm.length()-4)==lcpp) && (lcpp!=-1))
+                {
+                    outFilePathName = this.path.get(index).substring(0, lcpp);
+                }
+                else if(((fnm.length()-2)==lh) && (lh!=-1))
+                {
+                    outFilePathName = this.path.get(index).substring(0,lh );
+                }
+                //System.out.println("Run : "+outFilePathName);
+            if((((fnm.length()-2)==lc) || ((fnm.length()-4)==lcpp) || ((fnm.length()-2)==lh)) && (lc!=-1 || lcpp!=-1 || lh!=-1 ))
+            {
+                //File is C/C++ File
+                try
+                {
+                    if((new File(outFilePathName+".exe").exists()))
+                    {
+                    String path1 = System.getProperty("user.home")+ "\\NCRK\\TextEditor\\v1.1.1\\temp";
+                    File f =  new File(path1);
+                    f.mkdir();
+                    String path2 = path1+"\\runCpp_"+this.filename.get(index)+".bat";
+                    f = new File(path2);
+                    System.out.println(path);
+                    //f.createNewFile();
+                    FileOutputStream fout = new FileOutputStream(f);
+                    String filePath = path.get(index).substring(0,path.get(index).length()-filename.get(index).length()-1);
+                    filePath = filePath.substring(0, 2)+"\ncd \""+filePath+"\"\ncls\n";
+                    String contentToWrite = filePath+" \""+outFilePathName+ "\" \n pause \nexit";
+                    fout.write(contentToWrite.getBytes());
+                    fout.close();
+                    ProcessBuilder pb = new ProcessBuilder("cmd.exe","/c","start "+path2);
+                    Process p = pb.start();
+                    int ev = p.waitFor();
+                    f.deleteOnExit(); 
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(this, "Compile the file and than Execute.","Error::Cannot execute File !", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+                catch(Exception e)
+                {
+                    JOptionPane.showMessageDialog(this, e.getMessage(),"Error::Compilation Failed", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            else
+            {
+                //File is not C/C++ File
+                JOptionPane.showMessageDialog(this, "Sorry ,File at selected Tab is not C/C++ File. \n C/C++ File must have .c/.cpp/.h extention .", "Error:: Not a C/C++ File", JOptionPane.INFORMATION_MESSAGE);
+            }
+       }
+       
+       
+       
        public  void keyPressed(KeyEvent ke)
        {
            
@@ -1956,6 +2331,7 @@ private GraphicsEnvironment g;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
+    private javax.swing.JMenu jMenu12;
     private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -1967,6 +2343,7 @@ private GraphicsEnvironment g;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
@@ -1985,6 +2362,8 @@ private GraphicsEnvironment g;
     private javax.swing.JMenuItem jMenuItem25;
     private javax.swing.JMenuItem jMenuItem26;
     private javax.swing.JMenuItem jMenuItem27;
+    private javax.swing.JMenuItem jMenuItem28;
+    private javax.swing.JMenuItem jMenuItem29;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem30;
     private javax.swing.JMenuItem jMenuItem31;

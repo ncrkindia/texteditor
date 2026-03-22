@@ -4,7 +4,7 @@ import javax.swing.*;
 
 /**
  *
- * @author Naveen
+ * @author NCRK (नवीन चौहान राजपूत खरदौनी)
  */
 public class WaitImage extends JWindow{
     

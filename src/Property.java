@@ -11,7 +11,7 @@ import java.io.ObjectOutputStream;
  * @author NCRK (नवीन चौहान राजपूत खरदौनी)
  */
 public class Property implements java.io.Serializable {
-    private static String path = System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.0";
+    private static String path = System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.1";
     private static File   file;
     private Color         bgcolor;
     private char[]        ch;
@@ -24,10 +24,14 @@ public class Property implements java.io.Serializable {
     String encodingName;
     private static Dimension     screensize;
     private Rectangle rect ;
-
+    String javaCompiler;
+    String javaAppletViewer;
+    String javaExecute;
+    String cppCompiler;
+    int cppCompilerType;//0 for not set ,1 for TCC , 2 for GNU
     private Property() {
         fgcolor           = new Color(255,255,255);
-        bgcolor           = new Color(0,0,0);
+        bgcolor           = new Color(99,0,0);
         font_size         = 20;
         font_name         = null;
         font_style        = 0;
@@ -39,22 +43,34 @@ public class Property implements java.io.Serializable {
         rect = new Rectangle(0,0,screensize.width,screensize.width);
         try
         {
-            File f =  new File(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.0");
+            File f =  new File(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.1");
             f.mkdirs();
-            f = new File(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.0\\visit.bat");
+            f = new File(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.1\\visit.bat");
             FileOutputStream fout = new FileOutputStream(f);
             fout.write("start http://sourceForge.net/u/ncrkrajput".getBytes());
             fout.close();
             
-            f = new File(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.0\\mailAtEngineer.bat");
+            f = new File(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.1\\mailAtEngineer.bat");
             fout = new FileOutputStream(f);
             fout.write("start mailto:ncrkrajput@engineer.com".getBytes());
             fout.close();
             
-            f = new File(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.0\\mailAtProgrammer.bat");
+            f = new File(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.1\\mailAtProgrammer.bat");
             fout = new FileOutputStream(f);
             fout.write("start mailto:ncrkrajput@programmer.net".getBytes());
             fout.close();
+            if(System.getProperty("java.home")!=null)
+            {
+                this.javaExecute = System.getProperty("java.home")+"/bin/java";
+                File jdk = new File(new File(System.getProperty("java.home")).getParent()+"\\jdk"+System.getProperty("java.version"));
+                System.out.println(jdk);
+                if(jdk.exists())
+                {
+                    System.out.println(jdk+" exist");
+                    this.javaCompiler = jdk+"/bin/javac";
+                    this.javaAppletViewer = jdk+"/bin/appletviewer";
+                }
+            }
             
         }
         catch(Exception e)
@@ -118,7 +134,7 @@ public class Property implements java.io.Serializable {
             }
             if(!RESET)
             {
-                path  = path + "\\NCRK_TextEditor_v1.1.0_Property.ncrk" ;
+                path  = path + "\\NCRK_TextEditor_v1.1.1_Property.ncrk" ;
             }
             file = new File(path);
 

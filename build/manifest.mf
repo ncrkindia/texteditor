@@ -4,5 +4,5 @@ Created-By: 1.8.0_05-b13 (Oracle Corporation)
 X-COMMENT: Main-Class will be added automatically by build
 Codebase: *
 Permissions: sandbox
-Application-Name: NCRK TextEditor v1.1.0
+Application-Name: NCRK TextEditor v1.1.1
 
