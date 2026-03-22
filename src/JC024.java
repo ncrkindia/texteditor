@@ -3,8 +3,7 @@ import java.awt.event.*;
 import java.awt.event.KeyEvent;
 import java.io.*;
 import javax.swing.*;
-import javax.swing.text.*;
-import javax.swing.event.*;
+
 class JC024
 {
 	public static void main(String[] a)
@@ -15,50 +14,49 @@ class JC024
 }
 class Frame1 extends JFrame
 {
-	FileDialog  o ;
-    String file="";
-    java.awt.Scrollbar sb ;
+    private static final long serialVersionUID = 1L;
+	private FileDialog  o ;
+    private String file="";
 	//Creating object of JJMenuBar
-	JMenuBar mb = new JMenuBar();
+	private JMenuBar mb = new JMenuBar();
 	//Creating objects of JMenus
-	JMenu m1 = new JMenu("File");
-	JMenu m2 = new JMenu("Edit");
-	JMenu m3 = new JMenu("Search");
-	JMenu m4 = new JMenu("View");
-	JMenu m5 = new JMenu("Setting");
-	JMenu m6 = new JMenu("About Us");
+	private JMenu m1 = new JMenu("File");
+	private JMenu m2 = new JMenu("Edit");
+	private JMenu m3 = new JMenu("Search");
+	private JMenu m4 = new JMenu("View");
+	private JMenu m5 = new JMenu("Setting");
+	private JMenu m6 = new JMenu("About Us");
 	//Creating objects of JMenu's Items
-	JMenuItem m1_1 = new JMenuItem("New");
-	JMenuItem m1_2 = new JMenuItem("Open");
-	JMenuItem m1_3 = new JMenuItem("Save");
-	JMenuItem m1_4 = new JMenuItem("Save As");
-	JMenuItem m1_5 = new JMenuItem("Close");
-	JMenuItem m1_6 = new JMenuItem("Print");
-	JMenuItem m1_7 = new JMenuItem("Exit");
-	JMenuItem m2_1 = new JMenuItem("Undo");
-	JMenuItem m2_2 = new JMenuItem("Redo");
-	JMenuItem m2_3 = new JMenuItem("Cut");
-	JMenuItem m2_4 = new JMenuItem("Copy");
-	JMenuItem m2_5 = new JMenuItem("Paste");
-	JMenuItem m2_6 = new JMenuItem("Delete");
-	JMenuItem m2_7 = new JMenuItem("Select All");
-	JMenuItem m3_1 = new JMenuItem("Find");
-	JMenuItem m3_2 = new JMenuItem("Find Next");
-	JMenuItem m3_3 = new JMenuItem("Find Previous");
-	JMenuItem m3_4 = new JMenuItem("Replace");
-	JMenuItem m3_5 = new JMenuItem("Replace All");
-	JMenuItem m3_6 = new JMenuItem("Goto");
-	JMenuItem m4_1 = new JMenuItem("Zoom IN");
-	JMenuItem m4_2 = new JMenuItem("Zoom OUT");
-	JMenuItem m4_3 = new JMenuItem("Font");
-	JTextArea t = new JTextArea();
-	int font_size = 18;
-	Font font = new Font("Arial",1,font_size);
+	private JMenuItem m1_1 = new JMenuItem("New");
+	private JMenuItem m1_2 = new JMenuItem("Open");
+	private JMenuItem m1_3 = new JMenuItem("Save");
+	private JMenuItem m1_4 = new JMenuItem("Save As");
+	private JMenuItem m1_5 = new JMenuItem("Close");
+	private JMenuItem m1_6 = new JMenuItem("Print");
+	private JMenuItem m1_7 = new JMenuItem("Exit");
+	private JMenuItem m2_1 = new JMenuItem("Undo");
+	private JMenuItem m2_2 = new JMenuItem("Redo");
+	private JMenuItem m2_3 = new JMenuItem("Cut");
+	private JMenuItem m2_4 = new JMenuItem("Copy");
+	private JMenuItem m2_5 = new JMenuItem("Paste");
+	private JMenuItem m2_6 = new JMenuItem("Delete");
+	private JMenuItem m2_7 = new JMenuItem("Select All");
+	private JMenuItem m3_1 = new JMenuItem("Find");
+	private JMenuItem m3_2 = new JMenuItem("Find Next");
+	private JMenuItem m3_3 = new JMenuItem("Find Previous");
+	private JMenuItem m3_4 = new JMenuItem("Replace");
+	private JMenuItem m3_5 = new JMenuItem("Replace All");
+	private JMenuItem m3_6 = new JMenuItem("Goto");
+	private JMenuItem m4_1 = new JMenuItem("Zoom IN");
+	private JMenuItem m4_2 = new JMenuItem("Zoom OUT");
+	private JMenuItem m4_3 = new JMenuItem("Font");
+	private JTextArea t = new JTextArea();
+	private int font_size = 18;
+	private Font font = new Font("Arial",1,font_size);
 	
 	Frame1()
 	{
 		setSize(700,600);
-                sb = new java.awt.Scrollbar(0, 100, 5, 5, 95);
 		//adding listener to activate close button of window
 		addWindowListener(new WindowAdapter(){public void windowClosing(WindowEvent e){System.exit(0);}});
 		//adding File JMenu
@@ -100,9 +98,9 @@ class Frame1 extends JFrame
 		m1_7.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){_exit();}});
 		m2_1.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){_new();}});
 		m2_2.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){_open();}});
-		m2_3.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){t.cut();}});
-		m2_4.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){t.copy();}});
-		m2_5.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){t.paste();}});
+		m2_3.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){getT().cut();}});
+		m2_4.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){getT().copy();}});
+		m2_5.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){getT().paste();}});
 		m2_6.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){_print();}});
 		m2_7.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){_exit();}});
 		m3_4.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){_replaceAll();}});
@@ -132,13 +130,12 @@ class Frame1 extends JFrame
 		t.setFont(font);
 		t.setForeground(new Color(0, 153, 255));
 		add(t);
-                t.add(sb);
 		changeTextForeground();
 		
 	}
 	public void paint(Graphics g)
 	{
-		if(!file.equals("")) setTitle(file+"   --- Text Editor");
+		if(!file.equals("")) setTitle(getFile()+"   --- Text Editor");
 		super.paint(g);
 	}
 	
@@ -150,46 +147,46 @@ class Frame1 extends JFrame
 	void _open()
 	{
 		_close();
-		o = new FileDialog(this,"Open Files");
-        o.setVisible(true);
-        if(o.getFile()!=null)
+		setO(new FileDialog(this,"Open Files"));
+        getO().setVisible(true);
+        if(getO().getFile()!=null)
         {
-        file = o.getDirectory()+o.getFile();
+            setFile(getO().getDirectory() + getO().getFile());
         try
         {
-            FileInputStream fin = new FileInputStream(file);
-            int n = fin.available();
-            byte[] b = new byte[n];
-            fin.read(b,0,n);
-            String str = new String(b);
-            t.setText(str);
-			fin.close();
+                try (FileInputStream fin = new FileInputStream(getFile())) {
+                    int n = fin.available();
+                    byte[] b = new byte[n];
+                    fin.read(b,0,n);
+                    String str = new String(b);
+                    getT().setText(str);
+                }
             repaint();
-        }catch(Exception e)
+        }catch(IOException e)
         {
-            t.setText("");
+                getT().setText("");
         }
         }
 	}
 	void _save()
 	{
-		if(file.equals(""))
+		if(getFile().equals(""))
         {
-        o = new FileDialog(this,"Save",1);
-        o.setVisible(true);
+            setO(new FileDialog(this,"Save",1));
+            getO().setVisible(true);
 		}
-        if(o.getFile()!=null)
+        if(getO().getFile()!=null)
         {
-        file = o.getDirectory()+o.getFile();
+            setFile(getO().getDirectory() + getO().getFile());
         try
         {
-            FileOutputStream fout = new FileOutputStream(file);
-            String txt = t.getText();
-            byte[] b = txt.getBytes();
-            fout.write(b,0,b.length);
-            fout.close();
+                try (FileOutputStream fout = new FileOutputStream(getFile())) {
+                    String txt = getT().getText();
+                    byte[] b = txt.getBytes();
+                    fout.write(b,0,b.length);
+                }
             repaint();
-        }catch(Exception e)
+        }catch(IOException e)
         {
             
         }
@@ -199,15 +196,15 @@ class Frame1 extends JFrame
 	}
 	void _saveAs()
 	{
-		o = new FileDialog(this,"Save As",1);
-        o.setVisible(true);
-        if(o.getFile()!=null)
+		setO(new FileDialog(this,"Save As",1));
+        getO().setVisible(true);
+        if(getO().getFile()!=null)
         {
-        file = o.getDirectory()+o.getFile();
+            setFile(getO().getDirectory() + getO().getFile());
         try
         {
-            FileOutputStream fout = new FileOutputStream(file);
-            String txt = t.getText();
+            FileOutputStream fout = new FileOutputStream(getFile());
+            String txt = getT().getText();
             byte[] b = txt.getBytes();
             fout.write(b,0,b.length);
             fout.close();
@@ -226,9 +223,9 @@ class Frame1 extends JFrame
 			if(choice == 0) _save();
 		}
 		
-		file="";
+		setFile("");
 		setTitle("Text Editor");
-		t.setText("");
+		getT().setText("");
 	}
 	void _print()
 	{
@@ -236,7 +233,7 @@ class Frame1 extends JFrame
 	}
 	void _exit()
 	{
-		if(file.equals(""))
+		if(getFile().equals(""))
 		{
 		int a = JOptionPane.showConfirmDialog(this,"Are you sure to Exit?");
 		if(a==0) System.exit(0);
@@ -245,13 +242,13 @@ class Frame1 extends JFrame
 		{
 			try
         {
-            FileInputStream fin = new FileInputStream(file);
+            FileInputStream fin = new FileInputStream(getFile());
             int n = fin.available();
             byte[] b = new byte[n];
             fin.read(b,0,n);
             String str = new String(b);
 			fin.close();
-            String str1 = t.getText();
+            String str1 = getT().getText();
            if(str.equals(str1))
 		   {
 			   int choice = JOptionPane.showConfirmDialog(this,"Are you sure to Exit?");
@@ -262,8 +259,8 @@ class Frame1 extends JFrame
 			   int choice = JOptionPane.showConfirmDialog(this,"Do you want to save the changes before exiting?");
 			   if(choice==0) 
 			   {
-				    FileOutputStream fout = new FileOutputStream(file);
-					String txt = t.getText();
+				    FileOutputStream fout = new FileOutputStream(getFile());
+					String txt = getT().getText();
 					b = txt.getBytes();
 					fout.write(b,0,b.length);
 					fout.close();
@@ -281,31 +278,31 @@ class Frame1 extends JFrame
 		JDialog rp = new JDialog(this,"Replace All");rp.setBounds(100,50,500,300);rp.setVisible(true);rp.setLayout(null);
 		JLabel l1 = new JLabel("Replace");l1.setBounds(10,50,50,30);rp.add(l1);
 		JLabel l2 = new JLabel("With");l2.setBounds(10,100,50,30);rp.add(l2);
-		JTextField t1 = new JTextField(t.getSelectedText());t1.setBounds(150,50,200,30);rp.add(t1);//t1.setBackground(new Color(152,148,58));
+		JTextField t1 = new JTextField(getT().getSelectedText());t1.setBounds(150,50,200,30);rp.add(t1);//t1.setBackground(new Color(152,148,58));
 		JTextField t2 = new JTextField();t2.setBounds(150,100,200,30);rp.add(t2);//t2.setBackground(new Color(152,148,58));
 		rp.addWindowListener(new WindowAdapter(){public void windowClosing(WindowEvent e){rp.dispose();}});
 		JButton b = new JButton("OK");b.setBounds(400,250,50,30);rp.add(b);
 		b.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){String s1 =t1.getText();
 		String s2=t2.getText();
-		String text = t.getText().replace(s1,s2);
-		t.setText(text);		}});
+		String text = getT().getText().replace(s1,s2);
+		getT().setText(text);		}});
 		
 	}
 	void _zoomIn()
 	{
-		if(font_size<45)
+		if(getFont_size()<45)
 		{
-			font_size++;
-			t.setFont(new Font("Arial",1,font_size));
+			setFont_size(getFont_size() + 1);
+			getT().setFont(new Font("Arial",1, getFont_size()));
 		}
 		repaint();
 	}
 	void _zoomOut()
 	{
-		if(font_size>5)
+		if(getFont_size()>5)
 		{
-			font_size--;
-			t.setFont(new Font("Arial",1,font_size));
+			setFont_size(getFont_size() - 1);
+			getT().setFont(new Font("Arial",1, getFont_size()));
 		}
 		repaint();
 	}
@@ -315,7 +312,7 @@ class Frame1 extends JFrame
 	}
 	void changeTextForeground()
 	{
-		t.setSelectedTextColor(new Color(255,0,0));
+		getT().setSelectedTextColor(new Color(255,0,0));
 	}
 	void _aboutUs()
 	{
@@ -332,4 +329,494 @@ class Frame1 extends JFrame
 		a3.setBounds(0,110,400,50);
 		a4.setBounds(0,140,400,50);
 	}
+
+    /**
+     * @return the o
+     */
+    public FileDialog getO() {
+        return o;
+    }
+
+    /**
+     * @param o the o to set
+     */
+    public void setO(FileDialog o) {
+        this.o = o;
+    }
+
+    /**
+     * @return the file
+     */
+    public String getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(String file) {
+        this.file = file;
+    }
+
+    /**
+     * @return the mb
+     */
+    public JMenuBar getMb() {
+        return mb;
+    }
+
+    /**
+     * @param mb the mb to set
+     */
+    public void setMb(JMenuBar mb) {
+        this.mb = mb;
+    }
+
+    /**
+     * @return the m1
+     */
+    public JMenu getM1() {
+        return m1;
+    }
+
+    /**
+     * @param m1 the m1 to set
+     */
+    public void setM1(JMenu m1) {
+        this.m1 = m1;
+    }
+
+    /**
+     * @return the m2
+     */
+    public JMenu getM2() {
+        return m2;
+    }
+
+    /**
+     * @param m2 the m2 to set
+     */
+    public void setM2(JMenu m2) {
+        this.m2 = m2;
+    }
+
+    /**
+     * @return the m3
+     */
+    public JMenu getM3() {
+        return m3;
+    }
+
+    /**
+     * @param m3 the m3 to set
+     */
+    public void setM3(JMenu m3) {
+        this.m3 = m3;
+    }
+
+    /**
+     * @return the m4
+     */
+    public JMenu getM4() {
+        return m4;
+    }
+
+    /**
+     * @param m4 the m4 to set
+     */
+    public void setM4(JMenu m4) {
+        this.m4 = m4;
+    }
+
+    /**
+     * @return the m5
+     */
+    public JMenu getM5() {
+        return m5;
+    }
+
+    /**
+     * @param m5 the m5 to set
+     */
+    public void setM5(JMenu m5) {
+        this.m5 = m5;
+    }
+
+    /**
+     * @return the m6
+     */
+    public JMenu getM6() {
+        return m6;
+    }
+
+    /**
+     * @param m6 the m6 to set
+     */
+    public void setM6(JMenu m6) {
+        this.m6 = m6;
+    }
+
+    /**
+     * @return the m1_1
+     */
+    public JMenuItem getM1_1() {
+        return m1_1;
+    }
+
+    /**
+     * @param m1_1 the m1_1 to set
+     */
+    public void setM1_1(JMenuItem m1_1) {
+        this.m1_1 = m1_1;
+    }
+
+    /**
+     * @return the m1_2
+     */
+    public JMenuItem getM1_2() {
+        return m1_2;
+    }
+
+    /**
+     * @param m1_2 the m1_2 to set
+     */
+    public void setM1_2(JMenuItem m1_2) {
+        this.m1_2 = m1_2;
+    }
+
+    /**
+     * @return the m1_3
+     */
+    public JMenuItem getM1_3() {
+        return m1_3;
+    }
+
+    /**
+     * @param m1_3 the m1_3 to set
+     */
+    public void setM1_3(JMenuItem m1_3) {
+        this.m1_3 = m1_3;
+    }
+
+    /**
+     * @return the m1_4
+     */
+    public JMenuItem getM1_4() {
+        return m1_4;
+    }
+
+    /**
+     * @param m1_4 the m1_4 to set
+     */
+    public void setM1_4(JMenuItem m1_4) {
+        this.m1_4 = m1_4;
+    }
+
+    /**
+     * @return the m1_5
+     */
+    public JMenuItem getM1_5() {
+        return m1_5;
+    }
+
+    /**
+     * @param m1_5 the m1_5 to set
+     */
+    public void setM1_5(JMenuItem m1_5) {
+        this.m1_5 = m1_5;
+    }
+
+    /**
+     * @return the m1_6
+     */
+    public JMenuItem getM1_6() {
+        return m1_6;
+    }
+
+    /**
+     * @param m1_6 the m1_6 to set
+     */
+    public void setM1_6(JMenuItem m1_6) {
+        this.m1_6 = m1_6;
+    }
+
+    /**
+     * @return the m1_7
+     */
+    public JMenuItem getM1_7() {
+        return m1_7;
+    }
+
+    /**
+     * @param m1_7 the m1_7 to set
+     */
+    public void setM1_7(JMenuItem m1_7) {
+        this.m1_7 = m1_7;
+    }
+
+    /**
+     * @return the m2_1
+     */
+    public JMenuItem getM2_1() {
+        return m2_1;
+    }
+
+    /**
+     * @param m2_1 the m2_1 to set
+     */
+    public void setM2_1(JMenuItem m2_1) {
+        this.m2_1 = m2_1;
+    }
+
+    /**
+     * @return the m2_2
+     */
+    public JMenuItem getM2_2() {
+        return m2_2;
+    }
+
+    /**
+     * @param m2_2 the m2_2 to set
+     */
+    public void setM2_2(JMenuItem m2_2) {
+        this.m2_2 = m2_2;
+    }
+
+    /**
+     * @return the m2_3
+     */
+    public JMenuItem getM2_3() {
+        return m2_3;
+    }
+
+    /**
+     * @param m2_3 the m2_3 to set
+     */
+    public void setM2_3(JMenuItem m2_3) {
+        this.m2_3 = m2_3;
+    }
+
+    /**
+     * @return the m2_4
+     */
+    public JMenuItem getM2_4() {
+        return m2_4;
+    }
+
+    /**
+     * @param m2_4 the m2_4 to set
+     */
+    public void setM2_4(JMenuItem m2_4) {
+        this.m2_4 = m2_4;
+    }
+
+    /**
+     * @return the m2_5
+     */
+    public JMenuItem getM2_5() {
+        return m2_5;
+    }
+
+    /**
+     * @param m2_5 the m2_5 to set
+     */
+    public void setM2_5(JMenuItem m2_5) {
+        this.m2_5 = m2_5;
+    }
+
+    /**
+     * @return the m2_6
+     */
+    public JMenuItem getM2_6() {
+        return m2_6;
+    }
+
+    /**
+     * @param m2_6 the m2_6 to set
+     */
+    public void setM2_6(JMenuItem m2_6) {
+        this.m2_6 = m2_6;
+    }
+
+    /**
+     * @return the m2_7
+     */
+    public JMenuItem getM2_7() {
+        return m2_7;
+    }
+
+    /**
+     * @param m2_7 the m2_7 to set
+     */
+    public void setM2_7(JMenuItem m2_7) {
+        this.m2_7 = m2_7;
+    }
+
+    /**
+     * @return the m3_1
+     */
+    public JMenuItem getM3_1() {
+        return m3_1;
+    }
+
+    /**
+     * @param m3_1 the m3_1 to set
+     */
+    public void setM3_1(JMenuItem m3_1) {
+        this.m3_1 = m3_1;
+    }
+
+    /**
+     * @return the m3_2
+     */
+    public JMenuItem getM3_2() {
+        return m3_2;
+    }
+
+    /**
+     * @param m3_2 the m3_2 to set
+     */
+    public void setM3_2(JMenuItem m3_2) {
+        this.m3_2 = m3_2;
+    }
+
+    /**
+     * @return the m3_3
+     */
+    public JMenuItem getM3_3() {
+        return m3_3;
+    }
+
+    /**
+     * @param m3_3 the m3_3 to set
+     */
+    public void setM3_3(JMenuItem m3_3) {
+        this.m3_3 = m3_3;
+    }
+
+    /**
+     * @return the m3_4
+     */
+    public JMenuItem getM3_4() {
+        return m3_4;
+    }
+
+    /**
+     * @param m3_4 the m3_4 to set
+     */
+    public void setM3_4(JMenuItem m3_4) {
+        this.m3_4 = m3_4;
+    }
+
+    /**
+     * @return the m3_5
+     */
+    public JMenuItem getM3_5() {
+        return m3_5;
+    }
+
+    /**
+     * @param m3_5 the m3_5 to set
+     */
+    public void setM3_5(JMenuItem m3_5) {
+        this.m3_5 = m3_5;
+    }
+
+    /**
+     * @return the m3_6
+     */
+    public JMenuItem getM3_6() {
+        return m3_6;
+    }
+
+    /**
+     * @param m3_6 the m3_6 to set
+     */
+    public void setM3_6(JMenuItem m3_6) {
+        this.m3_6 = m3_6;
+    }
+
+    /**
+     * @return the m4_1
+     */
+    public JMenuItem getM4_1() {
+        return m4_1;
+    }
+
+    /**
+     * @param m4_1 the m4_1 to set
+     */
+    public void setM4_1(JMenuItem m4_1) {
+        this.m4_1 = m4_1;
+    }
+
+    /**
+     * @return the m4_2
+     */
+    public JMenuItem getM4_2() {
+        return m4_2;
+    }
+
+    /**
+     * @param m4_2 the m4_2 to set
+     */
+    public void setM4_2(JMenuItem m4_2) {
+        this.m4_2 = m4_2;
+    }
+
+    /**
+     * @return the m4_3
+     */
+    public JMenuItem getM4_3() {
+        return m4_3;
+    }
+
+    /**
+     * @param m4_3 the m4_3 to set
+     */
+    public void setM4_3(JMenuItem m4_3) {
+        this.m4_3 = m4_3;
+    }
+
+    /**
+     * @return the t
+     */
+    public JTextArea getT() {
+        return t;
+    }
+
+    /**
+     * @param t the t to set
+     */
+    public void setT(JTextArea t) {
+        this.t = t;
+    }
+
+    /**
+     * @return the font_size
+     */
+    public int getFont_size() {
+        return font_size;
+    }
+
+    /**
+     * @param font_size the font_size to set
+     */
+    public void setFont_size(int font_size) {
+        this.font_size = font_size;
+    }
+
+    /**
+     * @return the font
+     */
+    public Font getFont() {
+        return font;
+    }
+
+    /**
+     * @param font the font to set
+     */
+    public void setFont(Font font) {
+        this.font = font;
+    }
 }

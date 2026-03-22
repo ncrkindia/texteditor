@@ -1,6 +1,6 @@
-# NCRK TextEditor v0.1
+# NCRK TextEditor beta-v0.1.1
 
-A lightweight, simple Desktop Text Editor built using Java AWT and Swing. This is the initial **v0.1 release**, offering core text editing functionalities similar to classic Notepad, integrated into a single-file application architecture.
+A lightweight, simple Desktop Text Editor built using Java AWT and Swing. This is the **beta-v0.1.1 release**, offering core text editing functionalities similar to classic Notepad, integrated into a single-file application architecture.
 
 ## 🚀 Features
 
@@ -39,3 +39,6 @@ A lightweight, simple Desktop Text Editor built using Java AWT and Swing. This i
 *   **Developer**: NCRK Rajput at SUNRISE Technologies.
 *   **Repository URL**: [https://github.com/ncrkindia/texteditor.git](https://github.com/ncrkindia/texteditor.git)
 *   **Official Website**: [www.ncrkindia.in](http://www.ncrkindia.in)
+
+## 🆕 Changelog (beta-v0.1.1)
+*   **Repository Maintenance**: Updated `.gitignore` to prevent tracking compiled `*.class` binaries, keeping the repository cleaner.
