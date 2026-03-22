@@ -291,18 +291,18 @@ public class Search extends javax.swing.JDialog {
         if(isCaseMatch)
         {
             searchWord = jTextField1.getText();
-            searchIn = f.jTextArea[index].getText();
+            searchIn = f.textArea.get(index).getText();
         }
         else
         {
             searchWord = jTextField1.getText().toLowerCase();
-            searchIn = f.jTextArea[index].getText().toLowerCase();
+            searchIn = f.textArea.get(index).getText().toLowerCase();
         }
         int loc = searchIn.indexOf(searchWord, i);
         if(loc>=0)
         {
             i = loc+1;
-            f.jTextArea[index].select(loc, loc+searchWord.length());
+            f.textArea.get(index).select(loc, loc+searchWord.length());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -323,18 +323,18 @@ int index=0;
         if(isCaseMatch)
         {
             searchWord = jTextField1.getText();
-            searchIn = f.jTextArea[index].getText();
+            searchIn = f.textArea.get(index).getText();
         }
         else
         {
             searchWord = jTextField1.getText().toLowerCase();
-            searchIn = f.jTextArea[index].getText().toLowerCase();
+            searchIn = f.textArea.get(index).getText().toLowerCase();
         }
         int loc = searchIn.lastIndexOf(searchWord, i);
         if(loc>=0)
         {
             i = loc-1;
-            f.jTextArea[index].select(loc, loc+searchWord.length());
+            f.textArea.get(index).select(loc, loc+searchWord.length());
         }        
     }//GEN-LAST:event_jButton9ActionPerformed
 
@@ -354,12 +354,12 @@ int index=0;
         if(isCaseMatch)
         {
             searchWord = jTextField1.getText();
-            searchIn = f.jTextArea[index].getText();
+            searchIn = f.textArea.get(index).getText();
         }
         else
         {
             searchWord = jTextField1.getText().toLowerCase();
-            searchIn = f.jTextArea[index].getText().toLowerCase();
+            searchIn = f.textArea.get(index).getText().toLowerCase();
         } 
         while(true)
         {
@@ -389,18 +389,18 @@ int index=0;
         if(isCaseMatch)
         {
             searchWord = jTextField2.getText();
-            searchIn = f.jTextArea[index].getText();
+            searchIn = f.textArea.get(index).getText();
         }
         else
         {
             searchWord = jTextField2.getText().toLowerCase();
-            searchIn = f.jTextArea[index].getText().toLowerCase();
+            searchIn = f.textArea.get(index).getText().toLowerCase();
         }
         int loc = searchIn.indexOf(searchWord, r);
         if(loc>=0)
         {
             r = loc+1;
-            f.jTextArea[index].replaceRange(replaceBy, loc,loc+ searchWord.length());
+            f.textArea.get(index).replaceRange(replaceBy, loc,loc+ searchWord.length());
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -415,12 +415,12 @@ int index=0;
         if(isCaseMatch)
         {
             searchWord = jTextField2.getText();
-            searchIn = f.jTextArea[index].getText();
+            searchIn =f.textArea.get(index).getText();
         }
         else
         {
             searchWord = jTextField2.getText().toLowerCase();
-            searchIn = f.jTextArea[index].getText().toLowerCase();
+            searchIn = f.textArea.get(index).getText().toLowerCase();
         }
         int loc ;
         while(true)
@@ -428,7 +428,7 @@ int index=0;
             loc = searchIn.indexOf(searchWord, r);
             if(loc==-1) break;
             r = loc+1;
-            f.jTextArea[index].replaceRange(replaceBy, loc,loc+ searchWord.length());
+            f.textArea.get(index).replaceRange(replaceBy, loc,loc+ searchWord.length());
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 

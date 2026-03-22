@@ -10,20 +10,31 @@ import static javax.swing.JOptionPane.QUESTION_MESSAGE;
  *
  * @author NCRK (नवीन चौहान राजपूत खरदौनी)
  */
-public class JFrame1 extends javax.swing.JFrame{
+public class JFrame1 extends javax.swing.JFrame implements KeyListener
+{
 private Property pro ;
 
-    public JFrame1(Property pro) {
-        
-        //System.out.println(closedTab.length);
+    public JFrame1(Property pro) 
+    {
+        this.path = new  java.util.Vector<>();
+        this.filename = new java.util.Vector<>();
+        this.textArea = new java.util.Vector<>();
+        this.scrollPane = new java.util.Vector<>();
+        this.countTab = new java.util.Vector<>();
+        this.countSpace = new java.util.Vector<>();
         this.pro = pro;
-        setpathEmpty();
         initComponents();
         this.setBounds(this.pro.getRect());
-        //this.setBounds(new Rectangle(50,50,400,400));
-        //this.setIconImage(new ImageIcon(getClass().getResource(font_name)));
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("Images/all.gif"));
-        setTitle("NCRK :: TextEditor v3.0"); //NOI18N
+        setTitle("NCRK :: TextEditor v4.0");
+        if(this.pro.getFont_style()==1) 
+        {
+            jToggleButton1.setSelected(true);
+        }
+        else if(this.pro.getFont_style()==2)
+        {
+            jToggleButton2.setSelected(true);
+        }
        jTabbedPane2.setTabPlacement(JTabbedPane.TOP);
        {
         ++i;
@@ -115,13 +126,6 @@ private Property pro ;
         jMenuItem23 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem35 = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
-        jMenu10 = new javax.swing.JMenu();
-        jMenuItem28 = new javax.swing.JMenuItem();
-        jMenuItem29 = new javax.swing.JMenuItem();
-        jMenuItem24 = new javax.swing.JMenuItem();
-        jMenuItem25 = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
         jMenu8 = new javax.swing.JMenu();
 
         jMenuItem18.setText("null");
@@ -675,34 +679,6 @@ private Property pro ;
 
         jMenuBar1.add(jMenu5);
 
-        jMenu6.setText("Language");
-
-        jMenu10.setText("C");
-
-        jMenuItem28.setText("C");
-        jMenuItem28.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem28ActionPerformed(evt);
-            }
-        });
-        jMenu10.add(jMenuItem28);
-
-        jMenuItem29.setText("C++");
-        jMenu10.add(jMenuItem29);
-
-        jMenu6.add(jMenu10);
-
-        jMenuItem24.setText("LISP");
-        jMenu6.add(jMenuItem24);
-
-        jMenuItem25.setText("Java");
-        jMenu6.add(jMenuItem25);
-
-        jMenuBar1.add(jMenu6);
-
-        jMenu7.setText("Run");
-        jMenuBar1.add(jMenu7);
-
         jMenu8.setText("About Us");
         jMenu8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -740,13 +716,13 @@ private Property pro ;
          
          setI(getI() + 1);
         setNi(getNi() + 1);
-        if(getActiveTab()<getMaxTab()) _new();
+        if(getI()<getMaxTab()) _new();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
          
         setI(getI() + 1);
-       if(getActiveTab()<getMaxTab()) {
+       if(getI()<getMaxTab()) {
            _open(true);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -791,10 +767,6 @@ private Property pro ;
     private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
          
     }//GEN-LAST:event_jMenuItem20ActionPerformed
-
-    private void jMenuItem28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem28ActionPerformed
-         
-    }//GEN-LAST:event_jMenuItem28ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
          
@@ -885,8 +857,8 @@ private Property pro ;
             getjToggleButton2().setSelected(false);
             getPro().setFont_style(1);
         }
-        for(int temp =0;temp<getMaxTab();temp++) {
-            jTextArea[temp].setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
+        for(int temp =0;temp<getI();temp++) {
+            textArea.get(temp).setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
         }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
@@ -907,8 +879,8 @@ private Property pro ;
             getjToggleButton1().setSelected(false);
             getPro().setFont_style(2);
         }
-        for(int temp =0;temp<getMaxTab();temp++) {
-            jTextArea[temp].setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
+        for(int temp =0;temp<getI();temp++) {
+            textArea.get(temp).setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
         }
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
@@ -1257,16 +1229,19 @@ private Property pro ;
     }//GEN-LAST:event_jMenuItem42ActionPerformed
 void _new()
 {
-        setActiveTab(getActiveTab() + 1);
-        jTextArea[getI()] = new JTextArea("");
-        jScrollPane[getI()] = new JScrollPane();
-        jScrollPane[getI()].setViewportView(jTextArea[getI()]);
-        jTextArea[getI()].setTabSize(2);jTextArea[getI()].grabFocus();
-        getjTabbedPane2().addTab("New "+getNi(),jScrollPane[getI()]);
-        jTextArea[getI()].setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
-        jTextArea[getI()].setBackground(getPro().getBgcolor());
-        jTextArea[getI()].setForeground(getPro().getFgcolor());
-        jTextArea[getI()].select(0, 0);
+        this.textArea.add(getI(), new JTextArea("")) ;
+        this.scrollPane.add(getI(), new JScrollPane());
+        this.scrollPane.get(getI()).setViewportView(this.textArea.get(getI()));
+        this.textArea.get(getI()).setTabSize(4);
+        this.textArea.get(getI()).grabFocus();
+        this.getjTabbedPane2().addTab("New "+getNi(),this.scrollPane.get(getI()));
+        this.textArea.get(getI()).setFont(new Font(getPro().getFont_name(), this.getPro().getFont_style(), getPro().getFont_size()));
+        this.textArea.get(getI()).setBackground(getPro().getBgcolor());
+        this.textArea.get(getI()).setForeground(getPro().getFgcolor());
+        this.textArea.get(getI()).select(0, 0);
+        this.textArea.get(getI()).addKeyListener(this);
+        this.path.add("");
+        this.filename.add("");
 }
     
 void _open(boolean _new)
@@ -1281,39 +1256,35 @@ void _open(boolean _new)
         {
             if(_new)
             {
-            path[getI()] = getO().getDirectory()+getO().getFile(); 
-            filename[getI()] = getO().getFile();
-            setActiveTab(getActiveTab() + 1);
+                path.add(getI(),getO().getDirectory()+getO().getFile());
+                filename.add(getI(),getO().getFile());
             }
             byte[] b;
-            try ( //for byte oriented i/o
-                    FileInputStream fin = new FileInputStream(path[getI()])) {
-                int n = fin.available();
-                b = new byte[n];
-                fin.read(b,0,n); 
-            /* for character oriented i/o
-            FileReader fr = new java.io.FileReader(path[i]);
-            fr.read(ch);
-            fr.close();
-            */
+            try 
+            ( //for byte oriented i/o
+                    FileInputStream fin = new FileInputStream(path.get(getI()))) 
+            {
+                    int n = fin.available();
+                    b = new byte[n];
+                    fin.read(b,0,n); 
                 String str = new String(b);
                 
-                jTextArea[getI()] = new JTextArea("");
-                jTextArea[getI()].setTabSize(2);jTextArea[getI()].grabFocus();
-                jTextArea[getI()].setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
-                jTextArea[getI()].setBackground(getPro().getBgcolor());
-                jTextArea[getI()].setForeground(getPro().getFgcolor());
-                jTextArea[getI()].setText(str);
-                jTextArea[getI()].setTabSize(2);
-                jScrollPane[getI()] = new JScrollPane();
-                jScrollPane[getI()].setViewportView(jTextArea[getI()]);
-                getjTabbedPane2().addTab(getO().getFile(), jScrollPane[getI()]);
-                jScrollPane[getI()].setEnabled(true);
-                jScrollPane[getI()].setWheelScrollingEnabled(true);
-        }catch(IOException e)
+                this.textArea.add(getI(), new JTextArea(""));
+                this.textArea.get(getI()).setTabSize(2); this.textArea.get(getI()).grabFocus();
+                this.textArea.get(getI()).setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
+                this.textArea.get(getI()).setBackground(getPro().getBgcolor());
+                this.textArea.get(getI()).setForeground(getPro().getFgcolor());
+                this.textArea.get(getI()).setText(str);
+                this.textArea.get(getI()).setTabSize(4);
+                this.scrollPane.add(getI(), new JScrollPane());
+                this.scrollPane.get(getI()).setViewportView( this.textArea.get(getI()));
+                this.getjTabbedPane2().addTab(getO().getFile(), this.scrollPane.get(getI()));
+                this.scrollPane.get(getI()).setEnabled(true);
+                this.scrollPane.get(getI()).setWheelScrollingEnabled(true);
+            }catch(IOException e)
         {
-            javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to read the file\n "+path[getI()]+e,"Error",0);
-                jTextArea[getI()].setText("");
+            javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to read the file\n "+path.get(getI())+e,"Error",0);
+                this.textArea.get(getI()).setText("");
         }
         }
         else {
@@ -1323,33 +1294,30 @@ void _open(boolean _new)
 
 void _save(int i)
 {
-	if(path[i].equals(""))
+	if(path.get(i).equals(""))
         {
             setO(new FileDialog(this,"Save",1));
             getO().setVisible(true);   
         if( getO().getFile()!=null)
         {
-                filename[i] = getO().getFile();
-                path[i] = getO().getDirectory()+filename[i];
+                filename.setElementAt(getO().getFile(), i);
+                path.setElementAt(getO().getDirectory()+filename.get(i), i);
         }
         else
         {
             return;
         }
-	}
-        //System.out.println(o.getFile());
-        
-                
-            try (FileOutputStream fout = new FileOutputStream(path[i])) {
-                String txt = jTextArea[i].getText();
+	}    
+        try (FileOutputStream fout = new FileOutputStream(path.get(i))) {
+                String txt =  textArea.get(i).getText();
                 byte[] b = txt.getBytes();
                 fout.write(b,0,b.length);
             
-            getjTabbedPane2().setTitleAt(i, filename[i]);
+            getjTabbedPane2().setTitleAt(i, filename.get(i));
         
         }catch(Exception e)
         {
-            javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to save the content into the file\n "+path[i]+e,"Error",0);
+            javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to save the content into the file\n "+path.get(i)+e,"Error",0);
         }
         
         
@@ -1362,139 +1330,43 @@ void _save(int i)
         getO().setVisible(true);
         if(getO().getFile()!=null)
         {
-            filename[i] = getO().getFile();
-            path[i] = getO().getDirectory()+filename[i];
-
-            try (FileOutputStream fout = new FileOutputStream(path[i])) {
-                String txt = jTextArea[i].getText();
-                byte[] b = txt.getBytes();
-                fout.write(b,0,b.length);
-            
-                getjTabbedPane2().setTitleAt(i, filename[i]);
+            filename.setElementAt(getO().getFile(), i);
+            path.setElementAt(getO().getDirectory()+filename.get(i), i);
+            try (FileOutputStream fout = new FileOutputStream(path.get(i))) {
+            String txt = textArea.get(i).getText();
+            byte[] b = txt.getBytes();
+            fout.write(b,0,b.length);
+            getjTabbedPane2().setTitleAt(i,filename.get(i));
         }catch(IOException e)
         {
-            javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to save the content into the file\n "+path[i]+e,"Error",0);
+            javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to save the content into the file\n "+path.get(i)+e,"Error",0);
         }
         }
                
 }
-     
     void _saveAll()
     {
-        for(int temp = 0;temp<getMaxTab();temp++)
+        for(int temp = 0;temp<=getI();temp++)
         {
-            if(!path[temp].equals(""))
-            {
-                try
-                {            
-                    try (FileOutputStream fout = new FileOutputStream(path[temp])) {
-                        String txt = jTextArea[temp].getText();
-                        byte[] b = txt.getBytes();
-                        fout.write(b,0,b.length);
-                    }
-                }catch(IOException e)
-                {
-                   // javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to save the content into the file\n "+path[i]+e,"Error",0);
-                }
-            }
+            this._save(temp);
         }
     }
-    /*
-     void _close()
-	{
-            setActiveTab(getActiveTab()-1);
-            int si =getjTabbedPane2().getSelectedIndex();
-            if(si==-1) return;
-		if(!jTextArea[si].getText().equals(""))
-		{
-			//int choice = JOptionPane.showConfirmDialog(this,"Do you want to save the changes before exiting ?");
-			//if(choice == 0) _save(si);
-		}
-		for(int index=si;index<=getI();index++)
-                {
-                    path[index] = path[index+1];
-                    filename[index] = filename[index+1];
-                    refreshAfterClose(index);
-                }
-		//path[si]="";
-		//setTitle("Text Editor");
-                getjTabbedPane2().remove(getjTabbedPane2().getTabCount()-1);
-		
-	}
 
-    void refreshAfterClose(int index)
-    {
-            byte[] b;
-            if(!path[index].equals(""))
-            try (FileInputStream fin = new FileInputStream(path[i])) {
-                int n = fin.available();
-                b = new byte[n];
-                fin.read(b,0,n);
-                String str = new String(b);
-                jTextArea[index].setText(str);
-                jTabbedPane2.setTitleAt(index, filename[index]);
-            }
-            catch(Exception e)
-            {
-            }
-            
-    }
-   */
-    
     void _close()
 	{
-            setActiveTab(getActiveTab() - 1);
-            int si =getjTabbedPane2().getSelectedIndex();
+            int si = getjTabbedPane2().getSelectedIndex();
             if(si==-1) {
                 return;
             }
-            closedTop++;
-            closedTab[closedTop]=si;
-            getjTabbedPane2().removeAll();
-            refreshAfterClose();
-	
+            this.setI(this.getI()-1);
+            this.textArea.remove(si);
+            this.scrollPane.remove(si);
+            path.remove(si);
+            filename.remove(si);
+            getjTabbedPane2().remove(si);
 	}
    
-    boolean searchInClosedTab(int i)
-    {
-        for(int item: closedTab)
-        {
-            if(item == i)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-    void refreshAfterClose()
-    {
-       try
-       {
-           for(int i=0;i<getI();i++)
-           {
-               boolean find = searchInClosedTab(i);
-               if(!find)
-               {
-                   if(filename[i].equals(""))
-                   {
-                       getjTabbedPane2().addTab("new"+i,jScrollPane[i]);
-                   }
-                   else
-                   {
-                        getjTabbedPane2().addTab(filename[i], jScrollPane[i]);
-                   }
-               }
-           }
-       }
-       catch(Exception e)
-       {
-           System.out.println(e);
-           JOptionPane.showMessageDialog(this, e);
-       }
-    }
-    
- 
-    void _closeAll()
+     void _closeAll()
     {
         int choice = JOptionPane.showConfirmDialog(this,"Do you want to save the changes before exiting exiting?");
 	if(choice == 0)
@@ -1505,42 +1377,30 @@ void _save(int i)
     void _cut()
     {
          int si =getjTabbedPane2().getSelectedIndex();
-        jTextArea[si].cut();
+         textArea.get(si).cut();
     }
     void _copy()
     {
          int si =getjTabbedPane2().getSelectedIndex();
-        jTextArea[si].copy();
+         textArea.get(si).copy();
     }
     void _paste()
     {
         int si =getjTabbedPane2().getSelectedIndex();
-        jTextArea[si].paste();
+        textArea.get(si).paste();
     }
     void _selectAll()
     {
         int si =getjTabbedPane2().getSelectedIndex();
-        jTextArea[si].selectAll();
+        textArea.get(si).selectAll();
     }
-
-void setpathEmpty()
-{
-        path= new String[getMaxTab()];
-    for(int n=0;n<getMaxTab();n++)
-    {
-            path[n] = "";
-            filename[n] = "";
-    }
-}
-
-
 void _zoomIn()
 {
 	if(getPro().getFont_size()<72)
 	{
             getPro().setFont_size(getPro().getFont_size() + 1);
-            for(int temp=0;temp<getMaxTab();temp++) {
-                jTextArea[temp].setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
+            for(int temp=0;temp<=getI();temp++) {
+                this.textArea.get(temp).setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
             }
         }
 }
@@ -1549,8 +1409,8 @@ void _zoomOut()
 	if(getPro().getFont_size()>12)
 	{
             getPro().setFont_size(getPro().getFont_size() - 1);
-            for(int temp=0;temp<getMaxTab();temp++) {
-                jTextArea[temp].setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
+            for(int temp=0;temp<=getI();temp++) {
+                this.textArea.get(temp).setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
             }
 	}
         
@@ -1558,23 +1418,6 @@ void _zoomOut()
 
 void _foregroundColorChooser()
 {
-    /*
-    JButton OK = new JButton("OK");
-    JButton CANCEL = new JButton("CANCEL");
-    foregroundColorChooser = new JColorChooser();
-    //jColorChooser1.add(OK);
-    //jColorChooser1.add(CANCEL);
-    javax.swing.JDialog colorDialog = new JDialog(this,"Color Chooser",true); 
-    colorDialog.setBounds(0, 0, 800, 500);
-    colorDialog.add(foregroundColorChooser);
-    colorDialog.setResizable(false);
-    colorDialog.setVisible(true);
-    fgcolor = foregroundColorChooser.getColor();
-    for(int temp = 0;temp<=i;temp++)
-            {
-                jTextArea[temp].setForeground(fgcolor);
-            }
-    */
     new ForegroundColorChooser(this, this).setVisible(true);
 }
 
@@ -1582,24 +1425,6 @@ void _foregroundColorChooser()
 
 void _backgroundColorChooser()
 {
-   
-    /*
-    JButton OK = new JButton("OK");
-    JButton CANCEL = new JButton("CANCEL");
-    backgroundColorChooser = new JColorChooser();
-    //jColorChooser1.add(OK);
-    //jColorChooser1.add(CANCEL);
-    javax.swing.JDialog colorDialog = new JDialog(this,"Color Chooser",true); 
-    colorDialog.setBounds(0, 0, 800, 500);
-    colorDialog.add(backgroundColorChooser);
-    colorDialog.setResizable(false);
-    colorDialog.setVisible(true);
-    bgcolor = backgroundColorChooser.getColor();
-    for(int temp = 0;temp<=i;temp++)
-            {
-                jTextArea[temp].setBackground(bgcolor);
-            }
-    */
    new BackgroundColorChooser(this, this).setVisible(true);
 }
 void _aboutus()
@@ -1615,14 +1440,14 @@ void _setFontStyle()
         {
             for(int temp = 0;temp<=getI();temp++)
             {
-                jTextArea[temp].setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
+                this.textArea.get(temp).setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
             }
         }
         else
         {
             for(int temp = 0;temp<=getI();temp++)
             {
-                jTextArea[temp].setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
+                this.textArea.get(temp).setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
             }
         }
 }
@@ -1633,37 +1458,68 @@ void _setFontStyle()
 	//Font
 	FontDialog f=new FontDialog( this);
 	f.setVisible(true);
-	//jTextArea[0].setFont(f.fnt);
 }
        
+       
+       /*
+        Key Event handler Functions
+       
+       */
+       public  void keyPressed(KeyEvent ke)
+       {
+           
+       }
+       public  void keyTyped(KeyEvent ke)
+       {
+           int keyCode = ke.getKeyCode();
+           boolean space = false;
+           boolean tab = false;
+           if(keyCode == KeyEvent.VK_TAB) tab = true;
+           else if(keyCode == KeyEvent.VK_SPACE) space = true;
+           else return;
+           int si = jTabbedPane2.getSelectedIndex();
+           if(space)
+           {
+               this.countSpace.set(si, this.countSpace.get(si)+1);
+           }
+           else
+           {
+               this.countTab.set(si, this.countTab.get(si));
+           }
+           
+       }
+       public  void keyReleased(KeyEvent ke)
+       {
+           
+       }
 void db_click_open(String [] args)
 {
    int j = 0;
     while(j<args.length)
     {
             setI(getI() + 1);
-            jTextArea[getI()] = new JTextArea("");
-            jTextArea[getI()].setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
-	    path[getI()]=args[j]; 
+            textArea.add(getI(), new JTextArea(""));
+            textArea.get(getI()).setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
+	    path.setElementAt( args[j],getI());
             byte[] b;
             try ( //for byte oriented i/o
-                FileInputStream fin = new FileInputStream(path[getI()])) {
+                FileInputStream fin = new FileInputStream((String)path.get(getI()))) {
                 int n = fin.available();
                 b = new byte[n];
                 fin.read(b,0,n);  
-            String str = new String(b);
-                jTextArea[getI()].setText(str);
-                jTextArea[getI()].setTabSize(2);
+                String str = new String(b);
+                textArea.get(getI()).setText(str);
+                textArea.get(getI()).setTabSize(2);
             
-                jScrollPane[getI()] = new JScrollPane();
-                jScrollPane[getI()].setViewportView(jTextArea[getI()]);
-                getjTabbedPane2().addTab(getO().getFile(), jScrollPane[getI()]);
-                jScrollPane[getI()].setEnabled(true);
-                jScrollPane[getI()].setWheelScrollingEnabled(rootPaneCheckingEnabled);
+                scrollPane.add(getI(), new JScrollPane());
+                scrollPane.get(getI()).setViewportView(textArea.get(getI()));
+                getjTabbedPane2().addTab(getO().getFile(), scrollPane.get(getI()));
+                scrollPane.get(getI()).setEnabled(true);
+                scrollPane.get(getI()).setWheelScrollingEnabled(rootPaneCheckingEnabled);
         }catch(IOException e)
         {
-            javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to read the file\n "+path[getI()]+e,"Error",0);
-                jTextArea[getI()].setText("");
+            javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to read the file\n "+path.get(getI())+e,"Error",0);
+                textArea.get(getI()).setText("");
                 setI(getI() - 1);
         }
         
@@ -1711,7 +1567,7 @@ public javax.swing.JTabbedPane getjTabbedPane2()
         
         try
         {
-            Thread.sleep(100);
+            Thread.sleep(1000);
             
         }
         catch(InterruptedException e)
@@ -1735,23 +1591,20 @@ public javax.swing.JTabbedPane getjTabbedPane2()
         }
         
     }
-    
- int[] closedTab = new int[200]; //contains the index of closed tab
- int closedTop = -1;
+
 private int MaxTab = 200;
 private FileDialog o;
-String path[]= new String[MaxTab];
-String filename[]= new String[MaxTab];
+java.util.Vector<String> path;
+java.util.Vector<String> filename;
+java.util.Vector<Integer> countTab;
+java.util.Vector<Integer> countSpace;
 private int i=-1;
 private int ni;//for indexing of New Tab (un-Saved)
-JTextArea jTextArea[] = new JTextArea[MaxTab];
-JScrollPane jScrollPane[] = new JScrollPane[MaxTab];
+java.util.Vector<JTextArea> textArea ;
+java.util.Vector<JScrollPane> scrollPane ;
 private String copiedText = "";
-//Font font = new Font("Arial",0,15);
 private GraphicsEnvironment g;
-
-private char[] ch;
-private int activeTab=0;
+//private char[] ch;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
@@ -1769,15 +1622,12 @@ private int activeTab=0;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
@@ -1797,12 +1647,8 @@ private int activeTab=0;
     private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem23;
-    private javax.swing.JMenuItem jMenuItem24;
-    private javax.swing.JMenuItem jMenuItem25;
     private javax.swing.JMenuItem jMenuItem26;
     private javax.swing.JMenuItem jMenuItem27;
-    private javax.swing.JMenuItem jMenuItem28;
-    private javax.swing.JMenuItem jMenuItem29;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem30;
     private javax.swing.JMenuItem jMenuItem31;
@@ -1935,33 +1781,6 @@ private int activeTab=0;
         this.g = g;
     }
 
-    /**
-     * @return the ch
-     */
-    public char[] getCh() {
-        return ch;
-    }
-
-    /**
-     * @param ch the ch to set
-     */
-    public void setCh(char[] ch) {
-        this.ch = ch;
-    }
-
-    /**
-     * @return the activeTab
-     */
-    public int getActiveTab() {
-        return activeTab;
-    }
-
-    /**
-     * @param activeTab the activeTab to set
-     */
-    public void setActiveTab(int activeTab) {
-        this.activeTab = activeTab;
-    }
 
     /**
      * @return the jButton1
@@ -2187,19 +2006,6 @@ private int activeTab=0;
         this.jMenu1 = jMenu1;
     }
 
-    /**
-     * @return the jMenu10
-     */
-    public javax.swing.JMenu getjMenu10() {
-        return jMenu10;
-    }
-
-    /**
-     * @param jMenu10 the jMenu10 to set
-     */
-    public void setjMenu10(javax.swing.JMenu jMenu10) {
-        this.jMenu10 = jMenu10;
-    }
 
     /**
      * @return the jMenu11
@@ -2269,34 +2075,6 @@ private int activeTab=0;
      */
     public void setjMenu5(javax.swing.JMenu jMenu5) {
         this.jMenu5 = jMenu5;
-    }
-
-    /**
-     * @return the jMenu6
-     */
-    public javax.swing.JMenu getjMenu6() {
-        return jMenu6;
-    }
-
-    /**
-     * @param jMenu6 the jMenu6 to set
-     */
-    public void setjMenu6(javax.swing.JMenu jMenu6) {
-        this.jMenu6 = jMenu6;
-    }
-
-    /**
-     * @return the jMenu7
-     */
-    public javax.swing.JMenu getjMenu7() {
-        return jMenu7;
-    }
-
-    /**
-     * @param jMenu7 the jMenu7 to set
-     */
-    public void setjMenu7(javax.swing.JMenu jMenu7) {
-        this.jMenu7 = jMenu7;
     }
 
     /**
@@ -2559,41 +2337,6 @@ private int activeTab=0;
     }
 
     /**
-     * @param jMenuItem23 the jMenuItem23 to set
-     */
-    public void setjMenuItem23(javax.swing.JMenuItem jMenuItem23) {
-        this.jMenuItem23 = jMenuItem23;
-    }
-
-    /**
-     * @return the jMenuItem24
-     */
-    public javax.swing.JMenuItem getjMenuItem24() {
-        return jMenuItem24;
-    }
-
-    /**
-     * @param jMenuItem24 the jMenuItem24 to set
-     */
-    public void setjMenuItem24(javax.swing.JMenuItem jMenuItem24) {
-        this.jMenuItem24 = jMenuItem24;
-    }
-
-    /**
-     * @return the jMenuItem25
-     */
-    public javax.swing.JMenuItem getjMenuItem25() {
-        return jMenuItem25;
-    }
-
-    /**
-     * @param jMenuItem25 the jMenuItem25 to set
-     */
-    public void setjMenuItem25(javax.swing.JMenuItem jMenuItem25) {
-        this.jMenuItem25 = jMenuItem25;
-    }
-
-    /**
      * @return the jMenuItem26
      */
     public javax.swing.JMenuItem getjMenuItem26() {
@@ -2620,35 +2363,6 @@ private int activeTab=0;
     public void setjMenuItem27(javax.swing.JMenuItem jMenuItem27) {
         this.jMenuItem27 = jMenuItem27;
     }
-
-    /**
-     * @return the jMenuItem28
-     */
-    public javax.swing.JMenuItem getjMenuItem28() {
-        return jMenuItem28;
-    }
-
-    /**
-     * @param jMenuItem28 the jMenuItem28 to set
-     */
-    public void setjMenuItem28(javax.swing.JMenuItem jMenuItem28) {
-        this.jMenuItem28 = jMenuItem28;
-    }
-
-    /**
-     * @return the jMenuItem29
-     */
-    public javax.swing.JMenuItem getjMenuItem29() {
-        return jMenuItem29;
-    }
-
-    /**
-     * @param jMenuItem29 the jMenuItem29 to set
-     */
-    public void setjMenuItem29(javax.swing.JMenuItem jMenuItem29) {
-        this.jMenuItem29 = jMenuItem29;
-    }
-
     /**
      * @return the jMenuItem3
      */

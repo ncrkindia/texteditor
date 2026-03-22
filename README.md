@@ -1,6 +1,6 @@
-# NCRK TextEditor beta-v0.3.1
+# NCRK TextEditor beta-v0.4.0
 
-A lightweight, simple Desktop Text Editor built using Java AWT and Swing. This is the **beta-v0.3.1 release**, offering core text editing functionalities similar to classic Notepad.
+A lightweight, simple Desktop Text Editor built using Java AWT and Swing. This is the **beta-v0.4.0 release**, offering core text editing functionalities similar to classic Notepad.
 
 ## 🚀 Features
 
@@ -17,6 +17,14 @@ A lightweight, simple Desktop Text Editor built using Java AWT and Swing. This i
 *   **Architecture**: Modular GUI using NetBeans Form Builder and decoupled Java dialogs
 
 ## 💻 Getting Started
+
+### 🌐 Java Web Start (New in v0.4.0)
+You can launch the application straight from the web or desktop using the provided Java Web Start launcher.
+1. Navigate to the `dist` directory.
+2. Execute the `launch.jnlp` file using your system's Java Web Start client:
+   ```bash
+   javaws launch.jnlp
+   ```
 
 ### 📦 Running the Pre-compiled JAR (Recommended)
 You can directly run the editor without compiling the source code using the distributed JAR file.
@@ -53,6 +61,11 @@ You can directly run the editor without compiling the source code using the dist
 *   **Official Website**: [www.ncrkindia.in](http://www.ncrkindia.in)
 
 ## 🆕 Changelog
+
+### beta-v0.4.0
+*   **Java Web Start**: Generated `launch.jnlp` in the `dist` directory, allowing the application to be natively deployed and launched via Java Web Start.
+*   **UI Properties & Assets**: Refined the NetBeans form components (`JFrame1.form`, `Search.form`), fixed properties, and updated GUI image assets (`3.jpg`).
+*   **Build Subsystem**: Refactored the Ant configurations (`nbproject`, `build.xml`) to support the new JNLP deployment targets.
 
 ### beta-v0.3.1
 *   **Release Artifacts**: Shipped a pre-compiled, directly executable binary (`dist/TextEditor_v3.1.jar`) for instant out-of-the-box usage.

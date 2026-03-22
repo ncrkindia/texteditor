@@ -98,7 +98,7 @@ class BackgroundColorChooser extends javax.swing.JDialog {
         outer.getPro().setBgcolor(jColorChooser1.getColor());
 
         for (int temp = 0; temp <= outer.getI(); temp++) {
-            outer.jTextArea[temp].setBackground(outer.getPro().getBgcolor());
+            outer.textArea.get(temp).setBackground(outer.getPro().getBgcolor());
         }
     }
 

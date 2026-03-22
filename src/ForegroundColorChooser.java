@@ -96,7 +96,7 @@ class ForegroundColorChooser extends javax.swing.JDialog {
         outer.getPro().setFgcolor(jColorChooser1.getColor());
 
         for (int temp = 0; temp <= outer.getI(); temp++) {
-            outer.jTextArea[temp].setForeground(outer.getPro().getFgcolor());
+            outer.textArea.get(temp).setForeground(outer.getPro().getFgcolor());
         }
     }
 

@@ -11,7 +11,7 @@ import java.io.ObjectOutputStream;
  * @author NCRK (नवीन चौहान राजपूत खरदौनी)
  */
 public class Property implements java.io.Serializable {
-    private static String path = System.getProperty("user.home") + "\\NCRK\\TextEditor\\v3.1";
+    private static String path = System.getProperty("user.home") + "\\NCRK\\TextEditor\\v4.0";
     private static File   file;
     private Color         bgcolor;
     private char[]        ch;
@@ -43,7 +43,7 @@ public class Property implements java.io.Serializable {
     }
 
     /**
-     * @param aPath the path to set
+     * @param arect
      */
     public  void setRect(Rectangle arect) {
         rect = arect;
@@ -88,7 +88,7 @@ public class Property implements java.io.Serializable {
                 getFile().mkdirs();
             }
 
-            setFile(new File(path = getPath() + "\\NCRK_TextEditor_v3.1_Property.ncrk"));
+            setFile(new File(path = getPath() + "\\NCRK_TextEditor_v4.0_Property.ncrk"));
 
             if (getFile().exists() && RESET) {
                 System.out.println("File exist");

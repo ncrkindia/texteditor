@@ -9,24 +9,24 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 /**
  *
  * @author NCRK (नवीन चौहान राजपूत खरदौनी)
  */
 class FontDialog extends JDialog {
-    private Choice  ch1 = new Choice();
-    private Choice  ch2 = new Choice();
-    private Choice  ch3 = new Choice();
-    private JButton b1  = new JButton("OK");
+    private Choice  ch1 = new Choice(); JLabel l1 = new JLabel("Font-Family");
+    private Choice  ch2 = new Choice();JLabel l2 = new JLabel("Font-Style");
+    private Choice  ch3 = new Choice();JLabel l3 = new JLabel("Font-Size");
+    private JButton b1  = new JButton("OK");JButton b2  = new JButton("CANCEL");
     private Font    fnt;
     private JFrame1 outer;
 
     FontDialog(final JFrame1 outer) {
         super(outer, "Choose Font", true);
         this.outer = outer;
-        setSize(350, 200);
+        setSize(300, 250);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 dispose();
@@ -38,14 +38,22 @@ class FontDialog extends JDialog {
 
         setLocation((screensize.width / 2) - (getSize().width / 2), (screensize.height / 2) - (getSize().height / 2));
         setLayout(null);
-        ch1.setBounds(50, 50, 150, 25);
+        ch1.setBounds(100, 50, 150, 25);
         add(ch1);
-        ch2.setBounds(50, 90, 150, 25);
+        l1.setBounds(30, 50, 150, 25);
+        add(l1);
+        ch2.setBounds(100, 90, 150, 25);
         add(ch2);
-        ch3.setBounds(50, 130, 150, 25);
+        l2.setBounds(30, 90, 150, 25);
+        add(l2);
+        ch3.setBounds(100, 130, 150, 25);
         add(ch3);
-        b1.setBounds(220, 50, 100, 25);
+        l3.setBounds(30, 130, 150, 25);
+        add(l3);
+        b1.setBounds(30,160, 100, 25);
         add(b1);
+        b2.setBounds(150,160, 100, 25);
+        add(b2);
         ch2.add("Plain");
         ch2.add("Bold");
         ch2.add("Italic");
@@ -68,7 +76,17 @@ class FontDialog extends JDialog {
                 b1_Click(e);
             }
         });
-
+        b2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+        ch1.select(outer.getPro().getFont_name());
+        ch3.select(outer.getPro().getFont_size()+"");
+        
+        if(outer.getPro().getFont_style()==0) ch2.select("Plain");
+        else if(outer.getPro().getFont_style()==1) ch2.select("Bold");
+        else if(outer.getPro().getFont_style()==2) ch2.select("Italic");
         // ch1.addItemListener(new ItemListener(){public void itemStateChanged(ItemEvent e){changefont(e);}});
         // ch2.addItemListener(new ItemListener(){public void itemStateChanged(ItemEvent e){changefont(e);}});
         // ch3.addItemListener(new ItemListener(){public void itemStateChanged(ItemEvent e){changefont(e);}});
