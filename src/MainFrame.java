@@ -36,7 +36,7 @@ private Property pro ;
         {
             
         }
-        setTitle("NCRK :: TextEditor v1.0.1");
+        setTitle("NCRK :: TextEditor v1.0.2");
         new TimeDateUpdationThread(this.jLabel1);
         _resigisterToolTipsText();
         if(this.pro.getFont_style()==1) 

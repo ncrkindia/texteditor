@@ -90,7 +90,7 @@ public class AboutUs extends JDialog {
                    {
                        try
                         {
-                            Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.1\\mailAtEngineer.bat");
+                            Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.2\\mailAtEngineer.bat");
                         }
                         catch(Exception e)
                         {

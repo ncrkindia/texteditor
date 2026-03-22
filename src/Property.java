@@ -11,7 +11,7 @@ import java.io.ObjectOutputStream;
  * @author NCRK (नवीन चौहान राजपूत खरदौनी)
  */
 public class Property implements java.io.Serializable {
-    private static String path = System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.1";
+    private static String path = System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.2";
     private static File   file;
     private Color         bgcolor;
     private char[]        ch;
@@ -39,19 +39,19 @@ public class Property implements java.io.Serializable {
         rect = new Rectangle(0,0,screensize.width,screensize.width);
         try
         {
-            File f =  new File(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.1");
+            File f =  new File(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.2");
             f.mkdirs();
-            f = new File(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.1\\visit.bat");
+            f = new File(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.2\\visit.bat");
             FileOutputStream fout = new FileOutputStream(f);
             fout.write("start http://sourceForge.net/NCRKrajput".getBytes());
             fout.close();
             
-            f = new File(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.1\\mailAtEngineer.bat");
+            f = new File(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.2\\mailAtEngineer.bat");
             fout = new FileOutputStream(f);
             fout.write("start mailto:ncrkrajput@engineer.com".getBytes());
             fout.close();
             
-            f = new File(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.1\\mailAtProgrammer.bat");
+            f = new File(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.2\\mailAtProgrammer.bat");
             fout = new FileOutputStream(f);
             fout.write("start mailto:ncrkrajput@programmer.net".getBytes());
             fout.close();
@@ -117,7 +117,7 @@ public class Property implements java.io.Serializable {
             }
             if(!RESET)
             {
-                path  = path + "\\NCRK_TextEditor_v1.0.1_Property.ncrk" ;
+                path  = path + "\\NCRK_TextEditor_v1.0.2_Property.ncrk" ;
             }
             file = new File(path);
 
