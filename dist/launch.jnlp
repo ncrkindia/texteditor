@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <jnlp href="launch.jnlp" spec="1.0+">
     <information>
-        <title>TextEditor v4.0</title>
-        <vendor>NCRK</vendor>
+        <title>TextEditor v4.2</title>
+        <vendor>Naveen Chauhan Rajput Khardouni</vendor>
         <homepage href=""/>
-        <description>TextEditor v4.0</description>
-        <description kind="short">TextEditor v4.0</description>
-    <icon href="3.jpg" kind="splash"/>
-<offline-allowed/>
-</information>
-    <update check="background"/>
+        <description>TextEditor v4.2</description>
+        <description kind="short">TextEditor v4.2</description>
+    </information>
+    <update check="always"/>
     <resources>
         <j2se version="1.8+"/>
-        <jar href="TextEditor_v4.0.jar" main="true"/>
-    <jar href="lib/beansbinding-1.2.1.jar"/>
-</resources>
-    <application-desc main-class="JFrame1">
+        <jar href="TextEditor_v4.2.jar" main="true"/>
+    </resources>
+    <application-desc main-class="MainFrame">
     </application-desc>
 </jnlp>

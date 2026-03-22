@@ -26,7 +26,7 @@ private Property pro ;
         initComponents();
         this.setBounds(this.pro.getRect());
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("Images/all.gif"));
-        setTitle("NCRK :: TextEditor v4.1");
+        setTitle("NCRK :: TextEditor v4.2");
         new TimeDateUpdationThread(this.jLabel1);
         
         if(this.pro.getFont_style()==1) 
@@ -338,7 +338,7 @@ private Property pro ;
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1021, Short.MAX_VALUE)
+            .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1013, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -739,10 +739,10 @@ private Property pro ;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(1, 1, 1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1248,15 +1248,21 @@ void _open(boolean _new)
                 path.add(getI(),getO().getDirectory()+getO().getFile());
                 filename.add(getI(),getO().getFile());
             }
-            byte[] b;
+            
             try 
             ( //for byte oriented i/o
-                    FileInputStream fin = new FileInputStream(path.get(getI()))) 
+                    FileReader fin = new FileReader(path.get(getI()))) 
             {
-                    int n = fin.available();
-                    b = new byte[n];
-                    fin.read(b,0,n); 
-                String str = new String(b);
+                int size =0;
+                int temp=0;
+                do
+                {   
+                    size++;
+                    temp = fin.read();
+                }while(temp!=-1);
+                char[] ch = new char[size];
+                fin.read(ch, 0, size);
+                String str = new String(ch);
                 
                 this.textArea.add(getI(), new JTextArea(""));
                 this.textArea.get(getI()).setTabSize(2); this.textArea.get(getI()).grabFocus();
@@ -1297,11 +1303,9 @@ void _save(int i)
             return;
         }
 	}    
-        try (FileOutputStream fout = new FileOutputStream(path.get(i))) {
+        try (FileWriter fout = new FileWriter(path.get(i))) {
                 String txt =  textArea.get(i).getText();
-                byte[] b = txt.getBytes();
-                fout.write(b,0,b.length);
-            
+                fout.write(txt);
             getjTabbedPane2().setTitleAt(i, filename.get(i));
         
         }catch(Exception e)
@@ -1387,7 +1391,7 @@ void _zoomIn()
 {
 	if(getPro().getFont_size()<72)
 	{
-            getPro().setFont_size(getPro().getFont_size() + 1);
+            getPro().setFont_size(getPro().getFont_size() + 2);
             for(int temp=0;temp<=getI();temp++) {
                 this.textArea.get(temp).setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
             }
@@ -1397,7 +1401,7 @@ void _zoomOut()
 {
 	if(getPro().getFont_size()>12)
 	{
-            getPro().setFont_size(getPro().getFont_size() - 1);
+            getPro().setFont_size(getPro().getFont_size() - 2);
             for(int temp=0;temp<=getI();temp++) {
                 this.textArea.get(temp).setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
             }
@@ -1572,7 +1576,7 @@ public javax.swing.JTabbedPane getjTabbedPane2()
         
         try
         {
-            Thread.sleep(10000);
+            Thread.sleep(5000);
             
         }
         catch(InterruptedException e)

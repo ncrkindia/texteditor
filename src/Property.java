@@ -11,7 +11,7 @@ import java.io.ObjectOutputStream;
  * @author NCRK (नवीन चौहान राजपूत खरदौनी)
  */
 public class Property implements java.io.Serializable {
-    private static String path = System.getProperty("user.home") + "\\NCRK\\TextEditor\\v4.1";
+    private static String path = System.getProperty("user.home") + "\\NCRK\\TextEditor\\v4.2";
     private static File   file;
     private Color         bgcolor;
     private char[]        ch;
@@ -89,7 +89,7 @@ public class Property implements java.io.Serializable {
             }
             if(!RESET)
             {
-                path  = path + "\\NCRK_TextEditor_v4.1_Property.ncrk" ;
+                path  = path + "\\NCRK_TextEditor_v4.2_Property.ncrk" ;
             }
             file = new File(path);
 

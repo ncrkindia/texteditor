@@ -1,6 +1,6 @@
-# NCRK TextEditor beta-v0.4.1
+# NCRK TextEditor beta-v0.4.2
 
-A lightweight, simple Desktop Text Editor built using Java AWT and Swing. This is the **beta-v0.4.1 release**, offering core text editing functionalities similar to classic Notepad.
+A lightweight, simple Desktop Text Editor built using Java AWT and Swing. This is the **beta-v0.4.2 release**, offering core text editing functionalities similar to classic Notepad.
 
 ## 🚀 Features
 
@@ -61,6 +61,9 @@ You can directly run the editor without compiling the source code using the dist
 *   **Official Website**: [www.ncrkindia.in](http://www.ncrkindia.in)
 
 ## 🆕 Changelog
+
+### beta-v0.4.2
+*   **Build & Deployment**: Build-focused maintenance release. Iteratively updated the NetBeans build profiles (`nbproject/`, `build.xml`) and the generated Java Web Start deployment artifacts (`dist/launch.jnlp`). No structural Java code changes were introduced.
 
 ### beta-v0.4.1
 *   **Startup & UI Polish**: Refined the application startup sequence (`Starting.java`) and iteratively polished several GUI dialogs including the Background Color Chooser and the Search form.
