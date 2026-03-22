@@ -4,7 +4,7 @@ import java.awt.Font;
 import javax.swing.*;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-
+import java.awt.event.*;
 /**
  *
  * @author NCRK (नवीन चौहान राजपूत खरदौनी)
@@ -43,11 +43,63 @@ public class AboutUs extends JDialog {
         this.add(l3);
 
         JLabel l4 = new JLabel(" ncrkrajput@programmer.net  ");
+        l4.setToolTipText("Mail at : ncrkrajput@programmer.net");
+        l4.addMouseListener(
+                new java.awt.event.MouseAdapter()
+                {
+                   public void mouseEntered(MouseEvent evt)
+                   {
+                       l4.setForeground(Color.blue);
+                   }
+                   public void mouseExited(MouseEvent evt)
+                   {
+                       l4.setForeground(Color.black);
+                   }
+                   public void mouseClicked(MouseEvent evt)
+                   {
+                       try
+                        {
+                            Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.1\\mailAtProgrammer.bat");
+                        }
+                        catch(Exception e)
+                        {
+                            //JOptionPane.showMessageDialog(this, e, "Error",JOptionPane.INFORMATION_MESSAGE);
+                            System.out.println(e);
+                        }
+                   }
+                });
+        l4.setCursor(new java.awt.Cursor(Cursor.HAND_CURSOR));
         l4.setFont(new Font(null, 1, 15));
         l4.setBounds(200, 150, 400, 30);
         this.add(l4);
 
         JLabel l4_ = new JLabel(" ncrkrajput@engineer.com ");
+        l4_.setToolTipText("Mail at : ncrkrajput@engineer.com");
+        l4_.addMouseListener(
+                new java.awt.event.MouseAdapter()
+                {
+                   public void mouseEntered(MouseEvent evt)
+                   {
+                       l4_.setForeground(Color.blue);
+                   }
+                   public void mouseExited(MouseEvent evt)
+                   {
+                       l4_.setForeground(Color.black);
+                   }
+                   public void mouseClicked(MouseEvent evt)
+                   {
+                       try
+                        {
+                            Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.1\\mailAtEngineer.bat");
+                        }
+                        catch(Exception e)
+                        {
+                            //JOptionPane.showMessageDialog(this, e, "Error",JOptionPane.INFORMATION_MESSAGE);
+                            System.out.println(e);
+                        }
+                   }
+                });
+        l4_.setCursor(new java.awt.Cursor(Cursor.HAND_CURSOR));
         l4_.setFont(new Font(null, 1, 15));
         l4_.setBounds(200, 185, 400, 30);
         this.add(l4_);
@@ -65,7 +117,7 @@ public class AboutUs extends JDialog {
         l7.setBounds(0, 270, 200, 30);
         this.add(l7);
 
-        JLabel l8 = new JLabel("v1.0.0  ");
+        JLabel l8 = new JLabel("v1.0.1  ");
         l8.setFont(new Font(null, 1, 15));
         l8.setBounds(200, 270, 100, 30);
         this.add(l8);
@@ -75,6 +127,32 @@ public class AboutUs extends JDialog {
         this.add(l9);
 
         JLabel l10 = new JLabel("SourceForge.net/NCRKrajput ");
+        l10.setToolTipText("Click for free Source code & apps at : http://SourceForge.net/NCRKrajput");
+        l10.addMouseListener(
+                new java.awt.event.MouseAdapter()
+                {
+                   public void mouseEntered(MouseEvent evt)
+                   {
+                       l10.setForeground(Color.blue);
+                   }
+                   public void mouseExited(MouseEvent evt)
+                   {
+                       l10.setForeground(Color.black);
+                   }
+                   public void mouseClicked(MouseEvent evt)
+                   {
+                       try
+                        {
+                            Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.1\\visit.bat");
+                        }
+                        catch(Exception e)
+                        {
+                            //JOptionPane.showMessageDialog(this, e, "Error",JOptionPane.INFORMATION_MESSAGE);
+                            System.out.println(e);
+                        }
+                   }
+                });
+        l10.setCursor(new java.awt.Cursor(Cursor.HAND_CURSOR));
         l10.setFont(new Font(null, 1, 15));
         l10.setBounds(200, 320, 400, 30);
         this.add(l10);
@@ -83,7 +161,7 @@ public class AboutUs extends JDialog {
         l11.setBounds(0, 370, 200, 30);
         this.add(l11);
         
-        JLabel l12 = new JLabel("Friday January 1, 2016");
+        JLabel l12 = new JLabel("Friday January 15, 2016");
         l12.setFont(new Font(null, 1, 15));
         l12.setBounds(200, 370, 400, 30);
         this.add(l12);

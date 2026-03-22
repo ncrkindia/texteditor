@@ -24,11 +24,21 @@ private Property pro ;
         this.countSpace = new java.util.Vector<>();
         this.pro = pro;
         initComponents();
+        this.jToolBar1.setFloatable(false);
+        this.jToolBar1.setRollover(true);
+        this._changeEncoding(this.pro.encodingName);
         this.setBounds(this.pro.getRect());
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage("Images/all.gif"));
-        setTitle("NCRK :: TextEditor v1.0.0");
+        try
+        {
+        //this.setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("images/title.jpg")));
+        }
+        catch(Exception e)
+        {
+            
+        }
+        setTitle("NCRK :: TextEditor v1.0.1");
         new TimeDateUpdationThread(this.jLabel1);
-        
+        _resigisterToolTipsText();
         if(this.pro.getFont_style()==1) 
         {
             jToggleButton1.setSelected(true);
@@ -44,6 +54,10 @@ private Property pro ;
         ++ni;
          _new();
        }
+       //this.textArea.get(i).setText(System.getProperty("user.dir"));
+       
+        _addTrayIcon();
+       
     }
 
     /**
@@ -64,7 +78,6 @@ private Property pro ;
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
@@ -114,6 +127,15 @@ private Property pro ;
         jMenu9 = new javax.swing.JMenu();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenuItem19 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jRadioButtonMenuItem2 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem4 = new javax.swing.JRadioButtonMenuItem();
+        jSeparator10 = new javax.swing.JPopupMenu.Separator();
+        jRadioButtonMenuItem6 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem5 = new javax.swing.JRadioButtonMenuItem();
+        jSeparator11 = new javax.swing.JPopupMenu.Separator();
+        jRadioButtonMenuItem3 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem21 = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
@@ -121,6 +143,7 @@ private Property pro ;
         jMenu5 = new javax.swing.JMenu();
         jMenuItem35 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem24 = new javax.swing.JMenuItem();
 
         jMenuItem18.setText("null");
@@ -209,17 +232,6 @@ private Property pro ;
             }
         });
         jToolBar1.add(jButton6);
-
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/print.gif"))); // NOI18N
-        jButton7.setFocusable(false);
-        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jButton7);
 
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cut.gif"))); // NOI18N
         jButton8.setFocusable(false);
@@ -563,6 +575,66 @@ private Property pro ;
 
         jMenuBar1.add(jMenu3);
 
+        jMenu7.setText("Encoding");
+
+        jRadioButtonMenuItem2.setSelected(true);
+        jRadioButtonMenuItem2.setText("US-ASCII");
+        jRadioButtonMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jRadioButtonMenuItem2);
+
+        jRadioButtonMenuItem4.setSelected(true);
+        jRadioButtonMenuItem4.setText("ISO-8859-1");
+        jRadioButtonMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jRadioButtonMenuItem4);
+        jMenu7.add(jSeparator10);
+
+        jRadioButtonMenuItem6.setSelected(true);
+        jRadioButtonMenuItem6.setText("UTF-8");
+        jRadioButtonMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jRadioButtonMenuItem6);
+
+        jRadioButtonMenuItem5.setSelected(true);
+        jRadioButtonMenuItem5.setText("UTF-16");
+        jRadioButtonMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jRadioButtonMenuItem5);
+        jMenu7.add(jSeparator11);
+
+        jRadioButtonMenuItem3.setSelected(true);
+        jRadioButtonMenuItem3.setText("UTF-16BE");
+        jRadioButtonMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jRadioButtonMenuItem3);
+
+        jRadioButtonMenuItem1.setSelected(true);
+        jRadioButtonMenuItem1.setText("UTF-16LE");
+        jRadioButtonMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jRadioButtonMenuItem1);
+
+        jMenuBar1.add(jMenu7);
+
         jMenu4.setText("Search");
 
         jMenuItem21.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
@@ -600,6 +672,14 @@ private Property pro ;
         jMenuBar1.add(jMenu5);
 
         jMenu6.setText("Help");
+
+        jMenuItem9.setText("visit for Latest Version and Detail");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem9);
 
         jMenuItem24.setText("About us");
         jMenuItem24.addActionListener(new java.awt.event.ActionListener() {
@@ -673,8 +753,7 @@ private Property pro ;
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        int choice = JOptionPane.showConfirmDialog(this,"Are you sure to exit ?", "Exit", 1,QUESTION_MESSAGE);
-        if(choice==0) System.exit(0);
+        _exit();
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
@@ -732,7 +811,7 @@ private Property pro ;
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-         
+          
         _cut();
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
@@ -741,8 +820,10 @@ private Property pro ;
         _copy();
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
+    // Add in v1.0.1
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-         
+        Search search = new Search(this,1);
+        search.setVisible(true);
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseEntered
@@ -998,13 +1079,46 @@ private Property pro ;
         this._aboutus();
     }//GEN-LAST:event_jMenuItem24ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-      _print();
-    }//GEN-LAST:event_jButton7ActionPerformed
-
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
       _saveAll();
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jRadioButtonMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem2ActionPerformed
+       _changeEncoding(this.jRadioButtonMenuItem2.getText());
+    }//GEN-LAST:event_jRadioButtonMenuItem2ActionPerformed
+
+    private void jRadioButtonMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem4ActionPerformed
+       _changeEncoding(this.jRadioButtonMenuItem4.getText());
+    }//GEN-LAST:event_jRadioButtonMenuItem4ActionPerformed
+
+    private void jRadioButtonMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem6ActionPerformed
+       _changeEncoding(this.jRadioButtonMenuItem6.getText());
+    }//GEN-LAST:event_jRadioButtonMenuItem6ActionPerformed
+
+    private void jRadioButtonMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem5ActionPerformed
+        _changeEncoding(this.jRadioButtonMenuItem5.getText());
+    }//GEN-LAST:event_jRadioButtonMenuItem5ActionPerformed
+
+    private void jRadioButtonMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem3ActionPerformed
+       _changeEncoding(this.jRadioButtonMenuItem3.getText());
+    }//GEN-LAST:event_jRadioButtonMenuItem3ActionPerformed
+
+    private void jRadioButtonMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem1ActionPerformed
+        _changeEncoding(this.jRadioButtonMenuItem1.getText());
+    }//GEN-LAST:event_jRadioButtonMenuItem1ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+
+       try
+       {
+        Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.1\\visit.bat");
+       }
+       catch(Exception e)
+       {
+           JOptionPane.showMessageDialog(this, e, "Error",JOptionPane.INFORMATION_MESSAGE);
+           System.out.println(e);
+       }
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
 void _new()
 {
         this.textArea.add(getI(), new JTextArea("")) ;
@@ -1013,6 +1127,7 @@ void _new()
         this.textArea.get(getI()).setTabSize(4);
         this.textArea.get(getI()).grabFocus();
         this.getjTabbedPane2().addTab("New "+getNi(),this.scrollPane.get(getI()));
+        this.getjTabbedPane2().setToolTipTextAt(getI(), "New "+getNi()); // Add in v1.0.1
         this.textArea.get(getI()).setFont(new Font(getPro().getFont_name(), this.getPro().getFont_style(), getPro().getFont_size()));
         this.textArea.get(getI()).setBackground(getPro().getBgcolor());
         this.textArea.get(getI()).setForeground(getPro().getFgcolor());
@@ -1045,7 +1160,7 @@ void _open(boolean _new)
                 int length = fin.available();
                 byte b[] = new byte[length];
                 fin.read(b, 0, length);
-                String str = new String(b);
+                String str = new String(b, this.pro.encodingName);
                 this.textArea.add(getI(), new JTextArea(""));
                 this.textArea.get(getI()).setTabSize(2); this.textArea.get(getI()).grabFocus();
                 this.textArea.get(getI()).setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
@@ -1058,6 +1173,8 @@ void _open(boolean _new)
                 this.getjTabbedPane2().addTab(getO().getFile(), this.scrollPane.get(getI()));
                 this.scrollPane.get(getI()).setEnabled(true);
                 this.scrollPane.get(getI()).setWheelScrollingEnabled(true);
+                this.jTabbedPane2.setToolTipTextAt(getI(), this.filename.get(getI())); //Add in v1.0.1
+                _setTitleAt(getI(),this.filename.get(getI())); //Add in v1.0.1
             }catch(IOException e)
         {
             javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to read the file\n "+path.get(getI())+e,"Error",0);
@@ -1085,16 +1202,16 @@ void _save(int i)
             return;
         }
 	}    
-        try (FileWriter fout = new FileWriter(path.get(i))) {
-                String txt =  textArea.get(i).getText();
-                fout.write(txt);
-            getjTabbedPane2().setTitleAt(i, filename.get(i));
-        
+        try (FileOutputStream fout = new FileOutputStream(path.get(i))) {
+                byte b[] =  textArea.get(i).getText().getBytes(this.pro.encodingName);
+                fout.write(b);
+             getjTabbedPane2().setToolTipTextAt(i, filename.get(i)); //Add in v1.0.1
+             _setTitleAt(i,this.filename.get(i)); //Add in v1.0.1
         }catch(Exception e)
         {
             javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to save the content into the file\n "+path.get(i)+e,"Error",0);
         }
-        
+       
         
 }
         
@@ -1109,7 +1226,7 @@ void _save(int i)
             path.setElementAt(getO().getDirectory()+filename.get(i), i);
             try (FileOutputStream fout = new FileOutputStream(path.get(i))) {
             String txt = textArea.get(i).getText();
-            byte[] b = txt.getBytes();
+            byte[] b = txt.getBytes(this.pro.encodingName);
             fout.write(b,0,b.length);
             getjTabbedPane2().setTitleAt(i,filename.get(i));
         }catch(IOException e)
@@ -1131,7 +1248,7 @@ void _save(int i)
     void _close(int si)
 	{
             
-            if(this.path.get(i).equals(""))
+            if(this.path.get(i).equals("") && (!this.textArea.get(i).getText().equals("")))
             {
                 int choice = javax.swing.JOptionPane.showConfirmDialog(this, "Do you want to save the document before exiting ?", "confirmation", javax.swing.JOptionPane.YES_NO_CANCEL_OPTION , javax.swing.JOptionPane.QUESTION_MESSAGE);
                 if(choice == 0)
@@ -1152,7 +1269,7 @@ void _save(int i)
                     byte[] b = new byte[length];
                     fin.read(b, 0, length);
                     fin.close();
-                    String savedText = new java.lang.String(b);
+                    String savedText = new java.lang.String(b,this.pro.encodingName);
                     String currentText = this.textArea.get(si).getText();
                     if(!savedText.equals(currentText))
                     {
@@ -1288,13 +1405,153 @@ void _setFontStyle()
         }
 }
 
+/*
+Add in v1.0.1 
+*/
+public void _changeEncoding(String encoding)
+{
+    this.jRadioButtonMenuItem1.setSelected(false);
+    this.jRadioButtonMenuItem2.setSelected(false);
+    this.jRadioButtonMenuItem3.setSelected(false);
+    this.jRadioButtonMenuItem4.setSelected(false);
+    this.jRadioButtonMenuItem5.setSelected(false);
+    this.jRadioButtonMenuItem6.setSelected(false);
+    switch(encoding)
+    {
+        case "UTF-16LE":this.jRadioButtonMenuItem1.setSelected(true);
+                this.pro.encodingName= "UTF-16LE";
+                break;
+        case "US-ASCII":this.jRadioButtonMenuItem2.setSelected(true);
+                this.pro.encodingName= "US-ASCII";
+                break;
+        case "UTF-16BE":this.jRadioButtonMenuItem3.setSelected(true);
+                this.pro.encodingName= "UTF-16BE";
+                break;
+        case "ISO-8859-1":this.jRadioButtonMenuItem4.setSelected(true);
+                this.pro.encodingName= "ISO-8859-1";
+                break;
+        case "UTF-16":this.jRadioButtonMenuItem5.setSelected(true);
+                this.pro.encodingName= "UTF-16";
+                break;
+        case "UTF-8":this.jRadioButtonMenuItem6.setSelected(true);
+                this.pro.encodingName= "UTF-8";
+                break;
+    }
+}
+/*
+Add in v1.0.1 
+*/
+public void _resigisterToolTipsText()
+{
+    this.jButton1.setToolTipText("New Blank File");
+    this.jButton2.setToolTipText("Open");
+    this.jButton3.setToolTipText("Save");
+    this.jButton4.setToolTipText("Close");
+    this.jButton5.setToolTipText("Zoom IN");
+    this.jButton6.setToolTipText("Zoom OUT");
+    //this.jButton7.setToolTipText(" ");
+    this.jButton8.setToolTipText("Cut");
+    this.jButton9.setToolTipText("Copy");
+    this.jButton10.setToolTipText("Paste");
+    //this.jButton11.setToolTipText(" ");
+    //this.jButton12.setToolTipText(" ");
+    this.jButton13.setToolTipText("Find");
+    //this.jButton14.setToolTipText(" ");
+    //this.jButton15.setToolTipText(" ");
+    //this.jButton16.setToolTipText("About Us");
+    //this.jButton17.setToolTipText(" ");
+    //this.jButton18.setToolTipText(" ");
+    //this.jButton19.setToolTipText(" ");
+    //this.jButton20.setToolTipText(" ");
+    this.jToggleButton1.setToolTipText("Bold");
+    this.jToggleButton2.setToolTipText("Italic");
+}
 
+/*
+Add in v1.0.1
+*/
+public void _setTitleAt(int index , String text)
+{
+    if(text.length()>10)
+    {
+        this.jTabbedPane2.setTitleAt(index, text.substring(0,10)+"...");
+    }
+    else
+    {
+        this.jTabbedPane2.setTitleAt(index, text);
+    }
+}
        void m32_Click(ActionEvent e)
 {
 	//Font
 	FontDialog f=new FontDialog( this);
 	f.setVisible(true);
 }
+       
+       public void _exit()
+       {
+           int choice = JOptionPane.showConfirmDialog(this,"Are you sure to exit ?", "Exit", 1,QUESTION_MESSAGE);
+            if(choice==0) System.exit(0);
+       }
+       /*
+       Add in v1.0.1
+       */
+       public void _addTrayIcon()
+       {
+           try
+            {
+                if(SystemTray.isSupported())
+                {
+                    SystemTray st = SystemTray.getSystemTray();
+                    PopupMenu popupMenu = new PopupMenu("NCRK");
+                    MenuItem mi1 = new java.awt.MenuItem("About us");
+                    mi1.addActionListener(new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent evt )
+                        {
+                            _aboutus();
+                        }
+                    }
+                    );
+                    MenuItem mi2 = new MenuItem("Go To Web");
+                    mi2.addActionListener(new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent evt)
+                        {
+                            try
+                            {
+                                 Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.1\\visit.bat");
+                            }
+                            catch(Exception e)
+                            {
+                                //JOptionPane.showMessageDialog(this, e, "Error",JOptionPane.INFORMATION_MESSAGE);
+                                System.out.println(e);
+                            }
+                        }
+                    }
+                    );
+                    MenuItem mi3 = new MenuItem("Exit");
+                    mi3.addActionListener(new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent evt)
+                        {
+                            _exit();
+                        }
+                    }
+                    );
+                    popupMenu.add(mi1);
+                    popupMenu.add(mi2);
+                    popupMenu.add(mi3);
+                    TrayIcon ti = new java.awt.TrayIcon(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("images/title1.jpg")), "NCRK :: TextEditor",popupMenu);
+                    //ti.setImageAutoSize(true);
+                 st.add(ti);
+                }  
+            }
+       catch(Exception e)
+       {
+           JOptionPane.showMessageDialog(this, e);
+       }
+       }
        
        
        /*
@@ -1471,7 +1728,6 @@ private GraphicsEnvironment g;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
@@ -1483,6 +1739,7 @@ private GraphicsEnvironment g;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -1513,10 +1770,19 @@ private GraphicsEnvironment g;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem3;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem4;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem5;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator10;
+    private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
@@ -1756,21 +2022,6 @@ private GraphicsEnvironment g;
     public void setjButton6(javax.swing.JButton jButton6) {
         this.jButton6 = jButton6;
     }
-
-    /**
-     * @return the jButton7
-     */
-    public javax.swing.JButton getjButton7() {
-        return jButton7;
-    }
-
-    /**
-     * @param jButton7 the jButton7 to set
-     */
-    public void setjButton7(javax.swing.JButton jButton7) {
-        this.jButton7 = jButton7;
-    }
-
     /**
      * @return the jButton8
      */
