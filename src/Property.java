@@ -1,3 +1,5 @@
+
+
 import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,13 +14,15 @@ import java.util.Vector;
  * @author NCRK (नवीन चौहान राजपूत खरदौनी)
  */
 public class Property implements java.io.Serializable {
-    
+    public static String VERSION = "v1.1.3";
     Vector<String> savedFilesPath;
     Vector<String> savedFilesName;
+    Vector<String> recentlyOpenedFilesPath;
+    Vector<String> recentlyOpenedFilesName;
     int savedFilesCount;
     boolean isWordWrap;
     
-    private static String path = System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.2";
+    private static String path = System.getProperty("user.home") + "\\NCRK\\TextEditor\\"+Property.VERSION;
     private static File   file;
     private Color         bgcolor;
     private char[]        ch;
@@ -38,13 +42,16 @@ public class Property implements java.io.Serializable {
     int cppCompilerType;//0 for not set ,1 for TCC , 2 for GNU
     private Property() 
     {
+        System.out.println("Property() Constructor");
         savedFilesPath = new Vector<String>();
         savedFilesName = new Vector<String>();
+        recentlyOpenedFilesPath = new Vector<String>();
+        recentlyOpenedFilesName = new Vector<String>();
         savedFilesCount = 0;
         isWordWrap = true;
         
         fgcolor           = new Color(255,255,255);
-        bgcolor           = new Color(100,100,150);
+        bgcolor           = new Color(00,99,66);
         font_size         = 20;
         font_name         = null;
         font_style        = 0;
@@ -104,18 +111,17 @@ public class Property implements java.io.Serializable {
 
         try {
             file=new File(path);
-
-            if (!file.exists()&&!RESET) {
+            if (!file.exists()) 
+            {
                 file.mkdirs();
             }
-            String s = path;
-            if(!RESET)
-            {
-                s = path + "\\NCRK_TextEditor_v1.1.2_Property.ncrk" ;
-            }
+            String s = path + "\\NCRK_TextEditor_"+VERSION+"_Property.ncrk" ;
             file = new File(s);
-
-            if (file.exists() && !RESET) {
+            if(RESET)
+            {
+                file.delete();
+            }
+            if (file.exists() ) {
                 System.out.println("File exist");
 
                 ObjectInputStream ois;
@@ -125,11 +131,11 @@ public class Property implements java.io.Serializable {
                 pro = (Property) ois.readObject();
                 ois.close();
             } else {
-                System.out.println("File  not exist");
+                System.out.println("File  not exist"+file.toString());
                 pro = new Property();
             }
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             pro = new Property();
             //System.exit(0);
         }

@@ -1,3 +1,5 @@
+
+
 import java.awt.*;
 import java.awt.Color;
 import java.awt.Font;
@@ -11,7 +13,7 @@ import java.awt.event.*;
  */
 public class AboutUs extends JDialog {
     
-    static String path = System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.2";
+    static String path = System.getProperty("user.home") + "\\NCRK\\TextEditor\\"+Property.VERSION;
     AboutUs(MainFrame f)
     {
         super(f, "About us", true);
@@ -118,7 +120,7 @@ public class AboutUs extends JDialog {
         l7.setBounds(0, 270, 200, 30);
         this.add(l7);
 
-        JLabel l8 = new JLabel("v1.1.2  ");
+        JLabel l8 = new JLabel(Property.VERSION+"  ");
         l8.setFont(new Font(null, 1, 15));
         l8.setBounds(200, 270, 100, 30);
         this.add(l8);
@@ -197,7 +199,7 @@ public class AboutUs extends JDialog {
         l11.setBounds(0, 420, 200, 30);
         this.add(l11);
         
-        JLabel l12 = new JLabel("Friday April 1, 2016");
+        JLabel l12 = new JLabel("Sunday May 1, 2016");
         l12.setFont(new Font(null, 1, 15));
         l12.setBounds(200, 420, 400, 30);
         this.add(l12);

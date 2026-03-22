@@ -1,9 +1,14 @@
+
+
 import java.awt.*;
-import javax.swing.*;
-import java.io.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.*;
 import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 
 /*
@@ -19,13 +24,19 @@ import static javax.swing.JOptionPane.QUESTION_MESSAGE;
  */
 public class MainFrame extends javax.swing.JFrame implements KeyListener
 {
+    TrayIcon trayIcon;
+    SystemTray systemTray;
+    static String[] arg;
     Property pro ;
     static Starting starting;
     TabbedPaneKeyMouseListenerImplementation tabbedPaneKeyMouseListenerImplementation;
     //ScrollPaneFocusListenerImplementation scrollPaneFocusListener;
-    String applicationDir = System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.2";
+    String applicationDir = System.getProperty("user.home") + "\\NCRK\\TextEditor\\"+Property.VERSION;
+    MouseListenerForPopupMenu mouseListenerForPopupMenu ;
     public MainFrame(Property pro) 
     {
+        initComponents();
+        mouseListenerForPopupMenu = new MouseListenerForPopupMenu(this);
         //ScrollPaneFocusListenerImplementation scrollPaneFocusListener = new ScrollPaneFocusListenerImplementation(this);
         this.path = new  java.util.Vector<String>();
         this.filename = new java.util.Vector<String>();
@@ -34,7 +45,6 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
         this.countTab = new java.util.Vector<Integer>();
         this.countSpace = new java.util.Vector<Integer>();
         this.pro = pro;
-        initComponents();
         tabbedPaneKeyMouseListenerImplementation = new TabbedPaneKeyMouseListenerImplementation(this);
         this.jTabbedPane2.addKeyListener(tabbedPaneKeyMouseListenerImplementation);
         this.jTabbedPane2.addMouseListener(tabbedPaneKeyMouseListenerImplementation);
@@ -65,7 +75,24 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
         this.i = -1;
         ni=-1;
        jTabbedPane2.setTabPlacement(JTabbedPane.TOP);
-       deserializeSavedFiles();
+       setRecntlyOpenedFilesMenu();
+        try
+        {
+        db_click_open(arg);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        try
+        {
+            if(!MainThread.RESET)
+                deserializeSavedFiles();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
        if(i==-1)
        {
         ++i;
@@ -94,6 +121,7 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
 
         jMenuItem18 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         jToolBar1 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
@@ -112,8 +140,10 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
+        jButton7 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -125,6 +155,7 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenu14 = new javax.swing.JMenu();
         jSeparator12 = new javax.swing.JPopupMenu.Separator();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jMenuItem8 = new javax.swing.JMenuItem();
@@ -133,6 +164,11 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
+        jMenu15 = new javax.swing.JMenu();
+        jMenuItem37 = new javax.swing.JMenuItem();
+        jMenuItem38 = new javax.swing.JMenuItem();
+        jMenuItem39 = new javax.swing.JMenuItem();
+        jMenuItem40 = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         jMenuItem16 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -187,7 +223,6 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setPreferredSize(new java.awt.Dimension(830, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -353,7 +388,12 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1000, 608));
 
-        jTabbedPane2.setBackground(new java.awt.Color(0, 51, 255));
+        jTabbedPane2.setBackground(new java.awt.Color(255, 255, 255));
+        jTabbedPane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -363,18 +403,37 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
+            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
         );
+
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/circle-x-2x.png"))); // NOI18N
+        jButton7.setToolTipText("Close");
+        jButton7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButton7.setFocusable(false);
+        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton7MouseEntered(evt);
+            }
+        });
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 29, Short.MAX_VALUE)
+            .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
         );
 
         jLabel1.setText("Date and Time");
@@ -452,6 +511,9 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
             }
         });
         jMenu1.add(jMenuItem6);
+
+        jMenu14.setText("Recently Open Files");
+        jMenu1.add(jMenu14);
         jMenu1.add(jSeparator12);
         jMenu1.add(jSeparator3);
 
@@ -498,6 +560,42 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
             }
         });
         jMenu2.add(jMenuItem14);
+
+        jMenu15.setText("Change To");
+
+        jMenuItem37.setText("UPPER CASE");
+        jMenuItem37.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem37ActionPerformed(evt);
+            }
+        });
+        jMenu15.add(jMenuItem37);
+
+        jMenuItem38.setText("lower case");
+        jMenuItem38.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem38ActionPerformed(evt);
+            }
+        });
+        jMenu15.add(jMenuItem38);
+
+        jMenuItem39.setText("Encode To URL String");
+        jMenuItem39.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem39ActionPerformed(evt);
+            }
+        });
+        jMenu15.add(jMenuItem39);
+
+        jMenuItem40.setText("Decode From URL String");
+        jMenuItem40.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem40ActionPerformed(evt);
+            }
+        });
+        jMenu15.add(jMenuItem40);
+
+        jMenu2.add(jMenu15);
         jMenu2.add(jSeparator6);
 
         jMenuItem16.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
@@ -816,10 +914,13 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 830, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 853, Short.MAX_VALUE)
             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jSeparator4)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -827,10 +928,12 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
                 .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -1168,10 +1271,13 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
          int option = JOptionPane.showConfirmDialog(this, "Are you sure to reset?\nNote::Save opened file before confirming to reset.");
          if(option==0)
          {
+             systemTray.remove(trayIcon);
              dispose();
-             String[] arg = new String[4];
-             main(arg);
-             
+             File f = new File(System.getProperty("user.home")+"/NCRK/TextEditor/NCRK_TextEditor_"+Property.VERSION+"_Property.ncrk");
+             f.delete();
+             String[] arg = new String[11];
+             new MainThread(arg);
+             //System.exit(0);
          }
     }//GEN-LAST:event_jMenuItem35ActionPerformed
 
@@ -1296,6 +1402,73 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
             }
     }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
 
+    private void jTabbedPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane2MouseClicked
+        
+        
+        int index = this.jTabbedPane2.getSelectedIndex();
+        System.out.println(index);
+        
+    }//GEN-LAST:event_jTabbedPane2MouseClicked
+
+    private void jMenuItem37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem37ActionPerformed
+        try
+        {
+            textArea.get(this.jTabbedPane2.getSelectedIndex()).replaceSelection(textArea.get(this.jTabbedPane2.getSelectedIndex()).getSelectedText().toUpperCase());
+        }
+        catch(NullPointerException e)
+        {
+            
+        }
+    }//GEN-LAST:event_jMenuItem37ActionPerformed
+
+    private void jMenuItem38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem38ActionPerformed
+       
+        try
+        {
+            textArea.get(this.jTabbedPane2.getSelectedIndex()).replaceSelection(textArea.get(this.jTabbedPane2.getSelectedIndex()).getSelectedText().toLowerCase());
+        }
+        catch(NullPointerException e)
+        {
+            
+        }
+    }//GEN-LAST:event_jMenuItem38ActionPerformed
+
+    private void jButton7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7MouseEntered
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        int si = getjTabbedPane2().getSelectedIndex();
+            if(si==-1) {
+                return;
+            }
+        _close(si);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jMenuItem39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem39ActionPerformed
+           try
+          {
+              int index = this.jTabbedPane2.getSelectedIndex();
+             textArea.get(index).replaceSelection(java.net.URLEncoder.encode(textArea.get(index).getSelectedText()));
+          }
+          catch(Exception ee)
+         {  
+            System.out.println(ee);
+         }
+    }//GEN-LAST:event_jMenuItem39ActionPerformed
+
+    private void jMenuItem40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem40ActionPerformed
+       try
+          {
+              int index = this.jTabbedPane2.getSelectedIndex();
+             textArea.get(index).replaceSelection(java.net.URLDecoder.decode(textArea.get(index).getSelectedText()));
+          }
+          catch(Exception ee)
+         {  
+            System.out.println(ee);
+         }
+    }//GEN-LAST:event_jMenuItem40ActionPerformed
+
     
 void _new()
 {
@@ -1318,8 +1491,22 @@ void _new()
         this.scrollPane.get(i).grabFocus();
        this.textArea.get(i).grabFocus();
        //this.textArea.get(i).addFocusListener(scrollPaneFocusListener);
-       this.textArea.get(i).addKeyListener(this.tabbedPaneKeyMouseListenerImplementation);
+       this.textArea.get(i).addKeyListener(this.tabbedPaneKeyMouseListenerImplementation);// Add in v1.1.2
+       //this.textArea.get(i).addMouseListener(tabbedPaneKeyMouseListenerImplementation);// Add in v1.1.3
+       this.textArea.get(i).addMouseListener(mouseListenerForPopupMenu);// Add in v1.1.3
        this.textArea.get(i).setLineWrap(pro.isWordWrap);
+       try   //Added in v1.1.3
+        {
+       int index = this.getjTabbedPane2().getSelectedIndex();
+        int length = this.textArea.get(index).getText().getBytes().length;
+        String p = this.path.get(index);
+        this.jLabel2.setText("Size:"+length+" bytes     Lines:"+this.textArea.get(index).getLineCount()+"      FILE:"+p);
+        }
+        catch(Exception ee)
+        {
+            this.jLabel2.setText("");
+        }
+       updateStatusBar();
 }
     
 void _open(boolean _new)
@@ -1332,10 +1519,18 @@ void _open(boolean _new)
         }
         if(o.getFile()!=null||!_new)
         {
+            if(path.contains(o.getDirectory()+o.getFile()))
+            {
+                javax.swing.JOptionPane.showMessageDialog(this, "All ready opened.");
+                int iii = path.indexOf(o.getDirectory()+o.getFile());
+                this.jTabbedPane2.grabFocus();
+                return;
+            }
             if(_new)
             {
                 path.add(i,o.getDirectory()+o.getFile());
                 filename.add(i,o.getFile());
+                addRecntlyOpenedFilesMenu(filename.get(i), path.get(i));
             }
             
             try 
@@ -1361,8 +1556,9 @@ void _open(boolean _new)
                 this.jTabbedPane2.setToolTipTextAt(i, this.filename.get(i)); //Add in v1.0.1
                 //this.scrollPane.get(i).addFocusListener(scrollPaneFocusListener);
                 _setTitleAt(i,this.filename.get(i)); //Add in v1.0.1
-                PopupMenuAtTextArea._addPopupMenuAtRightClick(this,i);
-                this.textArea.get(i).addKeyListener(this.tabbedPaneKeyMouseListenerImplementation);
+                this.textArea.get(i).addKeyListener(this.tabbedPaneKeyMouseListenerImplementation);// Add in v1.1.2
+                //this.textArea.get(i).addMouseListener(tabbedPaneKeyMouseListenerImplementation);// Add in v1.1.3
+                this.textArea.get(i).addMouseListener(mouseListenerForPopupMenu);// Add in v1.1.3
                 fin.close();
             }catch(IOException e)
         {
@@ -1373,6 +1569,7 @@ void _open(boolean _new)
         else {
             i--;
             }
+        updateStatusBar();
 	}
 
 void _save(int i)
@@ -1402,8 +1599,7 @@ void _save(int i)
         {
             javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to save the content into the file\n "+path.get(i)+e,"Error",0);
         }
-       
-        
+        updateStatusBar();
 }
         
     void _saveAs(int i)
@@ -1425,7 +1621,7 @@ void _save(int i)
             javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to save the content into the file\n "+path.get(i)+e,"Error",0);
         }
         }
-               
+        updateStatusBar();      
 }
     void _saveAll()
     {
@@ -1486,6 +1682,7 @@ void _save(int i)
             path.remove(si);
             filename.remove(si);
             getjTabbedPane2().remove(si);
+          updateStatusBar();
 	}
    
      void _closeAll()
@@ -1677,9 +1874,9 @@ Added in v1.0.1
 */
 public void _setTitleAt(int index , String text)
 {
-    if(text.length()>10)
+    if(text.length()>20)
     {
-        this.jTabbedPane2.setTitleAt(index, text.substring(0,10)+"...");
+        this.jTabbedPane2.setTitleAt(index, text.substring(0,15)+"...");
     }
     else
     {
@@ -1707,7 +1904,7 @@ public void _setTitleAt(int index , String text)
             {
                 if(SystemTray.isSupported())
                 {
-                    SystemTray st = SystemTray.getSystemTray();
+                    systemTray = SystemTray.getSystemTray();
                     PopupMenu popupMenu = new PopupMenu("NCRK");
                     MenuItem mi1 = new java.awt.MenuItem("About us");
                     mi1.addActionListener(new ActionListener()
@@ -1747,9 +1944,9 @@ public void _setTitleAt(int index , String text)
                     popupMenu.add(mi1);
                     popupMenu.add(mi2);
                     popupMenu.add(mi3);
-                    TrayIcon ti = new java.awt.TrayIcon(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/icon2.jpg")), "NCRK :: TextEditor",popupMenu);
-                    
-                 st.add(ti);
+                     trayIcon = new java.awt.TrayIcon(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/starting.jpg")), "NCRK :: TextEditor",popupMenu);
+                 systemTray.add(trayIcon);
+                 
                 }  
             }
        catch(Exception e)
@@ -2260,7 +2457,7 @@ public void _setTitleAt(int index , String text)
            for(int k=0;k<pro.savedFilesCount;k++)
            {
                i++;
-               System.out.println("Dese"+k);
+               //System.out.println("Dese"+k);
                FileInputStream fin = new FileInputStream(applicationDir+"\\temp\\"+k);
                 int length = fin.available();
                 byte b[] = new byte[length];
@@ -2274,15 +2471,15 @@ public void _setTitleAt(int index , String text)
                 if(pro.savedFilesPath.elementAt(k).equals(""))
                 {
                     ni++;
-                    this.path.add("");
-                    this.filename.add("");
+                    this.path.add(i,"");
+                    this.filename.add(i,"");
                     this.getjTabbedPane2().addTab("New"+ni,this.scrollPane.get(i));
                     this.getjTabbedPane2().setToolTipTextAt(i,"New"+ni); // Add in v1.0.1
                 }
                 else
                 {
-                    this.path.add(pro.savedFilesPath.elementAt(k));
-                    this.filename.add(pro.savedFilesName.elementAt(k));
+                    this.path.add(i,pro.savedFilesPath.elementAt(k));
+                    this.filename.add(i,pro.savedFilesName.elementAt(k));
                     this.getjTabbedPane2().addTab(pro.savedFilesName.elementAt(k),this.scrollPane.get(i));
                     this.getjTabbedPane2().setToolTipTextAt(i,pro.savedFilesName.elementAt(k)); // Add in v1.0.1
                 }
@@ -2292,7 +2489,9 @@ public void _setTitleAt(int index , String text)
                 this.textArea.get(i).select(0, 0);
                 this.textArea.get(i).addKeyListener(this);
                 //this.textArea.get(i).addFocusListener(scrollPaneFocusListener);
-                this.textArea.get(i).addKeyListener(this.tabbedPaneKeyMouseListenerImplementation);
+                this.textArea.get(i).addKeyListener(this.tabbedPaneKeyMouseListenerImplementation);// Add in v1.1.2
+                //this.textArea.get(i).addMouseListener(tabbedPaneKeyMouseListenerImplementation);
+                this.textArea.get(i).addMouseListener(mouseListenerForPopupMenu);// Add in v1.1.3
                 jTabbedPane2.grabFocus();
                 this.scrollPane.get(i).grabFocus();
                 this.textArea.get(i).grabFocus();
@@ -2302,6 +2501,7 @@ public void _setTitleAt(int index , String text)
            pro.savedFilesCount=0;
            pro.savedFilesName.clear();
            pro.savedFilesPath.clear();
+           updateStatusBar();
            }
            catch(Exception e)
            {
@@ -2311,7 +2511,25 @@ public void _setTitleAt(int index , String text)
             pro.savedFilesCount=0;
            pro.savedFilesName.clear();
            pro.savedFilesPath.clear();
+           updateStatusBar();
        }
+       
+       //Added in v1.1.3
+       public void updateStatusBar()
+       {
+           try   
+        {
+            int index = this.getjTabbedPane2().getSelectedIndex();
+            int length = this.textArea.get(index).getText().getBytes().length;
+            String p = this.path.get(index);
+            this.jLabel2.setText("Size:"+length+" bytes     Lines:"+this.textArea.get(index).getLineCount()+"      FILE:"+p);
+         }
+         catch(Exception ee)
+        {
+            this.jLabel2.setText("");
+        }
+       }
+       
        
        public  void keyPressed(KeyEvent ke)
        {
@@ -2339,33 +2557,159 @@ public void _setTitleAt(int index , String text)
        public  void keyReleased(KeyEvent ke)
        {
        }
+
+ /*
+Added in v1.1.3
+*/
+ void setRecntlyOpenedFilesMenu()
+{
+    int size = pro.recentlyOpenedFilesName.size();
+    for(int j=0;j<size;j++)
+    {
+        javax.swing.JMenuItem mi = new javax.swing.JMenuItem(pro.recentlyOpenedFilesPath.get(j));
+        final int jj=j;
+        mi.addActionListener(
+            new java.awt.event.ActionListener() {
+
+        @Override
+        public void actionPerformed(ActionEvent e) 
+        {
+             _openFile(pro.recentlyOpenedFilesName.get(jj),pro.recentlyOpenedFilesPath.get(jj));
+        }
+    });
+        jMenu14.add(mi);
+    }
+    
+}
+
+/*
+Added in v1.1.3
+*/
+void addRecntlyOpenedFilesMenu(final String n,final String p)
+{
+    if(pro.recentlyOpenedFilesPath.contains(p))
+    {
+        return;
+    }
+    pro.recentlyOpenedFilesName.insertElementAt(n, 0);
+    pro.recentlyOpenedFilesPath.insertElementAt(p, 0);
+    int size = pro.recentlyOpenedFilesName.size();
+    if(size>15)
+    {
+        pro.recentlyOpenedFilesName.setSize(15);
+        pro.recentlyOpenedFilesPath.setSize(15);
+    }
+    jMenu14.removeAll();
+    for( int index=0;index<pro.recentlyOpenedFilesName.size();index++)
+    {
+        final int ii = index;
+    javax.swing.JMenuItem mi1 = new javax.swing.JMenuItem(pro.recentlyOpenedFilesPath.get(ii));
+        mi1.addActionListener(
+            new java.awt.event.ActionListener() {
+
+        @Override
+        public void actionPerformed(ActionEvent e) 
+        {
+             _openFile(pro.recentlyOpenedFilesName.get(ii),pro.recentlyOpenedFilesPath.get(ii));
+        }
+    });
+        jMenu14.add(mi1);
+    }
+}
+/*
+Added in v1.1.3
+*/
+void _openFile(String n,String p)
+{
+    if(path.contains(p))
+    {
+                javax.swing.JOptionPane.showMessageDialog(this, "All ready opened.");
+                int iii = path.indexOf(p);
+                this.textArea.get(iii).grabFocus();
+                return;
+    }
+    i++;
+    path.add(i,p);
+    filename.add(i,n);
+    try 
+            {
+                FileInputStream fin = new FileInputStream(path.get(i));
+                int length = fin.available();
+                byte b[] = new byte[length];
+                fin.read(b, 0, length);
+                String str = new String(b, this.pro.encodingName);
+                this.textArea.add(i, new JTextArea(str));
+                this.textArea.get(i).setLineWrap(pro.isWordWrap);
+                this.textArea.get(i).setTabSize(2); this.textArea.get(i).grabFocus();
+                this.textArea.get(i).setFont(new Font(pro.getFont_name(), pro.getFont_style(), pro.getFont_size()));
+                this.textArea.get(i).setBackground(pro.getBgcolor());
+                this.textArea.get(i).setForeground(pro.getFgcolor());
+                //this.textArea.get(i).addFocusListener(scrollPaneFocusListener);
+                this.textArea.get(i).setTabSize(4);
+                this.scrollPane.add(i, new JScrollPane());
+                this.scrollPane.get(i).setViewportView( this.textArea.get(i));
+                this.getjTabbedPane2().addTab(filename.get(i), this.scrollPane.get(i));
+                this.scrollPane.get(i).setEnabled(true);
+                this.scrollPane.get(i).setWheelScrollingEnabled(true);
+                this.jTabbedPane2.setToolTipTextAt(i, this.filename.get(i)); //Add in v1.0.1
+                //this.scrollPane.get(i).addFocusListener(scrollPaneFocusListener);
+                _setTitleAt(i,this.filename.get(i)); //Add in v1.0.1
+                this.textArea.get(i).addKeyListener(this.tabbedPaneKeyMouseListenerImplementation);// Add in v1.1.2
+                //this.textArea.get(i).addMouseListener(tabbedPaneKeyMouseListenerImplementation);// Add in v1.1.3
+                fin.close();
+            }
+        catch(IOException e)
+        {
+            javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to read the file\n "+path.get(i)+e,"Error",0);
+                this.textArea.get(i).setText("");
+        }
+        catch(Exception e)
+        {
+             javax.swing.JOptionPane.showMessageDialog(this, e);        
+        }
+    updateStatusBar();
+}
+
 void db_click_open(String [] args)
 {
+    if(args==null) return;
    int j = 0;
     while(j<args.length)
     {
             j++;
             i++;
-            textArea.add(i, new JTextArea(""));
-            textArea.get(i).setFont(new Font(pro.getFont_name(), pro.getFont_style(), pro.getFont_size()));
+            int ii = args[j-1].lastIndexOf("\\");
+            //javax.swing.JOptionPane.showMessageDialog(this, i+"  "+args[j-1].substring(ii+1));
 	    path.add(i, args[j-1]);
-            byte[] b;
+            filename.add(i,args[j-1].substring(ii+1));
             try { //for byte oriented i/o
                 FileInputStream fin = new FileInputStream(path.get(i));
-                int n = fin.available();
-                b = new byte[n];
-                fin.read(b,0,n);  
+                int length = fin.available();
+                byte b[] = new byte[length];
+                fin.read(b, 0, length);
+                String str = new String(b, this.pro.encodingName);
+                this.textArea.add(i, new JTextArea(str));
+                this.textArea.get(i).setLineWrap(pro.isWordWrap);
+                this.textArea.get(i).setTabSize(2); this.textArea.get(i).grabFocus();
+                this.textArea.get(i).setFont(new Font(pro.getFont_name(), pro.getFont_style(), pro.getFont_size()));
+                this.textArea.get(i).setBackground(pro.getBgcolor());
+                this.textArea.get(i).setForeground(pro.getFgcolor());
+                //this.textArea.get(i).addFocusListener(scrollPaneFocusListener);
+                this.textArea.get(i).setTabSize(4);
+                this.scrollPane.add(i, new JScrollPane());
+                this.scrollPane.get(i).setViewportView( this.textArea.get(i));
+                this.getjTabbedPane2().addTab(this.filename.get(i), this.scrollPane.get(i));
+                this.scrollPane.get(i).setEnabled(true);
+                this.scrollPane.get(i).setWheelScrollingEnabled(true);
+                this.jTabbedPane2.setToolTipTextAt(i, this.filename.get(i)); //Add in v1.0.1
+                //this.scrollPane.get(i).addFocusListener(scrollPaneFocusListener);
+                _setTitleAt(i,this.filename.get(i)); //Add in v1.0.1
+                this.textArea.get(i).addKeyListener(this.tabbedPaneKeyMouseListenerImplementation);// Add in v1.1.2
+                //this.textArea.get(i).addMouseListener(tabbedPaneKeyMouseListenerImplementation);// Add in v1.1.3
+                this.textArea.get(i).addMouseListener(mouseListenerForPopupMenu);// Add in v1.1.3
                 fin.close();
-                String str = new String(b);
-                textArea.get(i).setText(str);
-                textArea.get(i).setTabSize(2);
-            
-                scrollPane.add(i, new JScrollPane());
-                scrollPane.get(i).setViewportView(textArea.get(i));
-                getjTabbedPane2().addTab(o.getFile(), scrollPane.get(i));
-                scrollPane.get(i).setEnabled(true);
-                scrollPane.get(i).setWheelScrollingEnabled(rootPaneCheckingEnabled);
-                
+                addRecntlyOpenedFilesMenu(filename.get(i), path.get(i));
+                //javax.swing.JOptionPane.showMessageDialog(this, i+"  "+args[i]);
         }catch(IOException e)
         {
             javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to read the file\n "+path.get(i)+e,"Error",0);
@@ -2374,6 +2718,7 @@ void db_click_open(String [] args)
         }catch(Exception e)
         {
             i--;
+            //javax.swing.JOptionPane.showMessageDialog(this, e);
         }
         
         //else i--;
@@ -2387,75 +2732,18 @@ public javax.swing.JTabbedPane getjTabbedPane2()
     }
  
     public static void main(String args[]) {
-        Property pro = null;
-        MainFrame f = null;
-        if(args.length==0)
-        {
-             pro = Property.getProperty(false);
-        }
-        else
-        {
-             pro = Property.getProperty(true);
-        }
+        new MainThread(args);
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            if(pro.theme!=null)
-            {
-                 javax.swing.plaf.metal.MetalTheme theme = null;
-                if(pro.theme.equals("Steel"))
-                {
-                    theme =new javax.swing.plaf.metal.DefaultMetalTheme();
-                }
-                else if(pro.theme.equals("Ocean"))
-                {
-                    theme=new javax.swing.plaf.metal.OceanTheme();
-                }
-                javax.swing.plaf.metal.MetalLookAndFeel.setCurrentTheme(theme);
-            }
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if (pro.getLook().equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-       
+        
         //</editor-fold>
 
         /* Create and display the form */
-        starting = new Starting(); starting.disable();
-        f =  new MainFrame(pro);
-        try
-        {
-            Thread.sleep(1000);
-            
-        }
-        catch(InterruptedException e)
-        {
-            
-        }
-        starting.dispose();
-        //starting.disable();
-        //starting.setVisible(false);
-        f.setVisible(true);
-//           System.out.println(args[0]);
-          
-          
-         
-        try
-        {
-        f.db_click_open(args);
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
+         // System.out.println(args[0]);
         
     }
 
@@ -2482,6 +2770,7 @@ private GraphicsEnvironment g;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
@@ -2492,6 +2781,8 @@ private GraphicsEnvironment g;
     private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu12;
     private javax.swing.JMenu jMenu13;
+    private javax.swing.JMenu jMenu14;
+    private javax.swing.JMenu jMenu15;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -2531,7 +2822,11 @@ private GraphicsEnvironment g;
     private javax.swing.JMenuItem jMenuItem34;
     private javax.swing.JMenuItem jMenuItem35;
     private javax.swing.JMenuItem jMenuItem36;
+    private javax.swing.JMenuItem jMenuItem37;
+    private javax.swing.JMenuItem jMenuItem38;
+    private javax.swing.JMenuItem jMenuItem39;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem40;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
@@ -2539,6 +2834,7 @@ private GraphicsEnvironment g;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem3;
@@ -2552,12 +2848,13 @@ private GraphicsEnvironment g;
     private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
-    private javax.swing.JTabbedPane jTabbedPane2;
+    public javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToolBar jToolBar1;

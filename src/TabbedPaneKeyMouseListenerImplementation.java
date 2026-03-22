@@ -1,4 +1,6 @@
 
+
+
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextArea;
@@ -23,6 +25,7 @@ public class TabbedPaneKeyMouseListenerImplementation implements java.awt.event.
     @Override
     public void keyPressed(KeyEvent e) 
     {
+        PopupMenuAtTextArea._removePopupMenuAtRightClick(f);
     }
 
     @Override
