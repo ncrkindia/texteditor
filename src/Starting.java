@@ -36,7 +36,8 @@ public class Starting extends JWindow implements Runnable {
         splashImage.setBounds(0, 0, 340, 220);
         t.setBounds(0, 221, 340, 60);
         t.setFont(new Font(null, 2, 30));
-        t.setForeground(Color.red);
+        t.setForeground(Color.WHITE);
+        t.setBackground(Color.BLACK);
         screensize = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((screensize.width / 2) - (getSize().width / 2), (screensize.height / 2) - (getSize().height / 2));
         splashImage.setBorder(BorderFactory.createLineBorder(new Color(75, 75, 75)));

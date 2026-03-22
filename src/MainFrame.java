@@ -6,6 +6,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 
+/*
+ Contains the featurs of v1.0.1
+ Special new Featurs are -
+        Compilation and Execution
+*/
+
+
 /**
  *
  * @author NCRK (नवीन चौहान राजपूत खरदौनी)
@@ -30,13 +37,13 @@ private Property pro ;
         this.setBounds(this.pro.getRect());
         try
         {
-        //this.setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("images/title.jpg")));
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("title.jpg"));
         }
         catch(Exception e)
         {
             
         }
-        setTitle("NCRK :: TextEditor v1.0.2");
+        setTitle("NCRK :: TextEditor v1.1.0");
         new TimeDateUpdationThread(this.jLabel1);
         _resigisterToolTipsText();
         if(this.pro.getFont_style()==1) 
@@ -70,6 +77,7 @@ private Property pro ;
     private void initComponents() {
 
         jMenuItem18 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         jToolBar1 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
@@ -100,8 +108,8 @@ private Property pro ;
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jSeparator12 = new javax.swing.JPopupMenu.Separator();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
-        jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
@@ -140,6 +148,11 @@ private Property pro ;
         jMenuItem21 = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
         jMenuItem23 = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
+        jMenu10 = new javax.swing.JMenu();
+        jMenuItem25 = new javax.swing.JMenuItem();
+        jMenuItem22 = new javax.swing.JMenuItem();
+        jMenuItem20 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem35 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
@@ -147,6 +160,8 @@ private Property pro ;
         jMenuItem24 = new javax.swing.JMenuItem();
 
         jMenuItem18.setText("null");
+
+        jMenuItem11.setText("jMenuItem11");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -406,8 +421,8 @@ private Property pro ;
             }
         });
         jMenu1.add(jMenuItem6);
+        jMenu1.add(jSeparator12);
         jMenu1.add(jSeparator3);
-        jMenu1.add(jSeparator4);
 
         jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem8.setText(bundle.getString("EXIT")); // NOI18N
@@ -658,6 +673,38 @@ private Property pro ;
         jMenu4.add(jMenuItem23);
 
         jMenuBar1.add(jMenu4);
+
+        jMenu8.setText("Tools");
+
+        jMenu10.setText("Java Tools");
+
+        jMenuItem25.setText("Compile");
+        jMenuItem25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem25ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem25);
+
+        jMenuItem22.setText("Run Program");
+        jMenuItem22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem22ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem22);
+
+        jMenuItem20.setText("Run Applet");
+        jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem20ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem20);
+
+        jMenu8.add(jMenu10);
+
+        jMenuBar1.add(jMenu8);
 
         jMenu5.setText("Setting");
 
@@ -1119,6 +1166,18 @@ private Property pro ;
            System.out.println(e);
        }
     }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem25ActionPerformed
+        _compileJavaFile();  //Add in v1.1.0
+    }//GEN-LAST:event_jMenuItem25ActionPerformed
+
+    private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed
+        _runJavaProgram();
+    }//GEN-LAST:event_jMenuItem22ActionPerformed
+
+    private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
+       _runJavaApplet();
+    }//GEN-LAST:event_jMenuItem20ActionPerformed
 void _new()
 {
         this.textArea.add(getI(), new JTextArea("")) ;
@@ -1175,6 +1234,7 @@ void _open(boolean _new)
                 this.scrollPane.get(getI()).setWheelScrollingEnabled(true);
                 this.jTabbedPane2.setToolTipTextAt(getI(), this.filename.get(getI())); //Add in v1.0.1
                 _setTitleAt(getI(),this.filename.get(getI())); //Add in v1.0.1
+                PopupMenuAtTextArea._addPopupMenuAtRightClick(this,getI());
             }catch(IOException e)
         {
             javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to read the file\n "+path.get(getI())+e,"Error",0);
@@ -1379,8 +1439,8 @@ void _aboutus()
 
 public void _print()
 {
-    PrintJob p = Toolkit.getDefaultToolkit().getPrintJob(this, getjTabbedPane2().getTitleAt(getjTabbedPane2().getSelectedIndex()), null, null);
-        
+    PrintJob p = jTabbedPane2.getTabComponentAt(jTabbedPane2.getSelectedIndex()).getToolkit().getPrintJob(this,"NCRK", null);
+
        Graphics g1 =p.getGraphics();
        g1.dispose();
        p.end(); 
@@ -1552,6 +1612,168 @@ public void _setTitleAt(int index , String text)
            JOptionPane.showMessageDialog(this, e);
        }
        }
+       
+       
+       /*
+       Add in v1.1.0 to compile Java Program if the selcted file is .java File
+       */
+       public void _compileJavaFile()
+       {
+           int index = this.jTabbedPane2.getSelectedIndex();
+           if(index==-1) return;
+           _save(index);
+           String fnm = this.filename.get(index);
+            int li = fnm.toLowerCase().lastIndexOf(".java");
+            if((fnm.length()-5)==li && li!=-1)
+            {
+                //File is JAVA File(.java)
+                try
+                {
+                    
+                    String path1 = System.getProperty("user.home")+ "\\NCRK\\TextEditor\\v1.1.0\\temp";
+                    File f =  new File(path1);
+                    f.mkdir();
+                    String path2 = path1+"\\compile_"+this.filename.get(index)+".bat";
+                    f = new File(path2);
+                    System.out.println(path);
+                    f.createNewFile();
+                    FileOutputStream fout = new FileOutputStream(f);
+                    String contentToWrite = "javac \""+ this.path.get(index)+ "\" \n pause \nexit";
+                    fout.write(contentToWrite.getBytes());
+                    fout.close();
+                    ProcessBuilder pb = new ProcessBuilder("cmd.exe","/c","start "+path2);
+                    Process p = pb.start();
+                    int ev = p.waitFor();
+                    f.deleteOnExit();                    /*
+                    File errorStream = new File(path1+"\\ERROR_STREAM_"+this.filename.get(index)+".errors");
+                    //pb.redirectError(errorStream);
+                    FileInputStream resultStream = new FileInputStream(path1+"\\ERROR_STREAM_"+this.filename.get(index)+".errors");
+                    int resultSize = resultStream.available();
+                    byte b[] = new byte[resultSize];
+                    resultStream.read(b, 0, resultSize);
+                    resultStream.close();
+                    errorStream.delete();
+                    f.delete();
+                    String result = new String(b);
+              
+                    if(ev==0)
+                    {
+                        System.out.println(result);
+                        JOptionPane.showMessageDialog(this, " Compilation Complete of "+this.filename.get(index)+" \n"+result,"Compilation Completed. ", JOptionPane.INFORMATION_MESSAGE);
+                        
+                    }
+                   else
+                    {
+                        throw new Exception("Cann't compile file "+this.path.get(index)+ "\n"+result);
+                    }
+                    */
+                }
+                catch(Exception e)
+                {
+                    JOptionPane.showMessageDialog(this, e.getMessage(),"Error::Compilation Failed", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            else
+            {
+                //File is not JAVA File(.java)
+                JOptionPane.showMessageDialog(this, "Sorry ,File at selected Tab is not Java File. \n Java File must have .java extention .", "Error:: Not a Java File", JOptionPane.INFORMATION_MESSAGE);
+            }
+       }
+       
+       
+       
+       /*
+       Add in v1.1.0 to compile Java Program if the selcted file is .java File
+       */
+       public void _runJavaProgram()
+       {
+           int index = this.jTabbedPane2.getSelectedIndex();
+           if(index==-1) return;
+           _save(index);
+           String fnm = this.filename.get(index);
+            int li = fnm.toLowerCase().lastIndexOf(".java");
+            if((fnm.length()-5)==li)
+            {
+                //File is JAVA File(.java)
+                try
+                {
+                    
+                    String path1 = System.getProperty("user.home")+ "\\NCRK\\TextEditor\\v1.1.0\\temp";
+                    File f =  new File(path1);
+                    f.mkdir();
+                    String path2 = path1+"\\runProgram_"+this.filename.get(index)+".bat";
+                    f = new File(path2);
+                    System.out.println(path);
+                    f.createNewFile();
+                    FileOutputStream fout = new FileOutputStream(f);
+                    String classpath = path.get(index).substring(0,path.get(index).length()-filename.get(index).length()-1);
+                    String contentToWrite = "set classpath="+classpath+";%classpath% \n set path="+classpath+";%path% \ncls\n java "+ this.filename.get(index).substring(0,li)+ " \n pause\nexit";
+                    fout.write(contentToWrite.getBytes());
+                    fout.close();
+                    ProcessBuilder pb = new ProcessBuilder("cmd.exe","/c","start "+path2);
+                    Process p = pb.start();
+                    p.waitFor();
+                    f.deleteOnExit();
+                }
+                catch(Exception e)
+                {
+                    JOptionPane.showMessageDialog(this, e.getMessage(),"Error::Compilation Failed", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            else
+            {
+                //File is not JAVA File(.java)
+                JOptionPane.showMessageDialog(this, "Sorry ,File at selected Tab is not Java File. \n Java File must have .java extention .", "Error:: Not a Java File", JOptionPane.INFORMATION_MESSAGE);
+            }
+       }
+       
+       
+       
+       /*
+       Add in v1.1.0 to compile Java Program if the selcted file is .java File
+       */
+       public void _runJavaApplet()
+       {
+           int index = this.jTabbedPane2.getSelectedIndex();
+           if(index==-1) return;
+           _save(index);
+           String fnm = this.filename.get(index);
+            int li = fnm.toLowerCase().lastIndexOf(".java");
+            if((fnm.length()-5)==li)
+            {
+                //File is JAVA File(.java)
+                try
+                {
+                    
+                    String path1 = System.getProperty("user.home")+ "\\NCRK\\TextEditor\\v1.1.0\\temp";
+                    File f =  new File(path1);
+                    f.mkdir();
+                    String path2 = path1+"\\runApplet_"+this.filename.get(index)+".bat";
+                    f = new File(path2);
+                    System.out.println(path);
+                    f.createNewFile();
+                    FileOutputStream fout = new FileOutputStream(f);
+                    String classpath = path.get(index).substring(0,path.get(index).length()-filename.get(index).length()-1);
+                    String contentToWrite = "set classpath="+classpath+";%classpath% \n set path="+classpath+";%path% \ncls\n appletviewer \""+ this.path.get(index)+ "\" \n pause\nexit";
+                    fout.write(contentToWrite.getBytes());
+                    fout.close();
+                    ProcessBuilder pb = new ProcessBuilder("cmd.exe","/c","start "+path2);
+                    Process p = pb.start();
+                    p.waitFor();
+                    f.deleteOnExit();
+                }
+                catch(Exception e)
+                {
+                    JOptionPane.showMessageDialog(this, e.getMessage(),"Error::Compilation Failed", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            else
+            {
+                //File is not JAVA File(.java)
+                JOptionPane.showMessageDialog(this, "Sorry ,File at selected Tab is not Java File. \n Java File must have .java extention .", "Error:: Not a Java File", JOptionPane.INFORMATION_MESSAGE);
+            }
+       }
+       
        
        
        /*
@@ -1732,6 +1954,7 @@ private GraphicsEnvironment g;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu2;
@@ -1740,9 +1963,11 @@ private GraphicsEnvironment g;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
@@ -1752,9 +1977,12 @@ private GraphicsEnvironment g;
     private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem21;
+    private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem23;
     private javax.swing.JMenuItem jMenuItem24;
+    private javax.swing.JMenuItem jMenuItem25;
     private javax.swing.JMenuItem jMenuItem26;
     private javax.swing.JMenuItem jMenuItem27;
     private javax.swing.JMenuItem jMenuItem3;
@@ -1783,9 +2011,9 @@ private GraphicsEnvironment g;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;
+    private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
-    private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;
@@ -2583,19 +2811,7 @@ private GraphicsEnvironment g;
         this.jSeparator3 = jSeparator3;
     }
 
-    /**
-     * @return the jSeparator4
-     */
-    public javax.swing.JPopupMenu.Separator getjSeparator4() {
-        return jSeparator4;
-    }
 
-    /**
-     * @param jSeparator4 the jSeparator4 to set
-     */
-    public void setjSeparator4(javax.swing.JPopupMenu.Separator jSeparator4) {
-        this.jSeparator4 = jSeparator4;
-    }
 
     /**
      * @return the jSeparator5

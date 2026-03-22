@@ -59,7 +59,7 @@ public class AboutUs extends JDialog {
                    {
                        try
                         {
-                            Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.1\\mailAtProgrammer.bat");
+                            Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.0\\mailAtProgrammer.bat");
                         }
                         catch(Exception e)
                         {
@@ -90,7 +90,7 @@ public class AboutUs extends JDialog {
                    {
                        try
                         {
-                            Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.2\\mailAtEngineer.bat");
+                            Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.1\\mailAtEngineer.bat");
                         }
                         catch(Exception e)
                         {
@@ -117,7 +117,7 @@ public class AboutUs extends JDialog {
         l7.setBounds(0, 270, 200, 30);
         this.add(l7);
 
-        JLabel l8 = new JLabel("v1.0.1  ");
+        JLabel l8 = new JLabel("v1.1.0  ");
         l8.setFont(new Font(null, 1, 15));
         l8.setBounds(200, 270, 100, 30);
         this.add(l8);
@@ -126,8 +126,8 @@ public class AboutUs extends JDialog {
         l9.setBounds(0, 320, 200, 30);
         this.add(l9);
 
-        JLabel l10 = new JLabel("SourceForge.net/NCRKrajput ");
-        l10.setToolTipText("Click for free Source code & apps at : http://SourceForge.net/NCRKrajput");
+        JLabel l10 = new JLabel("SourceForge.net/u/ncrkrajput ");
+        l10.setToolTipText("Click for free Source code & apps at : http://SourceForge.net/u/ncrkrajput");
         l10.addMouseListener(
                 new java.awt.event.MouseAdapter()
                 {
@@ -143,7 +143,7 @@ public class AboutUs extends JDialog {
                    {
                        try
                         {
-                            Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.0.1\\visit.bat");
+                            Runtime.getRuntime().exec(System.getProperty("user.home") + "\\NCRK\\TextEditor\\v1.1.0\\visit.bat");
                         }
                         catch(Exception e)
                         {
@@ -161,7 +161,7 @@ public class AboutUs extends JDialog {
         l11.setBounds(0, 370, 200, 30);
         this.add(l11);
         
-        JLabel l12 = new JLabel("Friday January 15, 2016");
+        JLabel l12 = new JLabel("Monday February 1, 2016");
         l12.setFont(new Font(null, 1, 15));
         l12.setBounds(200, 370, 400, 30);
         this.add(l12);

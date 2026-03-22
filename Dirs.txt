@@ -1,0 +1,16 @@
+NCRK TextEditor v1.1.0
+	build
+		classes
+			icons
+			Images
+		empty
+		generated-sources
+			ap-source-output
+	dist
+	nbproject
+		configs
+		private
+	src
+		icons
+		Images
+Total Directories : 14

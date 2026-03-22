@@ -1,0 +1,269 @@
+## NCRK TextEditor v1.1.0
+{
+  ## build
+  {
+    -> built-jar.properties
+    ## classes
+    {
+      -> .netbeans_automatic_build
+      -> .netbeans_update_resources
+      -> AboutUs$1.class
+      -> AboutUs$2.class
+      -> AboutUs$3.class
+      -> AboutUs.class
+      -> BackgroundColorChooser$1.class
+      -> BackgroundColorChooser$2.class
+      -> BackgroundColorChooser.class
+      -> Bundle.properties
+      -> FontDialog$1.class
+      -> FontDialog$2.class
+      -> FontDialog$3.class
+      -> FontDialog.class
+      -> ForegroundColorChooser$1.class
+      -> ForegroundColorChooser$2.class
+      -> ForegroundColorChooser.class
+      -> HelpBook$1.class
+      -> HelpBook.class
+      -> HelpBook.form
+      -> HelpBook1.class
+      ## icons
+      {
+        -> all.gif
+        -> bold.gif
+        -> center.gif
+        -> circle-x-2x.png
+        -> cog-2x.png
+        -> cog-3x.png
+        -> cog-3x_1.png
+        -> copy.gif
+        -> cut.gif
+        -> feedback.gif
+        -> file-4x.png
+        -> find.gif
+        -> idea.gif
+        -> italic.gif
+        -> left.gif
+        -> new.gif
+        -> new_1.gif
+        -> open.gif
+        -> paste.gif
+        -> picture.gif
+        -> print.gif
+        -> question-mark-2x.png
+        -> question.gif
+        -> redo.gif
+        -> right.gif
+        -> RTF_icon.gif
+        -> save.gif
+        -> splash_image.jpg
+        -> title.gif
+        -> underline.gif
+        -> undo.gif
+        -> wrench-2x.png
+        -> wrench-3x.png
+        -> wrench-3x_1.png
+        -> zoom-in-2x.png
+        -> zoom-in-3x.png
+        -> zoom-out-2x.png
+        -> zoom-out-3x.png
+      }
+      ## Images
+      {
+        -> 3.jpg
+        -> title.jpg
+        -> title1.jpg
+      }
+      -> ItemEvent.class
+      -> MainFrame$1.class
+      -> MainFrame$10.class
+      -> MainFrame$11.class
+      -> MainFrame$12.class
+      -> MainFrame$13.class
+      -> MainFrame$14.class
+      -> MainFrame$15.class
+      -> MainFrame$16.class
+      -> MainFrame$17.class
+      -> MainFrame$18.class
+      -> MainFrame$19.class
+      -> MainFrame$2.class
+      -> MainFrame$20.class
+      -> MainFrame$21.class
+      -> MainFrame$22.class
+      -> MainFrame$23.class
+      -> MainFrame$24.class
+      -> MainFrame$25.class
+      -> MainFrame$26.class
+      -> MainFrame$27.class
+      -> MainFrame$28.class
+      -> MainFrame$29.class
+      -> MainFrame$3.class
+      -> MainFrame$30.class
+      -> MainFrame$31.class
+      -> MainFrame$32.class
+      -> MainFrame$33.class
+      -> MainFrame$34.class
+      -> MainFrame$35.class
+      -> MainFrame$36.class
+      -> MainFrame$37.class
+      -> MainFrame$38.class
+      -> MainFrame$39.class
+      -> MainFrame$4.class
+      -> MainFrame$40.class
+      -> MainFrame$41.class
+      -> MainFrame$42.class
+      -> MainFrame$43.class
+      -> MainFrame$44.class
+      -> MainFrame$45.class
+      -> MainFrame$46.class
+      -> MainFrame$47.class
+      -> MainFrame$48.class
+      -> MainFrame$49.class
+      -> MainFrame$5.class
+      -> MainFrame$50.class
+      -> MainFrame$51.class
+      -> MainFrame$52.class
+      -> MainFrame$53.class
+      -> MainFrame$54.class
+      -> MainFrame$55.class
+      -> MainFrame$6.class
+      -> MainFrame$7.class
+      -> MainFrame$8.class
+      -> MainFrame$9.class
+      -> MainFrame.class
+      -> MainFrame.form
+      -> PopupMenuAtTextArea$1.class
+      -> PopupMenuAtTextArea.class
+      -> Property.class
+      -> Search$1.class
+      -> Search$10.class
+      -> Search$11.class
+      -> Search$12.class
+      -> Search$2.class
+      -> Search$3.class
+      -> Search$4.class
+      -> Search$5.class
+      -> Search$6.class
+      -> Search$7.class
+      -> Search$8.class
+      -> Search$9.class
+      -> Search.class
+      -> Search.form
+      -> Starting.class
+      -> TimeDateUpdationThread.class
+      -> title.jpg
+      -> WaitImage.class
+    }
+    ## empty
+    ## generated-sources
+    {
+      ## ap-source-output
+    }
+    -> manifest.mf
+  }
+  -> build.xml
+  -> Dirs.txt
+  -> DirsFiles.txt
+  ## dist
+  {
+    -> launch.html
+    -> launch.jnlp
+    -> NCRK_TextEditor_v1.1.0.jar
+    -> README.TXT
+  }
+  -> javadoc.zip
+  -> manifest.mf
+  -> master-application.jnlp
+  ## nbproject
+  {
+    -> build-impl.xml
+    -> build-native.xml
+    ## configs
+    {
+      -> JWS_generated.properties
+    }
+    -> genfiles.properties
+    -> jnlp-impl.xml
+    ## private
+    {
+      -> config.properties
+      -> private.properties
+      -> private.xml
+    }
+    -> project.properties
+    -> project.xml
+  }
+  -> NCRK_TextEditor_v1.1.0.jar
+  -> preview-application.html
+  ## src
+  {
+    -> AboutUs.java
+    -> BackgroundColorChooser.java
+    -> Bundle.properties
+    -> FontDialog.java
+    -> ForegroundColorChooser.java
+    -> HelpBook.form
+    -> HelpBook.java
+    -> HelpBook1.java
+    ## icons
+    {
+      -> all.gif
+      -> bold.gif
+      -> center.gif
+      -> circle-x-2x.png
+      -> cog-2x.png
+      -> cog-3x.png
+      -> cog-3x_1.png
+      -> copy.gif
+      -> cut.gif
+      -> feedback.gif
+      -> file-4x.png
+      -> find.gif
+      -> idea.gif
+      -> italic.gif
+      -> left.gif
+      -> new.gif
+      -> new_1.gif
+      -> open.gif
+      -> paste.gif
+      -> picture.gif
+      -> print.gif
+      -> question-mark-2x.png
+      -> question.gif
+      -> redo.gif
+      -> right.gif
+      -> RTF_icon.gif
+      -> save.gif
+      -> splash_image.jpg
+      -> title.gif
+      -> underline.gif
+      -> undo.gif
+      -> wrench-2x.png
+      -> wrench-3x.png
+      -> wrench-3x_1.png
+      -> zoom-in-2x.png
+      -> zoom-in-3x.png
+      -> zoom-out-2x.png
+      -> zoom-out-3x.png
+    }
+    ## Images
+    {
+      -> 3.jpg
+      -> title.jpg
+      -> title1.jpg
+    }
+    -> ItemEvent.java
+    -> MainFrame.form
+    -> MainFrame.java
+    -> PopupMenuAtTextArea.java
+    -> Property.java
+    -> Search.form
+    -> Search.java
+    -> Starting.java
+    -> TimeDateUpdationThread.java
+    -> title.jpg
+    -> WaitImage.java
+  }
+  -> src.zip
+}
+Total Directories : 14
+Total Files       : 226
