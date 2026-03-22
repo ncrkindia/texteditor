@@ -1,6 +1,6 @@
-# NCRK TextEditor v1.1.3 🎉
+# NCRK TextEditor v1.1.4 🎉
 
-A lightweight, simple Desktop Text Editor built using Java AWT and Swing. This is the **v1.1.3 stable release**, offering core text editing functionalities similar to classic Notepad with a fully modular graphical interface.
+A lightweight, simple Desktop Text Editor built using Java AWT and Swing. This is the **v1.1.4 stable release**, offering core text editing functionalities similar to classic Notepad with a fully modular graphical interface.
 
 ## 🚀 Features
 
@@ -63,6 +63,11 @@ You can directly run the editor without compiling the source code using the dist
 *   **Official Website**: [www.ncrkindia.in](http://www.ncrkindia.in)
 
 ## 🆕 Changelog
+
+### v1.1.4
+*   **New Feature - File Properties**: Added a distinct `FileProperties.java` module and GUI definition to calculate and natively display detailed document metrics. 
+*   **Context Menu Expansion**: Logically integrated the new File Properties viewer directly into the editor's contextual right-click menu (`PopupMenuAtTextArea.java`).
+*   **Listener Polish**: Re-factored underlying input event mappings within the application's core AWT interfaces (`ScrollPaneFocusListenerImplementation`, `TabbedPaneKeyMouseListenerImplementation`).
 
 ### v1.1.3
 *   **New Feature - Context Menus**: Integrated `PopupMenuAtTextArea.java`, natively supporting right-click contextual actions inside the main editor body.

@@ -1,11 +1,7 @@
 
 
 
-import java.awt.Cursor;
-import java.awt.Menu;
-import java.awt.MenuItem;
-import java.awt.Point;
-import java.awt.PopupMenu;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -43,7 +39,7 @@ public class PopupMenuAtTextArea {
        {
            System.out.println(index);
            _removePopupMenuAtRightClick(outer);
-           final JTextArea textarea = outer.textArea.get(index);
+           final TextArea textarea = outer.textArea.get(index);
            String pathname = outer.path.get(index);
            popupmenu = new PopupMenu();
                         MenuItem cut = new MenuItem(" Cut");
@@ -52,7 +48,7 @@ public class PopupMenuAtTextArea {
                             public void actionPerformed(ActionEvent e) 
                             {
                                 PopupMenuAtTextArea._removePopupMenuAtRightClick(outer);
-                                textarea.cut();
+                                //textarea.cut();
                             }
                          }
                          );
@@ -62,7 +58,7 @@ public class PopupMenuAtTextArea {
                             public void actionPerformed(ActionEvent e) 
                             {
                                 PopupMenuAtTextArea._removePopupMenuAtRightClick(outer);
-                                textarea.copy();
+                                //textarea.copy();
                             }
                          }
                          );
@@ -72,7 +68,7 @@ public class PopupMenuAtTextArea {
                             public void actionPerformed(ActionEvent e) 
                             {
                                 PopupMenuAtTextArea._removePopupMenuAtRightClick(outer);
-                                textarea.paste();
+                                //textarea.paste();
                             }
                          }
                          );
@@ -95,7 +91,7 @@ public class PopupMenuAtTextArea {
                                 PopupMenuAtTextArea._removePopupMenuAtRightClick(outer);
                                 try
                                 {
-                                    textarea.replaceSelection(textarea.getSelectedText().toUpperCase());
+                                    //textarea.replaceSelection(textarea.getSelectedText().toUpperCase());
                                 }
                                 catch(Exception ee){}
                             }
@@ -109,7 +105,7 @@ public class PopupMenuAtTextArea {
                                 PopupMenuAtTextArea._removePopupMenuAtRightClick(outer);
                                 try
                                 {
-                                    textarea.replaceSelection(textarea.getSelectedText().toLowerCase());
+                                    //textarea.replaceSelection(textarea.getSelectedText().toLowerCase());
                                 }
                                 catch(Exception ee){}
                             }
@@ -123,7 +119,7 @@ public class PopupMenuAtTextArea {
                                 PopupMenuAtTextArea._removePopupMenuAtRightClick(outer);
                                 try
                                 {
-                                    textarea.replaceSelection(java.net.URLEncoder.encode(textarea.getSelectedText()));
+                                    //textarea.replaceSelection(java.net.URLEncoder.encode(textarea.getSelectedText()));
                                 }
                                 catch(Exception ee)
                                 {  
@@ -140,7 +136,7 @@ public class PopupMenuAtTextArea {
                                 PopupMenuAtTextArea._removePopupMenuAtRightClick(outer);
                                 try
                                 {
-                                    textarea.replaceSelection(java.net.URLDecoder.decode(textarea.getSelectedText()));
+                                    //textarea.replaceSelection(java.net.URLDecoder.decode(textarea.getSelectedText()));
                                 }
                                 catch(Exception ee)
                                 {

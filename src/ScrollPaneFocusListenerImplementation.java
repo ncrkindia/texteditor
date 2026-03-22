@@ -1,6 +1,7 @@
 
 
 
+import java.awt.TextArea;
 import java.awt.event.FocusEvent;
 import javax.swing.JTextArea;
 
@@ -18,7 +19,7 @@ public class ScrollPaneFocusListenerImplementation implements java.awt.event.Foc
     @Override
     public void focusGained(FocusEvent e)
     {
-        JTextArea ta = f.textArea.get(f.getjTabbedPane2().getSelectedIndex());
+        TextArea ta = f.textArea.get(f.getjTabbedPane2().getSelectedIndex());
         int length = ta.getText().getBytes().length;
         f.jLabel2.setText(length+"");
     }

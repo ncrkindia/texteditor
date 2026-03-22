@@ -34,7 +34,7 @@ public class TabbedPaneKeyMouseListenerImplementation implements java.awt.event.
          int index = f.getjTabbedPane2().getSelectedIndex();
         int length = f.textArea.get(index).getText().getBytes().length;
         String p = f.path.get(index);
-        f.jLabel2.setText("Size:"+length+" bytes     Lines:"+f.textArea.get(index).getLineCount()+"      FILE:"+p);
+        f.jLabel2.setText("Size:"+length+" bytes        FILE:"+p);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class TabbedPaneKeyMouseListenerImplementation implements java.awt.event.
         int index = f.getjTabbedPane2().getSelectedIndex();
         int length = f.textArea.get(index).getText().getBytes().length;
         String p = f.path.get(index);
-        f.jLabel2.setText("Size:"+length+" bytes     Lines:"+f.textArea.get(index).getLineCount()+"      FILE:"+p);
+        f.jLabel2.setText("Size:"+length+" bytes        FILE:"+p);
     }
 
     @Override

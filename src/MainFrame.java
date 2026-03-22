@@ -40,7 +40,7 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
         //ScrollPaneFocusListenerImplementation scrollPaneFocusListener = new ScrollPaneFocusListenerImplementation(this);
         this.path = new  java.util.Vector<String>();
         this.filename = new java.util.Vector<String>();
-        this.textArea = new java.util.Vector<JTextArea>();
+        this.textArea = new java.util.Vector<TextArea>();
         this.scrollPane = new java.util.Vector<JScrollPane>();
         this.countTab = new java.util.Vector<Integer>();
         this.countSpace = new java.util.Vector<Integer>();
@@ -106,7 +106,7 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
         int index = this.getjTabbedPane2().getSelectedIndex();
         int length = this.textArea.get(index).getText().getBytes().length;
         String p = this.path.get(index);
-        this.jLabel2.setText("Size:"+length+" bytes     Lines:"+this.textArea.get(index).getLineCount()+"      FILE:"+p);
+        this.jLabel2.setText("Size:"+length+" bytes        FILE:"+p);
         
     }
 
@@ -1398,7 +1398,7 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
         pro.isWordWrap=!pro.isWordWrap;
         for(int temp = 0;temp<=i;temp++)
             {
-                this.textArea.get(temp).setLineWrap(pro.isWordWrap);
+                //this.textArea.get(temp).setLineWrap(pro.isWordWrap);
             }
     }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
 
@@ -1413,7 +1413,8 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
     private void jMenuItem37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem37ActionPerformed
         try
         {
-            textArea.get(this.jTabbedPane2.getSelectedIndex()).replaceSelection(textArea.get(this.jTabbedPane2.getSelectedIndex()).getSelectedText().toUpperCase());
+            textArea.get(this.jTabbedPane2.getSelectedIndex()).replaceRange(textArea.get(this.jTabbedPane2.getSelectedIndex()).getSelectedText().toUpperCase(), textArea.get(this.jTabbedPane2.getSelectedIndex()).getSelectionStart(),textArea.get(this.jTabbedPane2.getSelectedIndex()).getSelectionEnd());
+            //.replaceSelection(textArea.get(this.jTabbedPane2.getSelectedIndex()).getSelectedText().toUpperCase());
         }
         catch(NullPointerException e)
         {
@@ -1425,7 +1426,7 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
        
         try
         {
-            textArea.get(this.jTabbedPane2.getSelectedIndex()).replaceSelection(textArea.get(this.jTabbedPane2.getSelectedIndex()).getSelectedText().toLowerCase());
+          textArea.get(this.jTabbedPane2.getSelectedIndex()).replaceRange(textArea.get(this.jTabbedPane2.getSelectedIndex()).getSelectedText().toLowerCase(), textArea.get(this.jTabbedPane2.getSelectedIndex()).getSelectionStart(),textArea.get(this.jTabbedPane2.getSelectedIndex()).getSelectionEnd());
         }
         catch(NullPointerException e)
         {
@@ -1449,7 +1450,8 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
            try
           {
               int index = this.jTabbedPane2.getSelectedIndex();
-             textArea.get(index).replaceSelection(java.net.URLEncoder.encode(textArea.get(index).getSelectedText()));
+             //textArea.get(index).replaceSelection(java.net.URLEncoder.encode(textArea.get(index).getSelectedText()));
+              textArea.get(this.jTabbedPane2.getSelectedIndex()).replaceRange(java.net.URLEncoder.encode(textArea.get(index).getSelectedText()), textArea.get(this.jTabbedPane2.getSelectedIndex()).getSelectionStart(),textArea.get(this.jTabbedPane2.getSelectedIndex()).getSelectionEnd());
           }
           catch(Exception ee)
          {  
@@ -1461,7 +1463,8 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
        try
           {
               int index = this.jTabbedPane2.getSelectedIndex();
-             textArea.get(index).replaceSelection(java.net.URLDecoder.decode(textArea.get(index).getSelectedText()));
+             //textArea.get(index).replaceSelection(java.net.URLDecoder.decode(textArea.get(index).getSelectedText()));
+              textArea.get(this.jTabbedPane2.getSelectedIndex()).replaceRange(java.net.URLDecoder.decode(textArea.get(index).getSelectedText()), textArea.get(this.jTabbedPane2.getSelectedIndex()).getSelectionStart(),textArea.get(this.jTabbedPane2.getSelectedIndex()).getSelectionEnd());
           }
           catch(Exception ee)
          {  
@@ -1472,10 +1475,10 @@ public class MainFrame extends javax.swing.JFrame implements KeyListener
     
 void _new()
 {
-        this.textArea.add(i, new JTextArea("")) ;
+        this.textArea.add(i, new TextArea("")) ;
         this.scrollPane.add(i, new JScrollPane());
         this.scrollPane.get(i).setViewportView(this.textArea.get(i));
-        this.textArea.get(i).setTabSize(4);
+        //this.textArea.get(i).setTabSize(4);
         this.getjTabbedPane2().addTab("New "+ni,this.scrollPane.get(i));
         this.getjTabbedPane2().setToolTipTextAt(i, "New "+ni); // Add in v1.0.1
         this.textArea.get(i).setFont(new Font(pro.getFont_name(), this.pro.getFont_style(), pro.getFont_size()));
@@ -1489,18 +1492,18 @@ void _new()
         jTabbedPane2.grabFocus();
         //jTabbedPane2.add
         this.scrollPane.get(i).grabFocus();
-       this.textArea.get(i).grabFocus();
+       //this.textArea.get(i).grabFocus();
        //this.textArea.get(i).addFocusListener(scrollPaneFocusListener);
        this.textArea.get(i).addKeyListener(this.tabbedPaneKeyMouseListenerImplementation);// Add in v1.1.2
        //this.textArea.get(i).addMouseListener(tabbedPaneKeyMouseListenerImplementation);// Add in v1.1.3
        this.textArea.get(i).addMouseListener(mouseListenerForPopupMenu);// Add in v1.1.3
-       this.textArea.get(i).setLineWrap(pro.isWordWrap);
+       //this.textArea.get(i).setLineWrap(pro.isWordWrap);
        try   //Added in v1.1.3
         {
        int index = this.getjTabbedPane2().getSelectedIndex();
         int length = this.textArea.get(index).getText().getBytes().length;
         String p = this.path.get(index);
-        this.jLabel2.setText("Size:"+length+" bytes     Lines:"+this.textArea.get(index).getLineCount()+"      FILE:"+p);
+        this.jLabel2.setText("Size:"+length+" bytes         FILE:"+p);
         }
         catch(Exception ee)
         {
@@ -1540,14 +1543,14 @@ void _open(boolean _new)
                 byte b[] = new byte[length];
                 fin.read(b, 0, length);
                 String str = new String(b, this.pro.encodingName);
-                this.textArea.add(i, new JTextArea(str));
-                this.textArea.get(i).setLineWrap(pro.isWordWrap);
-                this.textArea.get(i).setTabSize(2); this.textArea.get(i).grabFocus();
+                this.textArea.add(i, new TextArea(str));
+                //this.textArea.get(i).setLineWrap(pro.isWordWrap);
+                //this.textArea.get(i).setTabSize(2); this.textArea.get(i).grabFocus();
                 this.textArea.get(i).setFont(new Font(pro.getFont_name(), pro.getFont_style(), pro.getFont_size()));
                 this.textArea.get(i).setBackground(pro.getBgcolor());
                 this.textArea.get(i).setForeground(pro.getFgcolor());
                 //this.textArea.get(i).addFocusListener(scrollPaneFocusListener);
-                this.textArea.get(i).setTabSize(4);
+                //this.textArea.get(i).setTabSize(4);
                 this.scrollPane.add(i, new JScrollPane());
                 this.scrollPane.get(i).setViewportView( this.textArea.get(i));
                 this.getjTabbedPane2().addTab(o.getFile(), this.scrollPane.get(i));
@@ -1709,17 +1712,17 @@ void _save(int i)
     void _cut()
     {
          int si =getjTabbedPane2().getSelectedIndex();
-         textArea.get(si).cut();
+         //textArea.get(si).cut();
     }
     void _copy()
     {
          int si =getjTabbedPane2().getSelectedIndex();
-         textArea.get(si).copy();
+         //textArea.get(si).copy();
     }
     void _paste()
     {
         int si =getjTabbedPane2().getSelectedIndex();
-        textArea.get(si).paste();
+        //textArea.get(si).paste();
     }
     void _selectAll()
     {
@@ -2464,10 +2467,10 @@ public void _setTitleAt(int index , String text)
                 fin.read(b, 0, length);
                 fin.close();
                 String str = new String(b, this.pro.encodingName);
-                this.textArea.add(i, new JTextArea(str)) ;
+                this.textArea.add(i, new TextArea(str)) ;
                 this.scrollPane.add(i, new JScrollPane());
                 this.scrollPane.get(i).setViewportView(this.textArea.get(i));
-                this.textArea.get(i).setTabSize(4);
+                //this.textArea.get(i).setTabSize(4);
                 if(pro.savedFilesPath.elementAt(k).equals(""))
                 {
                     ni++;
@@ -2494,8 +2497,8 @@ public void _setTitleAt(int index , String text)
                 this.textArea.get(i).addMouseListener(mouseListenerForPopupMenu);// Add in v1.1.3
                 jTabbedPane2.grabFocus();
                 this.scrollPane.get(i).grabFocus();
-                this.textArea.get(i).grabFocus();
-                this.textArea.get(i).setLineWrap(pro.isWordWrap);
+                //this.textArea.get(i).grabFocus();
+                //this.textArea.get(i).setLineWrap(pro.isWordWrap);
                 new File(applicationDir+"\\temp\\"+k).delete();
            }
            pro.savedFilesCount=0;
@@ -2522,7 +2525,7 @@ public void _setTitleAt(int index , String text)
             int index = this.getjTabbedPane2().getSelectedIndex();
             int length = this.textArea.get(index).getText().getBytes().length;
             String p = this.path.get(index);
-            this.jLabel2.setText("Size:"+length+" bytes     Lines:"+this.textArea.get(index).getLineCount()+"      FILE:"+p);
+            this.jLabel2.setText("Size:"+length+" bytes       FILE:"+p);
          }
          catch(Exception ee)
         {
@@ -2625,7 +2628,7 @@ void _openFile(String n,String p)
     {
                 javax.swing.JOptionPane.showMessageDialog(this, "All ready opened.");
                 int iii = path.indexOf(p);
-                this.textArea.get(iii).grabFocus();
+                //this.textArea.get(iii).grabFocus();
                 return;
     }
     i++;
@@ -2638,14 +2641,14 @@ void _openFile(String n,String p)
                 byte b[] = new byte[length];
                 fin.read(b, 0, length);
                 String str = new String(b, this.pro.encodingName);
-                this.textArea.add(i, new JTextArea(str));
-                this.textArea.get(i).setLineWrap(pro.isWordWrap);
-                this.textArea.get(i).setTabSize(2); this.textArea.get(i).grabFocus();
+                this.textArea.add(i, new TextArea(str));
+                //this.textArea.get(i).setLineWrap(pro.isWordWrap);
+                //this.textArea.get(i).setTabSize(2); this.textArea.get(i).grabFocus();
                 this.textArea.get(i).setFont(new Font(pro.getFont_name(), pro.getFont_style(), pro.getFont_size()));
                 this.textArea.get(i).setBackground(pro.getBgcolor());
                 this.textArea.get(i).setForeground(pro.getFgcolor());
                 //this.textArea.get(i).addFocusListener(scrollPaneFocusListener);
-                this.textArea.get(i).setTabSize(4);
+                //this.textArea.get(i).setTabSize(4);
                 this.scrollPane.add(i, new JScrollPane());
                 this.scrollPane.get(i).setViewportView( this.textArea.get(i));
                 this.getjTabbedPane2().addTab(filename.get(i), this.scrollPane.get(i));
@@ -2688,14 +2691,14 @@ void db_click_open(String [] args)
                 byte b[] = new byte[length];
                 fin.read(b, 0, length);
                 String str = new String(b, this.pro.encodingName);
-                this.textArea.add(i, new JTextArea(str));
-                this.textArea.get(i).setLineWrap(pro.isWordWrap);
-                this.textArea.get(i).setTabSize(2); this.textArea.get(i).grabFocus();
+                this.textArea.add(i, new TextArea(str));
+                //this.textArea.get(i).setLineWrap(pro.isWordWrap);
+                //this.textArea.get(i).setTabSize(2); this.textArea.get(i).grabFocus();
                 this.textArea.get(i).setFont(new Font(pro.getFont_name(), pro.getFont_style(), pro.getFont_size()));
                 this.textArea.get(i).setBackground(pro.getBgcolor());
                 this.textArea.get(i).setForeground(pro.getFgcolor());
                 //this.textArea.get(i).addFocusListener(scrollPaneFocusListener);
-                this.textArea.get(i).setTabSize(4);
+                //this.textArea.get(i).setTabSize(4);
                 this.scrollPane.add(i, new JScrollPane());
                 this.scrollPane.get(i).setViewportView( this.textArea.get(i));
                 this.getjTabbedPane2().addTab(this.filename.get(i), this.scrollPane.get(i));
@@ -2755,7 +2758,7 @@ java.util.Vector<Integer> countTab;
 java.util.Vector<Integer> countSpace;
 int i=-1;
 private int ni;//for indexing of New Tab (un-Saved)
-java.util.Vector<JTextArea> textArea ;
+java.util.Vector<TextArea> textArea ;
 java.util.Vector<JScrollPane> scrollPane ;
 private String copiedText = "";
 private GraphicsEnvironment g;

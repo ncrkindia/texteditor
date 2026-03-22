@@ -14,7 +14,7 @@ import java.util.Vector;
  * @author NCRK (नवीन चौहान राजपूत खरदौनी)
  */
 public class Property implements java.io.Serializable {
-    public static String VERSION = "v1.1.3";
+    public static String VERSION = "v1.1.4";
     Vector<String> savedFilesPath;
     Vector<String> savedFilesName;
     Vector<String> recentlyOpenedFilesPath;
