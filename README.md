@@ -1,6 +1,6 @@
-# NCRK TextEditor beta-v0.3.0
+# NCRK TextEditor beta-v0.3.1
 
-A lightweight, simple Desktop Text Editor built using Java AWT and Swing. This is the **beta-v0.3.0 release**, offering core text editing functionalities similar to classic Notepad.
+A lightweight, simple Desktop Text Editor built using Java AWT and Swing. This is the **beta-v0.3.1 release**, offering core text editing functionalities similar to classic Notepad.
 
 ## 🚀 Features
 
@@ -18,11 +18,22 @@ A lightweight, simple Desktop Text Editor built using Java AWT and Swing. This i
 
 ## 💻 Getting Started
 
+### 📦 Running the Pre-compiled JAR (Recommended)
+You can directly run the editor without compiling the source code using the distributed JAR file.
+1. Navigate to the `dist` directory:
+   ```bash
+   cd dist
+   ```
+2. Execute the jar file:
+   ```bash
+   java -jar TextEditor_v3.1.jar
+   ```
+
 ### Using an IDE (NetBeans, Eclipse, IntelliJ)
 1. Open the project folder in your preferred Java IDE (Ant build configuration `build.xml` is provided for Apache NetBeans).
 2. Run the main class located at `src/JC024.java`.
 
-### Running from the Command Line
+### Compiling from the Command Line
 1. Navigate to the `src` directory:
    ```bash
    cd src
@@ -42,6 +53,11 @@ A lightweight, simple Desktop Text Editor built using Java AWT and Swing. This i
 *   **Official Website**: [www.ncrkindia.in](http://www.ncrkindia.in)
 
 ## 🆕 Changelog
+
+### beta-v0.3.1
+*   **Release Artifacts**: Shipped a pre-compiled, directly executable binary (`dist/TextEditor_v3.1.jar`) for instant out-of-the-box usage.
+*   **Codebase Cleanup**: Removed obsolete test classes (`JFrame1Test.java`) and extraneous preview HTML files, reducing repository clutter.
+*   **UI Polish**: Incremental refinements to the main editor form (`JFrame1`), `Property` system, and related image assets.
 
 ### beta-v0.3.0
 *   **Major UI Refactoring**: Transitioned from a single-file codebase to a modular application architectural layout using NetBeans GUI Builder.

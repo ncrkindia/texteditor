@@ -2,6 +2,8 @@ import java.awt.*;
 import javax.swing.*;
 import java.io.*;
 import java.awt.event.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 
 /**
@@ -10,6 +12,7 @@ import static javax.swing.JOptionPane.QUESTION_MESSAGE;
  */
 public class JFrame1 extends javax.swing.JFrame{
 private Property pro ;
+
     public JFrame1(Property pro) {
         
         //System.out.println(closedTab.length);
@@ -90,10 +93,18 @@ private Property pro ;
         jMenuItem27 = new javax.swing.JMenuItem();
         jMenu11 = new javax.swing.JMenu();
         jMenuItem31 = new javax.swing.JMenuItem();
+        jMenu13 = new javax.swing.JMenu();
         jMenuItem34 = new javax.swing.JMenuItem();
+        jMenuItem36 = new javax.swing.JMenuItem();
+        jMenuItem42 = new javax.swing.JMenuItem();
         jMenuItem33 = new javax.swing.JMenuItem();
         jMenuItem32 = new javax.swing.JMenuItem();
         jMenuItem30 = new javax.swing.JMenuItem();
+        jMenuItem37 = new javax.swing.JMenuItem();
+        jMenuItem39 = new javax.swing.JMenuItem();
+        jMenuItem40 = new javax.swing.JMenuItem();
+        jMenuItem41 = new javax.swing.JMenuItem();
+        jMenuItem38 = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenuItem19 = new javax.swing.JMenuItem();
@@ -501,13 +512,33 @@ private Property pro ;
         });
         jMenu11.add(jMenuItem31);
 
-        jMenuItem34.setText("Metal");
+        jMenu13.setText("Metal");
+
+        jMenuItem34.setText("Default(Steel)");
         jMenuItem34.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem34ActionPerformed(evt);
             }
         });
-        jMenu11.add(jMenuItem34);
+        jMenu13.add(jMenuItem34);
+
+        jMenuItem36.setText("Ocean");
+        jMenuItem36.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem36ActionPerformed(evt);
+            }
+        });
+        jMenu13.add(jMenuItem36);
+
+        jMenu11.add(jMenu13);
+
+        jMenuItem42.setText("Nimbus1");
+        jMenuItem42.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem42ActionPerformed(evt);
+            }
+        });
+        jMenu11.add(jMenuItem42);
 
         jMenuItem33.setText("Windows");
         jMenuItem33.addActionListener(new java.awt.event.ActionListener() {
@@ -532,6 +563,46 @@ private Property pro ;
             }
         });
         jMenu11.add(jMenuItem30);
+
+        jMenuItem37.setText("GTK");
+        jMenuItem37.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem37ActionPerformed(evt);
+            }
+        });
+        jMenu11.add(jMenuItem37);
+
+        jMenuItem39.setText("Basic");
+        jMenuItem39.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem39ActionPerformed(evt);
+            }
+        });
+        jMenu11.add(jMenuItem39);
+
+        jMenuItem40.setText("Synth");
+        jMenuItem40.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem40ActionPerformed(evt);
+            }
+        });
+        jMenu11.add(jMenuItem40);
+
+        jMenuItem41.setText("Multiplexing");
+        jMenuItem41.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem41ActionPerformed(evt);
+            }
+        });
+        jMenu11.add(jMenuItem41);
+
+        jMenuItem38.setText("System");
+        jMenuItem38.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem38ActionPerformed(evt);
+            }
+        });
+        jMenu11.add(jMenuItem38);
 
         jMenu3.add(jMenu11);
 
@@ -935,6 +1006,8 @@ private Property pro ;
        try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
+                    UIManager.put("nimbusBase", new Color(255,100,100));
+               UIManager.put("control", new Color(255,0,100));
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -945,21 +1018,6 @@ private Property pro ;
         }
        javax.swing.SwingUtilities.updateComponentTreeUI(this);
     }//GEN-LAST:event_jMenuItem31ActionPerformed
-
-    private void jMenuItem34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem34ActionPerformed
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Metal".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-            getPro().setLook("Metal");
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFrame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        javax.swing.SwingUtilities.updateComponentTreeUI(this);
-    }//GEN-LAST:event_jMenuItem34ActionPerformed
 
     private void jMenuItem33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem33ActionPerformed
       try {
@@ -1027,6 +1085,176 @@ private Property pro ;
              
          }
     }//GEN-LAST:event_jMenuItem35ActionPerformed
+
+    private void jMenuItem36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem36ActionPerformed
+        try {
+            javax.swing.plaf.metal.MetalTheme theme=new javax.swing.plaf.metal.OceanTheme();
+            javax.swing.plaf.metal.MetalLookAndFeel.setCurrentTheme(theme);
+            try {
+                UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InstantiationException ex) {
+                Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            getPro().setLook("OceanTheme");
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JFrame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+       javax.swing.SwingUtilities.updateComponentTreeUI(this);
+    }//GEN-LAST:event_jMenuItem36ActionPerformed
+
+    private void jMenuItem34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem34ActionPerformed
+       try {
+           
+           try {
+               javax.swing.plaf.metal.MetalTheme theme=new javax.swing.plaf.metal.DefaultMetalTheme();
+            javax.swing.plaf.metal.MetalLookAndFeel.setCurrentTheme(theme);
+               UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+               javax.swing.SwingUtilities.updateComponentTreeUI(this);
+           } catch (InstantiationException ex) {
+               Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (IllegalAccessException ex) {
+               Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+           }
+    
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JFrame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+         catch (ClassNotFoundException ex) {
+        Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+}
+    }//GEN-LAST:event_jMenuItem34ActionPerformed
+
+    private void jMenuItem38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem38ActionPerformed
+         try {
+           
+           try {
+              
+               UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+               javax.swing.SwingUtilities.updateComponentTreeUI(this);
+           } catch (InstantiationException ex) {
+               Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (IllegalAccessException ex) {
+               Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+           }
+    
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JFrame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+         catch (ClassNotFoundException ex) {
+        Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+}
+    }//GEN-LAST:event_jMenuItem38ActionPerformed
+
+    private void jMenuItem37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem37ActionPerformed
+        
+              try {
+           
+           try {
+              
+               UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+               javax.swing.SwingUtilities.updateComponentTreeUI(this);
+           } catch (InstantiationException ex) {
+               Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (IllegalAccessException ex) {
+               Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+           }
+    
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JFrame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+         catch (ClassNotFoundException ex) {
+        Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+}
+    }//GEN-LAST:event_jMenuItem37ActionPerformed
+
+    private void jMenuItem39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem39ActionPerformed
+      
+              try {
+           
+           try {
+              
+               UIManager.setLookAndFeel("javax.swing.plaf.basic.BasicLookAndFeel");
+               javax.swing.SwingUtilities.updateComponentTreeUI(this);
+           } catch (InstantiationException ex) {
+               Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (IllegalAccessException ex) {
+               Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+           }
+    
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JFrame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+         catch (ClassNotFoundException ex) {
+        Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+}
+    }//GEN-LAST:event_jMenuItem39ActionPerformed
+
+    private void jMenuItem40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem40ActionPerformed
+           try {
+           
+           try {
+              
+               UIManager.setLookAndFeel("javax.swing.plaf.synth.SynthLookAndFeel");
+               javax.swing.SwingUtilities.updateComponentTreeUI(this);
+           } catch (InstantiationException ex) {
+               Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (IllegalAccessException ex) {
+               Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+           }
+    
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JFrame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+         catch (ClassNotFoundException ex) {
+        Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+} 
+    }//GEN-LAST:event_jMenuItem40ActionPerformed
+
+    private void jMenuItem41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem41ActionPerformed
+        try {
+          
+           try {
+              
+               UIManager.setLookAndFeel("javax.swing.plaf.multi.MultiLookAndFeel");
+               javax.swing.SwingUtilities.updateComponentTreeUI(this);
+           } catch (InstantiationException ex) {
+               Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (IllegalAccessException ex) {
+               Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+           }
+    
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JFrame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+         catch (ClassNotFoundException ex) {
+        Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+} 
+    }//GEN-LAST:event_jMenuItem41ActionPerformed
+
+    private void jMenuItem42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem42ActionPerformed
+           try {
+          
+           try {
+              
+               UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+               javax.swing.SwingUtilities.updateComponentTreeUI(this);
+           } catch (InstantiationException ex) {
+               Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (IllegalAccessException ex) {
+               Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+           }
+    
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JFrame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+         catch (ClassNotFoundException ex) {
+        Logger.getLogger(JFrame1.class.getName()).log(Level.SEVERE, null, ex);
+}    
+    }//GEN-LAST:event_jMenuItem42ActionPerformed
 void _new()
 {
         setActiveTab(getActiveTab() + 1);
@@ -1483,7 +1711,7 @@ public javax.swing.JTabbedPane getjTabbedPane2()
         
         try
         {
-            Thread.sleep(10000);
+            Thread.sleep(100);
             
         }
         catch(InterruptedException e)
@@ -1543,6 +1771,7 @@ private int activeTab=0;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
+    private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -1581,7 +1810,14 @@ private int activeTab=0;
     private javax.swing.JMenuItem jMenuItem33;
     private javax.swing.JMenuItem jMenuItem34;
     private javax.swing.JMenuItem jMenuItem35;
+    private javax.swing.JMenuItem jMenuItem36;
+    private javax.swing.JMenuItem jMenuItem37;
+    private javax.swing.JMenuItem jMenuItem38;
+    private javax.swing.JMenuItem jMenuItem39;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem40;
+    private javax.swing.JMenuItem jMenuItem41;
+    private javax.swing.JMenuItem jMenuItem42;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
@@ -2486,16 +2722,7 @@ private int activeTab=0;
     /**
      * @return the jMenuItem34
      */
-    public javax.swing.JMenuItem getjMenuItem34() {
-        return jMenuItem34;
-    }
 
-    /**
-     * @param jMenuItem34 the jMenuItem34 to set
-     */
-    public void setjMenuItem34(javax.swing.JMenuItem jMenuItem34) {
-        this.jMenuItem34 = jMenuItem34;
-    }
 
     /**
      * @return the jMenuItem35
