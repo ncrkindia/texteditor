@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<jnlp codebase="file:/F:/Jar/TextEditor%20v2.1/dist/" href="launch.jnlp" spec="1.0+">
+<jnlp href="launch.jnlp" spec="1.0+">
     <information>
-        <title>TextEditor v2.1</title>
-        <vendor>NCRK Inc. India</vendor>
+        <title>TextEditor v3.0</title>
+        <vendor>Naveen</vendor>
         <homepage href=""/>
-        <description>TextEditor v2.1</description>
-        <description kind="short">TextEditor v2.1</description>
-    <icon href="title.gif" kind="splash"/>
-<icon href="title.gif" kind="default"/>
-<offline-allowed/>
+        <description>TextEditor v3.0</description>
+        <description kind="short">TextEditor v3.0</description>
+    <icon href="3.jpg" kind="default"/>
 </information>
-    <update check="background"/>
+    <update check="always"/>
     <resources>
         <j2se version="1.8+"/>
-        <jar href="TextEditor_v2.1.jar" main="true"/>
+        <jar href="TextEditor_v3.0.jar" main="true"/>
     </resources>
     <application-desc main-class="JFrame1">
-    </application-desc>
+    <argument>build.xml</argument>
+</application-desc>
 </jnlp>

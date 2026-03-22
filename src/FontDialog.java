@@ -1,4 +1,4 @@
-
+import java.awt.*;
 import java.awt.Choice;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
@@ -9,25 +9,22 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import java.awt.*;
 import javax.swing.JFrame;
-
 
 /**
  *
  * @author NCRK (नवीन चौहान राजपूत खरदौनी)
  */
 class FontDialog extends JDialog {
-
-    private Choice ch1 = new Choice();
-    private Choice ch2 = new Choice();
-    private Choice ch3 = new Choice();
-    private JButton b1 = new JButton("OK");
-    private Font fnt;
+    private Choice  ch1 = new Choice();
+    private Choice  ch2 = new Choice();
+    private Choice  ch3 = new Choice();
+    private JButton b1  = new JButton("OK");
+    private Font    fnt;
     private JFrame1 outer;
 
-    FontDialog( final JFrame1 outer) {
-        super(outer,"Choose Font", true);
+    FontDialog(final JFrame1 outer) {
+        super(outer, "Choose Font", true);
         this.outer = outer;
         setSize(350, 200);
         addWindowListener(new WindowAdapter() {
@@ -36,10 +33,10 @@ class FontDialog extends JDialog {
             }
         });
         setTitle("Choose Font Style and Size");
+
         Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
-        
-        setLocation((screensize.width / 2) - (getSize().width / 2),
-                    (screensize.height / 2) - (getSize().height / 2));
+
+        setLocation((screensize.width / 2) - (getSize().width / 2), (screensize.height / 2) - (getSize().height / 2));
         setLayout(null);
         ch1.setBounds(50, 50, 150, 25);
         add(ch1);
@@ -52,43 +49,53 @@ class FontDialog extends JDialog {
         ch2.add("Plain");
         ch2.add("Bold");
         ch2.add("Italic");
+
         for (int i = 10; i <= 72; i += 2) {
             ch3.add(i + "");
         }
+
         ch3.setName("Size");
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        String[] arr = ge.getAvailableFontFamilyNames();
+
+        GraphicsEnvironment ge  = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        String[]            arr = ge.getAvailableFontFamilyNames();
+
         for (String item : arr) {
             ch1.add(item);
         }
+
         b1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 b1_Click(e);
             }
         });
-        //ch1.addItemListener(new ItemListener(){public void itemStateChanged(ItemEvent e){changefont(e);}});
-        //ch2.addItemListener(new ItemListener(){public void itemStateChanged(ItemEvent e){changefont(e);}});
-        //ch3.addItemListener(new ItemListener(){public void itemStateChanged(ItemEvent e){changefont(e);}});
+
+        // ch1.addItemListener(new ItemListener(){public void itemStateChanged(ItemEvent e){changefont(e);}});
+        // ch2.addItemListener(new ItemListener(){public void itemStateChanged(ItemEvent e){changefont(e);}});
+        // ch3.addItemListener(new ItemListener(){public void itemStateChanged(ItemEvent e){changefont(e);}});
     }
 
     void changefont() {
-        String nm = getCh1().getSelectedItem();
-        int size = Integer.parseInt(getCh3().getSelectedItem());
-        int style = 0;
-        String s = getCh2().getSelectedItem();
+        String nm    = getCh1().getSelectedItem();
+        int    size  = Integer.parseInt(getCh3().getSelectedItem());
+        int    style = 0;
+        String s     = getCh2().getSelectedItem();
+
         if (s.equals("Plain")) {
             style = 0;
         }
+
         if (s.equals("Bold")) {
             style = 1;
         }
+
         if (s.equals("Italic")) {
             style = 2;
         }
-        //font=new Font(nm,style,size);
-        outer.font_style = style;
-        outer.font_size = size;
-        outer.font_name = nm;
+
+        // font=new Font(nm,style,size);
+        outer.getPro().setFont_style(style);
+        outer.getPro().setFont_size(size);
+        outer.getPro().setFont_name(nm);
         getOuter()._setFontStyle();
     }
 
@@ -180,5 +187,7 @@ class FontDialog extends JDialog {
     public void setOuter(JFrame1 outer) {
         this.outer = outer;
     }
-    
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

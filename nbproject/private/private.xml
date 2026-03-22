@@ -3,13 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/Jar/TextEditor%20v2.1/src/JFrame1.java</file>
-            <file>file:/F:/Jar/TextEditor%20v2.1/src/Starting.java</file>
-            <file>file:/F:/Jar/TextEditor%20v2.1/src/FontDialog.java</file>
-            <file>file:/F:/Jar/TextEditor%20v2.1/src/AboutUs.java</file>
-            <file>file:/F:/Jar/TextEditor%20v2.1/src/ForegroundColorChooser.java</file>
-            <file>file:/F:/Jar/TextEditor%20v2.1/src/BackgroundColorChooser.java</file>
-            <file>file:/F:/Jar/TextEditor%20v2.1/src/Search.java</file>
+            <file>file:/F:/Jar/TextEditor%20v3.0/src/JFrame1.java</file>
+            <file>file:/F:/Jar/TextEditor%20v3.0/src/Property.java</file>
+            <file>file:/F:/Jar/TextEditor%20v3.0/src/Search.java</file>
+            <file>file:/F:/Jar/TextEditor%20v3.0/src/BackgroundColorChooser.java</file>
+            <file>file:/F:/Jar/TextEditor%20v3.0/src/ForegroundColorChooser.java</file>
+            <file>file:/F:/Jar/TextEditor%20v3.0/src/Starting.java</file>
+            <file>file:/F:/Jar/TextEditor%20v3.0/src/FontDialog.java</file>
+            <file>file:/F:/Jar/TextEditor%20v3.0/src/AboutUs.java</file>
         </group>
     </open-files>
 </project-private>

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Ant-Version: Apache Ant 1.9.2
 Created-By: 1.8.0_05-b13 (Oracle Corporation)
 X-COMMENT: Main-Class will be added automatically by build
-Codebase: F:\Jar\TextEditor v2.1\dist
+Codebase: *
 Permissions: sandbox
-Application-Name: TextEditor v2.1
+Application-Name: TextEditor v3.0
 

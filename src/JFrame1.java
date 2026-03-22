@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template path, choose Tools | Templates
- * and open the template in the editor.
- */
 import java.awt.*;
 import javax.swing.*;
 import java.io.*;
@@ -11,30 +6,21 @@ import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 
 /**
  *
- * @author SHIVA नवीन चौहान राजपूत खरदौनी
+ * @author NCRK (नवीन चौहान राजपूत खरदौनी)
  */
-public class JFrame1 extends JFrame {
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * Creates new form JFrame1
-     */
-    public JFrame1() {
- 
+public class JFrame1 extends javax.swing.JFrame{
+private Property pro ;
+    public JFrame1(Property pro) {
+        
+        //System.out.println(closedTab.length);
+        this.pro = pro;
         setpathEmpty();
         initComponents();
-       
-        fgcolor = new Color(0,153,153);
-        bgcolor = new Color(153,0,51);
-        font_size=20;
-        font_name = null; 
-        font_style = 0;
-        screensize = Toolkit.getDefaultToolkit().getScreenSize();
-        screensize.height -= 20;
-        this.setSize(screensize);
+        this.setBounds(this.pro.getRect());
+        //this.setBounds(new Rectangle(50,50,400,400));
         //this.setIconImage(new ImageIcon(getClass().getResource(font_name)));
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("Images/all.gif"));
-        setTitle("NCRK :: TextEditor v2.1"); //NOI18N
+        setTitle("NCRK :: TextEditor v3.0"); //NOI18N
        jTabbedPane2.setTabPlacement(JTabbedPane.TOP);
        {
         ++i;
@@ -117,6 +103,7 @@ public class JFrame1 extends JFrame {
         jMenuItem22 = new javax.swing.JMenuItem();
         jMenuItem23 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
+        jMenuItem35 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenu10 = new javax.swing.JMenu();
         jMenuItem28 = new javax.swing.JMenuItem();
@@ -341,7 +328,7 @@ public class JFrame1 extends JFrame {
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/new.gif"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("set"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
         jMenuItem1.setText(bundle.getString("NEW")); // NOI18N
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -606,6 +593,15 @@ public class JFrame1 extends JFrame {
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Setting");
+
+        jMenuItem35.setText("Reset to Default");
+        jMenuItem35.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem35ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem35);
+
         jMenuBar1.add(jMenu5);
 
         jMenu6.setText("Language");
@@ -671,22 +667,22 @@ public class JFrame1 extends JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
          
-         ++i;
-        ++ni;
-        if(activeTab<MaxTab) _new();
+         setI(getI() + 1);
+        setNi(getNi() + 1);
+        if(getActiveTab()<getMaxTab()) _new();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
          
-        i++;
-       if(activeTab<MaxTab) {
-           _open();
+        setI(getI() + 1);
+       if(getActiveTab()<getMaxTab()) {
+           _open(true);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
          
-         int si =jTabbedPane2.getSelectedIndex();
+         int si =getjTabbedPane2().getSelectedIndex();
          if(si==-1) {
              return;
          }
@@ -731,31 +727,31 @@ public class JFrame1 extends JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
          
-      i++;
-       if(jTabbedPane2.getTabCount()<MaxTab) {
-           _open();
+        setI(getI() + 1);
+       if(getjTabbedPane2().getTabCount()<getMaxTab()) {
+           _open(true);
       }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
          
-        ++i;
-        ++ni;
-        if(jTabbedPane2.getTabCount()<MaxTab) {
+        setI(getI() + 1);
+        setNi(getNi() + 1);
+        if(getjTabbedPane2().getTabCount()<getMaxTab()) {
             _new();
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
          
-        int si =jTabbedPane2.getSelectedIndex();
+        int si =getjTabbedPane2().getSelectedIndex();
         if(si==-1) return;
         _save(si);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
          
-        int si =jTabbedPane2.getSelectedIndex();
+        int si =getjTabbedPane2().getSelectedIndex();
         if(si==-1) return;
         _saveAs(si);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
@@ -803,43 +799,46 @@ public class JFrame1 extends JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        boolean bold = jToggleButton1.isSelected();
-        boolean italic = jToggleButton2.isSelected();
+        boolean bold = getjToggleButton1().isSelected();
+        boolean italic = getjToggleButton2().isSelected();
         if(!bold && !italic)
         {
-            font_style = 0; 
+            getPro().setFont_style(0); 
         }
         else if(bold && !italic)
         {
-            font_style = 1;
+            getPro().setFont_style(1);
         }
         else
         {
-            jToggleButton2.setSelected(false);
-            font_style = 1;
+            getjToggleButton2().setSelected(false);
+            getPro().setFont_style(1);
         }
-        for(int temp =0;temp<MaxTab;temp++)
-            jTextArea[temp].setFont(new Font(font_name,font_style,font_size));
+        for(int temp =0;temp<getMaxTab();temp++) {
+            jTextArea[temp].setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
+        }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-        boolean bold = jToggleButton1.isSelected();
-        boolean italic = jToggleButton2.isSelected();
+        boolean bold = getjToggleButton1().isSelected();
+        boolean italic = getjToggleButton2().isSelected();
         if(!bold && !italic)
         {
-            font_style = 0; 
+       
+            getPro().setFont_style(0); 
         }
         else if(!bold && italic)
         {
-            font_style = 2;
+            getPro().setFont_style(2);
         }
         else
         {
-            jToggleButton1.setSelected(false);
-            font_style = 2;
+            getjToggleButton1().setSelected(false);
+            getPro().setFont_style(2);
         }
-        for(int temp =0;temp<MaxTab;temp++)
-            jTextArea[temp].setFont(new Font(font_name,font_style,font_size));
+        for(int temp =0;temp<getMaxTab();temp++) {
+            jTextArea[temp].setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
+        }
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -858,7 +857,7 @@ public class JFrame1 extends JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-    PrintJob p = Toolkit.getDefaultToolkit().getPrintJob(this, jTabbedPane2.getTitleAt(jTabbedPane2.getSelectedIndex()), null, null);
+    PrintJob p = Toolkit.getDefaultToolkit().getPrintJob(this, getjTabbedPane2().getTitleAt(getjTabbedPane2().getSelectedIndex()), null, null);
         
        Graphics g1 =p.getGraphics();
        g1.dispose();
@@ -920,7 +919,12 @@ public class JFrame1 extends JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         int choice = JOptionPane.showConfirmDialog(this,"Are you sure to exit ?", "Exit", 1,QUESTION_MESSAGE);
-        if(choice==0) System.exit(0);
+        if(choice==0) 
+        {
+            pro.setRect(this.getBounds());
+            getPro().writeProperties();
+            System.exit(0);
+        }
     }//GEN-LAST:event_formWindowClosing
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
@@ -935,6 +939,7 @@ public class JFrame1 extends JFrame {
                     break;
                 }
             }
+            getPro().setLook("Nimbus");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(JFrame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -949,6 +954,7 @@ public class JFrame1 extends JFrame {
                     break;
                 }
             }
+            getPro().setLook("Metal");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(JFrame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -963,6 +969,7 @@ public class JFrame1 extends JFrame {
                     break;
                 }
             }
+            getPro().setLook("Windows");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(JFrame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -977,6 +984,7 @@ public class JFrame1 extends JFrame {
                     break;
                 }
             }
+            getPro().setLook("Windows Classic");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(JFrame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -991,6 +999,7 @@ public class JFrame1 extends JFrame {
                     break;
                 }
             }
+            getPro().setLook("CDE/Motif");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(JFrame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -1006,81 +1015,99 @@ public class JFrame1 extends JFrame {
         Search search = new Search(this,0);
         search.setVisible(true);
     }//GEN-LAST:event_jMenuItem23ActionPerformed
+
+    private void jMenuItem35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem35ActionPerformed
+         int option = JOptionPane.showConfirmDialog(this, "Are you sure to reset?\nNote::Save opened file before confirming to reset.");
+         if(option==0)
+         {
+             String[] arg = new String[2];
+             arg[0] = "readme.txt";
+             this.dispose();
+             main(arg);
+             
+         }
+    }//GEN-LAST:event_jMenuItem35ActionPerformed
 void _new()
 {
-    activeTab++;
-    jTextArea[i] = new JTextArea("");
-     jScrollPane[i] = new JScrollPane();
-     jScrollPane[i].setViewportView(jTextArea[i]);
-     jTextArea[i].setTabSize(2);jTextArea[i].grabFocus();
-     jTabbedPane2.addTab("New "+ni, jScrollPane[i]);
-     jTextArea[i].setFont(new Font(font_name,font_style,font_size));
-     jTextArea[i].setBackground(bgcolor);
-     jTextArea[i].setForeground(fgcolor);
-     jTextArea[i].select(0, 0);
+        setActiveTab(getActiveTab() + 1);
+        jTextArea[getI()] = new JTextArea("");
+        jScrollPane[getI()] = new JScrollPane();
+        jScrollPane[getI()].setViewportView(jTextArea[getI()]);
+        jTextArea[getI()].setTabSize(2);jTextArea[getI()].grabFocus();
+        getjTabbedPane2().addTab("New "+getNi(),jScrollPane[getI()]);
+        jTextArea[getI()].setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
+        jTextArea[getI()].setBackground(getPro().getBgcolor());
+        jTextArea[getI()].setForeground(getPro().getFgcolor());
+        jTextArea[getI()].select(0, 0);
 }
     
-void _open()
+void _open(boolean _new)
 	{
 		//_close();
-            activeTab++;
-        jTextArea[i] = new JTextArea("");
-        jTextArea[i].setTabSize(2);jTextArea[i].grabFocus();
-        jTextArea[i].setFont(new Font(font_name,font_style,font_size));
-        jTextArea[i].setBackground(bgcolor);
-        jTextArea[i].setForeground(fgcolor);
-	o = new FileDialog(this,"Open Files");
-        o.setVisible(true);
-        
-        if(o.getFile()!=null)
+        if(_new)
         {
-        path[i] = o.getDirectory()+o.getFile(); 
+	setO(new FileDialog(this,"Open Files"));
+        getO().setVisible(true);
+        }
+        if(getO().getFile()!=null||!_new)
+        {
+            if(_new)
+            {
+            path[getI()] = getO().getDirectory()+getO().getFile(); 
+            filename[getI()] = getO().getFile();
+            setActiveTab(getActiveTab() + 1);
+            }
             byte[] b;
             try ( //for byte oriented i/o
-                    FileInputStream fin = new FileInputStream(path[i])) {
+                    FileInputStream fin = new FileInputStream(path[getI()])) {
                 int n = fin.available();
                 b = new byte[n];
-                fin.read(b,0,n);
-            
-            
-            
+                fin.read(b,0,n); 
             /* for character oriented i/o
             FileReader fr = new java.io.FileReader(path[i]);
             fr.read(ch);
             fr.close();
             */
-            
-            
-            String str = new String(b);
-            jTextArea[i].setText(str);
-            jTextArea[i].setTabSize(2);
-            
-            jScrollPane[i] = new JScrollPane();
-            jScrollPane[i].setViewportView(jTextArea[i]);
-            jTabbedPane2.addTab(o.getFile(), jScrollPane[i]);
-            jScrollPane[i].setEnabled(true);
-            jScrollPane[i].setWheelScrollingEnabled(rootPaneCheckingEnabled);
+                String str = new String(b);
+                
+                jTextArea[getI()] = new JTextArea("");
+                jTextArea[getI()].setTabSize(2);jTextArea[getI()].grabFocus();
+                jTextArea[getI()].setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
+                jTextArea[getI()].setBackground(getPro().getBgcolor());
+                jTextArea[getI()].setForeground(getPro().getFgcolor());
+                jTextArea[getI()].setText(str);
+                jTextArea[getI()].setTabSize(2);
+                jScrollPane[getI()] = new JScrollPane();
+                jScrollPane[getI()].setViewportView(jTextArea[getI()]);
+                getjTabbedPane2().addTab(getO().getFile(), jScrollPane[getI()]);
+                jScrollPane[getI()].setEnabled(true);
+                jScrollPane[getI()].setWheelScrollingEnabled(true);
         }catch(IOException e)
         {
-            javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to read the file\n "+path[i]+e,"Error",0);
-            jTextArea[i].setText("");
+            javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to read the file\n "+path[getI()]+e,"Error",0);
+                jTextArea[getI()].setText("");
         }
         }
-        else i--;
+        else {
+            setI(getI() - 1);
+            }
 	}
 
 void _save(int i)
 {
 	if(path[i].equals(""))
         {
-        o = new FileDialog(this,"Save",1);
-        o.setVisible(true);   
-        if(o.getFile()!=null)
+            setO(new FileDialog(this,"Save",1));
+            getO().setVisible(true);   
+        if( getO().getFile()!=null)
         {
-        filename[i] = o.getFile();
-        path[i] = o.getDirectory()+filename[i];
+                filename[i] = getO().getFile();
+                path[i] = getO().getDirectory()+filename[i];
         }
-        else return;
+        else
+        {
+            return;
+        }
 	}
         //System.out.println(o.getFile());
         
@@ -1090,7 +1117,7 @@ void _save(int i)
                 byte[] b = txt.getBytes();
                 fout.write(b,0,b.length);
             
-            jTabbedPane2.setTitleAt(i, filename[i]);
+            getjTabbedPane2().setTitleAt(i, filename[i]);
         
         }catch(Exception e)
         {
@@ -1103,19 +1130,19 @@ void _save(int i)
     void _saveAs(int i)
 {
     
-	o = new FileDialog(this,"Save As",1);
-        o.setVisible(true);
-        if(o.getFile()!=null)
+	setO(new FileDialog(this,"Save As",1));
+        getO().setVisible(true);
+        if(getO().getFile()!=null)
         {
-        filename[i] = o.getFile();
-        path[i] = o.getDirectory()+filename[i];
+            filename[i] = getO().getFile();
+            path[i] = getO().getDirectory()+filename[i];
 
             try (FileOutputStream fout = new FileOutputStream(path[i])) {
                 String txt = jTextArea[i].getText();
                 byte[] b = txt.getBytes();
                 fout.write(b,0,b.length);
             
-            jTabbedPane2.setTitleAt(i, filename[i]);
+                getjTabbedPane2().setTitleAt(i, filename[i]);
         }catch(IOException e)
         {
             javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to save the content into the file\n "+path[i]+e,"Error",0);
@@ -1126,7 +1153,7 @@ void _save(int i)
      
     void _saveAll()
     {
-        for(int temp = 0;temp<MaxTab;temp++)
+        for(int temp = 0;temp<getMaxTab();temp++)
         {
             if(!path[temp].equals(""))
             {
@@ -1144,18 +1171,18 @@ void _save(int i)
             }
         }
     }
-    
-    void _close()
+    /*
+     void _close()
 	{
-            activeTab--;
-            int si =jTabbedPane2.getSelectedIndex();
+            setActiveTab(getActiveTab()-1);
+            int si =getjTabbedPane2().getSelectedIndex();
             if(si==-1) return;
 		if(!jTextArea[si].getText().equals(""))
 		{
 			//int choice = JOptionPane.showConfirmDialog(this,"Do you want to save the changes before exiting ?");
 			//if(choice == 0) _save(si);
 		}
-		for(int index=si;index<=i;index++)
+		for(int index=si;index<=getI();index++)
                 {
                     path[index] = path[index+1];
                     filename[index] = filename[index+1];
@@ -1163,7 +1190,7 @@ void _save(int i)
                 }
 		//path[si]="";
 		//setTitle("Text Editor");
-                jTabbedPane2.remove(jTabbedPane2.getTabCount()-1);
+                getjTabbedPane2().remove(getjTabbedPane2().getTabCount()-1);
 		
 	}
 
@@ -1184,8 +1211,61 @@ void _save(int i)
             }
             
     }
+   */
     
+    void _close()
+	{
+            setActiveTab(getActiveTab() - 1);
+            int si =getjTabbedPane2().getSelectedIndex();
+            if(si==-1) {
+                return;
+            }
+            closedTop++;
+            closedTab[closedTop]=si;
+            getjTabbedPane2().removeAll();
+            refreshAfterClose();
+	
+	}
+   
+    boolean searchInClosedTab(int i)
+    {
+        for(int item: closedTab)
+        {
+            if(item == i)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    void refreshAfterClose()
+    {
+       try
+       {
+           for(int i=0;i<getI();i++)
+           {
+               boolean find = searchInClosedTab(i);
+               if(!find)
+               {
+                   if(filename[i].equals(""))
+                   {
+                       getjTabbedPane2().addTab("new"+i,jScrollPane[i]);
+                   }
+                   else
+                   {
+                        getjTabbedPane2().addTab(filename[i], jScrollPane[i]);
+                   }
+               }
+           }
+       }
+       catch(Exception e)
+       {
+           System.out.println(e);
+           JOptionPane.showMessageDialog(this, e);
+       }
+    }
     
+ 
     void _closeAll()
     {
         int choice = JOptionPane.showConfirmDialog(this,"Do you want to save the changes before exiting exiting?");
@@ -1196,52 +1276,53 @@ void _save(int i)
     }
     void _cut()
     {
-         int si =jTabbedPane2.getSelectedIndex();
+         int si =getjTabbedPane2().getSelectedIndex();
         jTextArea[si].cut();
     }
     void _copy()
     {
-         int si =jTabbedPane2.getSelectedIndex();
+         int si =getjTabbedPane2().getSelectedIndex();
         jTextArea[si].copy();
     }
     void _paste()
     {
-        int si =jTabbedPane2.getSelectedIndex();
+        int si =getjTabbedPane2().getSelectedIndex();
         jTextArea[si].paste();
     }
     void _selectAll()
     {
-        int si =jTabbedPane2.getSelectedIndex();
+        int si =getjTabbedPane2().getSelectedIndex();
         jTextArea[si].selectAll();
     }
 
 void setpathEmpty()
 {
-    for(int n=0;n<MaxTab;n++)
+        path= new String[getMaxTab()];
+    for(int n=0;n<getMaxTab();n++)
     {
-        path[n] = new String("");
-        filename[n] = new String("");
+            path[n] = "";
+            filename[n] = "";
     }
 }
 
 
 void _zoomIn()
 {
-	if(font_size<72)
+	if(getPro().getFont_size()<72)
 	{
-            font_size++;
-            for(int temp=0;temp<MaxTab;temp++) {
-                jTextArea[temp].setFont(new Font(font_name,font_style,font_size));
+            getPro().setFont_size(getPro().getFont_size() + 1);
+            for(int temp=0;temp<getMaxTab();temp++) {
+                jTextArea[temp].setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
             }
         }
 }
 void _zoomOut()
 {
-	if(font_size>12)
+	if(getPro().getFont_size()>12)
 	{
-            font_size--;
-            for(int temp=0;temp<MaxTab;temp++) {
-                jTextArea[temp].setFont(new Font(font_name,font_style,font_size));
+            getPro().setFont_size(getPro().getFont_size() - 1);
+            for(int temp=0;temp<getMaxTab();temp++) {
+                jTextArea[temp].setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
             }
 	}
         
@@ -1301,19 +1382,19 @@ void _aboutus()
 
 void _setFontStyle()
 {
-    boolean state = jToggleButton2.isSelected();
+    boolean state = getjToggleButton2().isSelected();
         if(state)
         {
-            for(int temp = 0;temp<=i;temp++)
+            for(int temp = 0;temp<=getI();temp++)
             {
-                jTextArea[temp].setFont(new Font(font_name,font_style,font_size));
+                jTextArea[temp].setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
             }
         }
         else
         {
-            for(int temp = 0;temp<=i;temp++)
+            for(int temp = 0;temp<=getI();temp++)
             {
-                jTextArea[temp].setFont(new Font(font_name,font_style,font_size));
+                jTextArea[temp].setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
             }
         }
 }
@@ -1329,33 +1410,33 @@ void _setFontStyle()
        
 void db_click_open(String [] args)
 {
-   int j = 1;
-    while(j<=args.length)
+   int j = 0;
+    while(j<args.length)
     {
-        i++;
-        jTextArea[i] = new JTextArea("");
-        jTextArea[i].setFont(new Font(font_name,font_style,font_size));
-	path[i]=args[j]; 
+            setI(getI() + 1);
+            jTextArea[getI()] = new JTextArea("");
+            jTextArea[getI()].setFont(new Font(getPro().getFont_name(), getPro().getFont_style(), getPro().getFont_size()));
+	    path[getI()]=args[j]; 
             byte[] b;
             try ( //for byte oriented i/o
-                    FileInputStream fin = new FileInputStream(path[i])) {
+                FileInputStream fin = new FileInputStream(path[getI()])) {
                 int n = fin.available();
                 b = new byte[n];
                 fin.read(b,0,n);  
             String str = new String(b);
-            jTextArea[i].setText(str);
-            jTextArea[i].setTabSize(2);
+                jTextArea[getI()].setText(str);
+                jTextArea[getI()].setTabSize(2);
             
-            jScrollPane[i] = new JScrollPane();
-            jScrollPane[i].setViewportView(jTextArea[i]);
-            jTabbedPane2.addTab(o.getFile(), jScrollPane[i]);
-            jScrollPane[i].setEnabled(true);
-            jScrollPane[i].setWheelScrollingEnabled(rootPaneCheckingEnabled);
+                jScrollPane[getI()] = new JScrollPane();
+                jScrollPane[getI()].setViewportView(jTextArea[getI()]);
+                getjTabbedPane2().addTab(getO().getFile(), jScrollPane[getI()]);
+                jScrollPane[getI()].setEnabled(true);
+                jScrollPane[getI()].setWheelScrollingEnabled(rootPaneCheckingEnabled);
         }catch(IOException e)
         {
-            javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to read the file\n "+path[i]+e,"Error",0);
-            jTextArea[i].setText("");
-            i--;
+            javax.swing.JOptionPane.showMessageDialog(this, "Sorry , we are not able to read the file\n "+path[getI()]+e,"Error",0);
+                jTextArea[getI()].setText("");
+                setI(getI() - 1);
         }
         
         //else i--;
@@ -1369,6 +1450,15 @@ public javax.swing.JTabbedPane getjTabbedPane2()
     }
  
     public static void main(String args[]) {
+        Property pro = null;
+        if(args.length==0)
+        {
+             pro = Property.getProperty(true);
+        }
+        else
+        {
+             pro = Property.getProperty(false);
+        }
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -1376,7 +1466,7 @@ public javax.swing.JTabbedPane getjTabbedPane2()
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if (pro.getLook().equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -1396,13 +1486,16 @@ public javax.swing.JTabbedPane getjTabbedPane2()
             Thread.sleep(10000);
             
         }
-        catch(Exception e)
+        catch(InterruptedException e)
         {
             
         }
-          s.dispose();
-          JFrame1 f =  new JFrame1();
-          f.setVisible(true);
+        s.dispose();
+         JFrame1 f =  new JFrame1(pro);
+                 f.setVisible(true);
+//           System.out.println(args[0]);
+          
+          
          
         try
         {
@@ -1410,31 +1503,27 @@ public javax.swing.JTabbedPane getjTabbedPane2()
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            e.printStackTrace();
         }
+        
     }
     
-    
-int MaxTab = 200;
-FileDialog o;
+ int[] closedTab = new int[200]; //contains the index of closed tab
+ int closedTop = -1;
+private int MaxTab = 200;
+private FileDialog o;
 String path[]= new String[MaxTab];
 String filename[]= new String[MaxTab];
-int i=-1;
-int ni;//for indexing of New Tab (un-Saved)
+private int i=-1;
+private int ni;//for indexing of New Tab (un-Saved)
 JTextArea jTextArea[] = new JTextArea[MaxTab];
 JScrollPane jScrollPane[] = new JScrollPane[MaxTab];
-String copiedText = "";
+private String copiedText = "";
 //Font font = new Font("Arial",0,15);
-GraphicsEnvironment g;
-//Font font ;
-String font_name;
-int font_style;
-int font_size ;
-Color fgcolor;
-Color bgcolor;
-char[] ch;
-Dimension screensize;
-int activeTab=0;
+private GraphicsEnvironment g;
+
+private char[] ch;
+private int activeTab=0;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
@@ -1491,6 +1580,7 @@ int activeTab=0;
     private javax.swing.JMenuItem jMenuItem32;
     private javax.swing.JMenuItem jMenuItem33;
     private javax.swing.JMenuItem jMenuItem34;
+    private javax.swing.JMenuItem jMenuItem35;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
@@ -1510,4 +1600,1159 @@ int activeTab=0;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the pro
+     */
+    public Property getPro() {
+        return pro;
+    }
+
+    /**
+     * @param pro the pro to set
+     */
+    public void setPro(Property pro) {
+        this.pro = pro;
+    }
+
+    /**
+     * @return the MaxTab
+     */
+    public int getMaxTab() {
+        return MaxTab;
+    }
+
+    /**
+     * @param MaxTab the MaxTab to set
+     */
+    public void setMaxTab(int MaxTab) {
+        this.MaxTab = MaxTab;
+    }
+
+    /**
+     * @return the o
+     */
+    public FileDialog getO() {
+        return o;
+    }
+
+    /**
+     * @param o the o to set
+     */
+    public void setO(FileDialog o) {
+        this.o = o;
+    }
+
+    /**
+     * @return the i
+     */
+    public int getI() {
+        return i;
+    }
+
+    /**
+     * @param i the i to set
+     */
+    public void setI(int i) {
+        this.i = i;
+    }
+
+    /**
+     * @return the ni
+     */
+    public int getNi() {
+        return ni;
+    }
+
+    /**
+     * @param ni the ni to set
+     */
+    public void setNi(int ni) {
+        this.ni = ni;
+    }
+
+    /**
+     * @return the copiedText
+     */
+    public String getCopiedText() {
+        return copiedText;
+    }
+
+    /**
+     * @param copiedText the copiedText to set
+     */
+    public void setCopiedText(String copiedText) {
+        this.copiedText = copiedText;
+    }
+
+    /**
+     * @return the g
+     */
+    public GraphicsEnvironment getG() {
+        return g;
+    }
+
+    /**
+     * @param g the g to set
+     */
+    public void setG(GraphicsEnvironment g) {
+        this.g = g;
+    }
+
+    /**
+     * @return the ch
+     */
+    public char[] getCh() {
+        return ch;
+    }
+
+    /**
+     * @param ch the ch to set
+     */
+    public void setCh(char[] ch) {
+        this.ch = ch;
+    }
+
+    /**
+     * @return the activeTab
+     */
+    public int getActiveTab() {
+        return activeTab;
+    }
+
+    /**
+     * @param activeTab the activeTab to set
+     */
+    public void setActiveTab(int activeTab) {
+        this.activeTab = activeTab;
+    }
+
+    /**
+     * @return the jButton1
+     */
+    public javax.swing.JButton getjButton1() {
+        return jButton1;
+    }
+
+    /**
+     * @param jButton1 the jButton1 to set
+     */
+    public void setjButton1(javax.swing.JButton jButton1) {
+        this.jButton1 = jButton1;
+    }
+
+    /**
+     * @return the jButton10
+     */
+    public javax.swing.JButton getjButton10() {
+        return jButton10;
+    }
+
+    /**
+     * @param jButton10 the jButton10 to set
+     */
+    public void setjButton10(javax.swing.JButton jButton10) {
+        this.jButton10 = jButton10;
+    }
+
+    /**
+     * @return the jButton11
+     */
+    public javax.swing.JButton getjButton11() {
+        return jButton11;
+    }
+
+    /**
+     * @param jButton11 the jButton11 to set
+     */
+    public void setjButton11(javax.swing.JButton jButton11) {
+        this.jButton11 = jButton11;
+    }
+
+    /**
+     * @return the jButton12
+     */
+    public javax.swing.JButton getjButton12() {
+        return jButton12;
+    }
+
+    /**
+     * @param jButton12 the jButton12 to set
+     */
+    public void setjButton12(javax.swing.JButton jButton12) {
+        this.jButton12 = jButton12;
+    }
+
+    /**
+     * @return the jButton13
+     */
+    public javax.swing.JButton getjButton13() {
+        return jButton13;
+    }
+
+    /**
+     * @param jButton13 the jButton13 to set
+     */
+    public void setjButton13(javax.swing.JButton jButton13) {
+        this.jButton13 = jButton13;
+    }
+
+    /**
+     * @return the jButton14
+     */
+    public javax.swing.JButton getjButton14() {
+        return jButton14;
+    }
+
+    /**
+     * @param jButton14 the jButton14 to set
+     */
+    public void setjButton14(javax.swing.JButton jButton14) {
+        this.jButton14 = jButton14;
+    }
+
+    /**
+     * @return the jButton16
+     */
+    public javax.swing.JButton getjButton16() {
+        return jButton16;
+    }
+
+    /**
+     * @param jButton16 the jButton16 to set
+     */
+    public void setjButton16(javax.swing.JButton jButton16) {
+        this.jButton16 = jButton16;
+    }
+
+    /**
+     * @return the jButton2
+     */
+    public javax.swing.JButton getjButton2() {
+        return jButton2;
+    }
+
+    /**
+     * @param jButton2 the jButton2 to set
+     */
+    public void setjButton2(javax.swing.JButton jButton2) {
+        this.jButton2 = jButton2;
+    }
+
+    /**
+     * @return the jButton3
+     */
+    public javax.swing.JButton getjButton3() {
+        return jButton3;
+    }
+
+    /**
+     * @param jButton3 the jButton3 to set
+     */
+    public void setjButton3(javax.swing.JButton jButton3) {
+        this.jButton3 = jButton3;
+    }
+
+    /**
+     * @return the jButton4
+     */
+    public javax.swing.JButton getjButton4() {
+        return jButton4;
+    }
+
+    /**
+     * @param jButton4 the jButton4 to set
+     */
+    public void setjButton4(javax.swing.JButton jButton4) {
+        this.jButton4 = jButton4;
+    }
+
+    /**
+     * @return the jButton5
+     */
+    public javax.swing.JButton getjButton5() {
+        return jButton5;
+    }
+
+    /**
+     * @param jButton5 the jButton5 to set
+     */
+    public void setjButton5(javax.swing.JButton jButton5) {
+        this.jButton5 = jButton5;
+    }
+
+    /**
+     * @return the jButton6
+     */
+    public javax.swing.JButton getjButton6() {
+        return jButton6;
+    }
+
+    /**
+     * @param jButton6 the jButton6 to set
+     */
+    public void setjButton6(javax.swing.JButton jButton6) {
+        this.jButton6 = jButton6;
+    }
+
+    /**
+     * @return the jButton7
+     */
+    public javax.swing.JButton getjButton7() {
+        return jButton7;
+    }
+
+    /**
+     * @param jButton7 the jButton7 to set
+     */
+    public void setjButton7(javax.swing.JButton jButton7) {
+        this.jButton7 = jButton7;
+    }
+
+    /**
+     * @return the jButton8
+     */
+    public javax.swing.JButton getjButton8() {
+        return jButton8;
+    }
+
+    /**
+     * @param jButton8 the jButton8 to set
+     */
+    public void setjButton8(javax.swing.JButton jButton8) {
+        this.jButton8 = jButton8;
+    }
+
+    /**
+     * @return the jButton9
+     */
+    public javax.swing.JButton getjButton9() {
+        return jButton9;
+    }
+
+    /**
+     * @param jButton9 the jButton9 to set
+     */
+    public void setjButton9(javax.swing.JButton jButton9) {
+        this.jButton9 = jButton9;
+    }
+
+    /**
+     * @return the jMenu1
+     */
+    public javax.swing.JMenu getjMenu1() {
+        return jMenu1;
+    }
+
+    /**
+     * @param jMenu1 the jMenu1 to set
+     */
+    public void setjMenu1(javax.swing.JMenu jMenu1) {
+        this.jMenu1 = jMenu1;
+    }
+
+    /**
+     * @return the jMenu10
+     */
+    public javax.swing.JMenu getjMenu10() {
+        return jMenu10;
+    }
+
+    /**
+     * @param jMenu10 the jMenu10 to set
+     */
+    public void setjMenu10(javax.swing.JMenu jMenu10) {
+        this.jMenu10 = jMenu10;
+    }
+
+    /**
+     * @return the jMenu11
+     */
+    public javax.swing.JMenu getjMenu11() {
+        return jMenu11;
+    }
+
+    /**
+     * @param jMenu11 the jMenu11 to set
+     */
+    public void setjMenu11(javax.swing.JMenu jMenu11) {
+        this.jMenu11 = jMenu11;
+    }
+
+    /**
+     * @return the jMenu2
+     */
+    public javax.swing.JMenu getjMenu2() {
+        return jMenu2;
+    }
+
+    /**
+     * @param jMenu2 the jMenu2 to set
+     */
+    public void setjMenu2(javax.swing.JMenu jMenu2) {
+        this.jMenu2 = jMenu2;
+    }
+
+    /**
+     * @return the jMenu3
+     */
+    public javax.swing.JMenu getjMenu3() {
+        return jMenu3;
+    }
+
+    /**
+     * @param jMenu3 the jMenu3 to set
+     */
+    public void setjMenu3(javax.swing.JMenu jMenu3) {
+        this.jMenu3 = jMenu3;
+    }
+
+    /**
+     * @return the jMenu4
+     */
+    public javax.swing.JMenu getjMenu4() {
+        return jMenu4;
+    }
+
+    /**
+     * @param jMenu4 the jMenu4 to set
+     */
+    public void setjMenu4(javax.swing.JMenu jMenu4) {
+        this.jMenu4 = jMenu4;
+    }
+
+    /**
+     * @return the jMenu5
+     */
+    public javax.swing.JMenu getjMenu5() {
+        return jMenu5;
+    }
+
+    /**
+     * @param jMenu5 the jMenu5 to set
+     */
+    public void setjMenu5(javax.swing.JMenu jMenu5) {
+        this.jMenu5 = jMenu5;
+    }
+
+    /**
+     * @return the jMenu6
+     */
+    public javax.swing.JMenu getjMenu6() {
+        return jMenu6;
+    }
+
+    /**
+     * @param jMenu6 the jMenu6 to set
+     */
+    public void setjMenu6(javax.swing.JMenu jMenu6) {
+        this.jMenu6 = jMenu6;
+    }
+
+    /**
+     * @return the jMenu7
+     */
+    public javax.swing.JMenu getjMenu7() {
+        return jMenu7;
+    }
+
+    /**
+     * @param jMenu7 the jMenu7 to set
+     */
+    public void setjMenu7(javax.swing.JMenu jMenu7) {
+        this.jMenu7 = jMenu7;
+    }
+
+    /**
+     * @return the jMenu8
+     */
+    public javax.swing.JMenu getjMenu8() {
+        return jMenu8;
+    }
+
+    /**
+     * @param jMenu8 the jMenu8 to set
+     */
+    public void setjMenu8(javax.swing.JMenu jMenu8) {
+        this.jMenu8 = jMenu8;
+    }
+
+    /**
+     * @return the jMenu9
+     */
+    public javax.swing.JMenu getjMenu9() {
+        return jMenu9;
+    }
+
+    /**
+     * @param jMenu9 the jMenu9 to set
+     */
+    public void setjMenu9(javax.swing.JMenu jMenu9) {
+        this.jMenu9 = jMenu9;
+    }
+
+    /**
+     * @return the jMenuBar1
+     */
+    public javax.swing.JMenuBar getjMenuBar1() {
+        return jMenuBar1;
+    }
+
+    /**
+     * @param jMenuBar1 the jMenuBar1 to set
+     */
+    public void setjMenuBar1(javax.swing.JMenuBar jMenuBar1) {
+        this.jMenuBar1 = jMenuBar1;
+    }
+
+    /**
+     * @return the jMenuItem1
+     */
+    public javax.swing.JMenuItem getjMenuItem1() {
+        return jMenuItem1;
+    }
+
+    /**
+     * @param jMenuItem1 the jMenuItem1 to set
+     */
+    public void setjMenuItem1(javax.swing.JMenuItem jMenuItem1) {
+        this.jMenuItem1 = jMenuItem1;
+    }
+
+    /**
+     * @return the jMenuItem10
+     */
+    public javax.swing.JMenuItem getjMenuItem10() {
+        return jMenuItem10;
+    }
+
+    /**
+     * @param jMenuItem10 the jMenuItem10 to set
+     */
+    public void setjMenuItem10(javax.swing.JMenuItem jMenuItem10) {
+        this.jMenuItem10 = jMenuItem10;
+    }
+
+    /**
+     * @return the jMenuItem11
+     */
+    public javax.swing.JMenuItem getjMenuItem11() {
+        return jMenuItem11;
+    }
+
+    /**
+     * @param jMenuItem11 the jMenuItem11 to set
+     */
+    public void setjMenuItem11(javax.swing.JMenuItem jMenuItem11) {
+        this.jMenuItem11 = jMenuItem11;
+    }
+
+    /**
+     * @return the jMenuItem12
+     */
+    public javax.swing.JMenuItem getjMenuItem12() {
+        return jMenuItem12;
+    }
+
+    /**
+     * @param jMenuItem12 the jMenuItem12 to set
+     */
+    public void setjMenuItem12(javax.swing.JMenuItem jMenuItem12) {
+        this.jMenuItem12 = jMenuItem12;
+    }
+
+    /**
+     * @return the jMenuItem13
+     */
+    public javax.swing.JMenuItem getjMenuItem13() {
+        return jMenuItem13;
+    }
+
+    /**
+     * @param jMenuItem13 the jMenuItem13 to set
+     */
+    public void setjMenuItem13(javax.swing.JMenuItem jMenuItem13) {
+        this.jMenuItem13 = jMenuItem13;
+    }
+
+    /**
+     * @return the jMenuItem14
+     */
+    public javax.swing.JMenuItem getjMenuItem14() {
+        return jMenuItem14;
+    }
+
+    /**
+     * @param jMenuItem14 the jMenuItem14 to set
+     */
+    public void setjMenuItem14(javax.swing.JMenuItem jMenuItem14) {
+        this.jMenuItem14 = jMenuItem14;
+    }
+
+    /**
+     * @return the jMenuItem15
+     */
+    public javax.swing.JMenuItem getjMenuItem15() {
+        return jMenuItem15;
+    }
+
+    /**
+     * @param jMenuItem15 the jMenuItem15 to set
+     */
+    public void setjMenuItem15(javax.swing.JMenuItem jMenuItem15) {
+        this.jMenuItem15 = jMenuItem15;
+    }
+
+    /**
+     * @return the jMenuItem16
+     */
+    public javax.swing.JMenuItem getjMenuItem16() {
+        return jMenuItem16;
+    }
+
+    /**
+     * @param jMenuItem16 the jMenuItem16 to set
+     */
+    public void setjMenuItem16(javax.swing.JMenuItem jMenuItem16) {
+        this.jMenuItem16 = jMenuItem16;
+    }
+
+    /**
+     * @return the jMenuItem17
+     */
+    public javax.swing.JMenuItem getjMenuItem17() {
+        return jMenuItem17;
+    }
+
+    /**
+     * @param jMenuItem17 the jMenuItem17 to set
+     */
+    public void setjMenuItem17(javax.swing.JMenuItem jMenuItem17) {
+        this.jMenuItem17 = jMenuItem17;
+    }
+
+    /**
+     * @return the jMenuItem18
+     */
+    public javax.swing.JMenuItem getjMenuItem18() {
+        return jMenuItem18;
+    }
+
+    /**
+     * @param jMenuItem18 the jMenuItem18 to set
+     */
+    public void setjMenuItem18(javax.swing.JMenuItem jMenuItem18) {
+        this.jMenuItem18 = jMenuItem18;
+    }
+
+    /**
+     * @return the jMenuItem19
+     */
+    public javax.swing.JMenuItem getjMenuItem19() {
+        return jMenuItem19;
+    }
+
+    /**
+     * @param jMenuItem19 the jMenuItem19 to set
+     */
+    public void setjMenuItem19(javax.swing.JMenuItem jMenuItem19) {
+        this.jMenuItem19 = jMenuItem19;
+    }
+
+    /**
+     * @return the jMenuItem2
+     */
+    public javax.swing.JMenuItem getjMenuItem2() {
+        return jMenuItem2;
+    }
+
+    /**
+     * @param jMenuItem2 the jMenuItem2 to set
+     */
+    public void setjMenuItem2(javax.swing.JMenuItem jMenuItem2) {
+        this.jMenuItem2 = jMenuItem2;
+    }
+
+    /**
+     * @return the jMenuItem20
+     */
+    public javax.swing.JMenuItem getjMenuItem20() {
+        return jMenuItem20;
+    }
+
+    /**
+     * @param jMenuItem20 the jMenuItem20 to set
+     */
+    public void setjMenuItem20(javax.swing.JMenuItem jMenuItem20) {
+        this.jMenuItem20 = jMenuItem20;
+    }
+
+    /**
+     * @return the jMenuItem21
+     */
+    public javax.swing.JMenuItem getjMenuItem21() {
+        return jMenuItem21;
+    }
+
+    /**
+     * @param jMenuItem21 the jMenuItem21 to set
+     */
+    public void setjMenuItem21(javax.swing.JMenuItem jMenuItem21) {
+        this.jMenuItem21 = jMenuItem21;
+    }
+
+    /**
+     * @return the jMenuItem22
+     */
+    public javax.swing.JMenuItem getjMenuItem22() {
+        return jMenuItem22;
+    }
+
+    /**
+     * @param jMenuItem22 the jMenuItem22 to set
+     */
+    public void setjMenuItem22(javax.swing.JMenuItem jMenuItem22) {
+        this.jMenuItem22 = jMenuItem22;
+    }
+
+    /**
+     * @return the jMenuItem23
+     */
+    public javax.swing.JMenuItem getjMenuItem23() {
+        return jMenuItem23;
+    }
+
+    /**
+     * @param jMenuItem23 the jMenuItem23 to set
+     */
+    public void setjMenuItem23(javax.swing.JMenuItem jMenuItem23) {
+        this.jMenuItem23 = jMenuItem23;
+    }
+
+    /**
+     * @return the jMenuItem24
+     */
+    public javax.swing.JMenuItem getjMenuItem24() {
+        return jMenuItem24;
+    }
+
+    /**
+     * @param jMenuItem24 the jMenuItem24 to set
+     */
+    public void setjMenuItem24(javax.swing.JMenuItem jMenuItem24) {
+        this.jMenuItem24 = jMenuItem24;
+    }
+
+    /**
+     * @return the jMenuItem25
+     */
+    public javax.swing.JMenuItem getjMenuItem25() {
+        return jMenuItem25;
+    }
+
+    /**
+     * @param jMenuItem25 the jMenuItem25 to set
+     */
+    public void setjMenuItem25(javax.swing.JMenuItem jMenuItem25) {
+        this.jMenuItem25 = jMenuItem25;
+    }
+
+    /**
+     * @return the jMenuItem26
+     */
+    public javax.swing.JMenuItem getjMenuItem26() {
+        return jMenuItem26;
+    }
+
+    /**
+     * @param jMenuItem26 the jMenuItem26 to set
+     */
+    public void setjMenuItem26(javax.swing.JMenuItem jMenuItem26) {
+        this.jMenuItem26 = jMenuItem26;
+    }
+
+    /**
+     * @return the jMenuItem27
+     */
+    public javax.swing.JMenuItem getjMenuItem27() {
+        return jMenuItem27;
+    }
+
+    /**
+     * @param jMenuItem27 the jMenuItem27 to set
+     */
+    public void setjMenuItem27(javax.swing.JMenuItem jMenuItem27) {
+        this.jMenuItem27 = jMenuItem27;
+    }
+
+    /**
+     * @return the jMenuItem28
+     */
+    public javax.swing.JMenuItem getjMenuItem28() {
+        return jMenuItem28;
+    }
+
+    /**
+     * @param jMenuItem28 the jMenuItem28 to set
+     */
+    public void setjMenuItem28(javax.swing.JMenuItem jMenuItem28) {
+        this.jMenuItem28 = jMenuItem28;
+    }
+
+    /**
+     * @return the jMenuItem29
+     */
+    public javax.swing.JMenuItem getjMenuItem29() {
+        return jMenuItem29;
+    }
+
+    /**
+     * @param jMenuItem29 the jMenuItem29 to set
+     */
+    public void setjMenuItem29(javax.swing.JMenuItem jMenuItem29) {
+        this.jMenuItem29 = jMenuItem29;
+    }
+
+    /**
+     * @return the jMenuItem3
+     */
+    public javax.swing.JMenuItem getjMenuItem3() {
+        return jMenuItem3;
+    }
+
+    /**
+     * @param jMenuItem3 the jMenuItem3 to set
+     */
+    public void setjMenuItem3(javax.swing.JMenuItem jMenuItem3) {
+        this.jMenuItem3 = jMenuItem3;
+    }
+
+    /**
+     * @return the jMenuItem30
+     */
+    public javax.swing.JMenuItem getjMenuItem30() {
+        return jMenuItem30;
+    }
+
+    /**
+     * @param jMenuItem30 the jMenuItem30 to set
+     */
+    public void setjMenuItem30(javax.swing.JMenuItem jMenuItem30) {
+        this.jMenuItem30 = jMenuItem30;
+    }
+
+    /**
+     * @return the jMenuItem31
+     */
+    public javax.swing.JMenuItem getjMenuItem31() {
+        return jMenuItem31;
+    }
+
+    /**
+     * @param jMenuItem31 the jMenuItem31 to set
+     */
+    public void setjMenuItem31(javax.swing.JMenuItem jMenuItem31) {
+        this.jMenuItem31 = jMenuItem31;
+    }
+
+    /**
+     * @return the jMenuItem32
+     */
+    public javax.swing.JMenuItem getjMenuItem32() {
+        return jMenuItem32;
+    }
+
+    /**
+     * @param jMenuItem32 the jMenuItem32 to set
+     */
+    public void setjMenuItem32(javax.swing.JMenuItem jMenuItem32) {
+        this.jMenuItem32 = jMenuItem32;
+    }
+
+    /**
+     * @return the jMenuItem33
+     */
+    public javax.swing.JMenuItem getjMenuItem33() {
+        return jMenuItem33;
+    }
+
+    /**
+     * @param jMenuItem33 the jMenuItem33 to set
+     */
+    public void setjMenuItem33(javax.swing.JMenuItem jMenuItem33) {
+        this.jMenuItem33 = jMenuItem33;
+    }
+
+    /**
+     * @return the jMenuItem34
+     */
+    public javax.swing.JMenuItem getjMenuItem34() {
+        return jMenuItem34;
+    }
+
+    /**
+     * @param jMenuItem34 the jMenuItem34 to set
+     */
+    public void setjMenuItem34(javax.swing.JMenuItem jMenuItem34) {
+        this.jMenuItem34 = jMenuItem34;
+    }
+
+    /**
+     * @return the jMenuItem35
+     */
+    public javax.swing.JMenuItem getjMenuItem35() {
+        return jMenuItem35;
+    }
+
+    /**
+     * @param jMenuItem35 the jMenuItem35 to set
+     */
+    public void setjMenuItem35(javax.swing.JMenuItem jMenuItem35) {
+        this.jMenuItem35 = jMenuItem35;
+    }
+
+    /**
+     * @return the jMenuItem4
+     */
+    public javax.swing.JMenuItem getjMenuItem4() {
+        return jMenuItem4;
+    }
+
+    /**
+     * @param jMenuItem4 the jMenuItem4 to set
+     */
+    public void setjMenuItem4(javax.swing.JMenuItem jMenuItem4) {
+        this.jMenuItem4 = jMenuItem4;
+    }
+
+    /**
+     * @return the jMenuItem5
+     */
+    public javax.swing.JMenuItem getjMenuItem5() {
+        return jMenuItem5;
+    }
+
+    /**
+     * @param jMenuItem5 the jMenuItem5 to set
+     */
+    public void setjMenuItem5(javax.swing.JMenuItem jMenuItem5) {
+        this.jMenuItem5 = jMenuItem5;
+    }
+
+    /**
+     * @return the jMenuItem6
+     */
+    public javax.swing.JMenuItem getjMenuItem6() {
+        return jMenuItem6;
+    }
+
+    /**
+     * @param jMenuItem6 the jMenuItem6 to set
+     */
+    public void setjMenuItem6(javax.swing.JMenuItem jMenuItem6) {
+        this.jMenuItem6 = jMenuItem6;
+    }
+
+    /**
+     * @return the jMenuItem7
+     */
+    public javax.swing.JMenuItem getjMenuItem7() {
+        return jMenuItem7;
+    }
+
+    /**
+     * @param jMenuItem7 the jMenuItem7 to set
+     */
+    public void setjMenuItem7(javax.swing.JMenuItem jMenuItem7) {
+        this.jMenuItem7 = jMenuItem7;
+    }
+
+    /**
+     * @return the jMenuItem8
+     */
+    public javax.swing.JMenuItem getjMenuItem8() {
+        return jMenuItem8;
+    }
+
+    /**
+     * @param jMenuItem8 the jMenuItem8 to set
+     */
+    public void setjMenuItem8(javax.swing.JMenuItem jMenuItem8) {
+        this.jMenuItem8 = jMenuItem8;
+    }
+
+    /**
+     * @return the jMenuItem9
+     */
+    public javax.swing.JMenuItem getjMenuItem9() {
+        return jMenuItem9;
+    }
+
+    /**
+     * @param jMenuItem9 the jMenuItem9 to set
+     */
+    public void setjMenuItem9(javax.swing.JMenuItem jMenuItem9) {
+        this.jMenuItem9 = jMenuItem9;
+    }
+
+    /**
+     * @return the jPanel1
+     */
+    public javax.swing.JPanel getjPanel1() {
+        return jPanel1;
+    }
+
+    /**
+     * @param jPanel1 the jPanel1 to set
+     */
+    public void setjPanel1(javax.swing.JPanel jPanel1) {
+        this.jPanel1 = jPanel1;
+    }
+
+    /**
+     * @return the jScrollPane1
+     */
+    public javax.swing.JScrollPane getjScrollPane1() {
+        return jScrollPane1;
+    }
+
+    /**
+     * @param jScrollPane1 the jScrollPane1 to set
+     */
+    public void setjScrollPane1(javax.swing.JScrollPane jScrollPane1) {
+        this.jScrollPane1 = jScrollPane1;
+    }
+
+    /**
+     * @return the jSeparator1
+     */
+    public javax.swing.JPopupMenu.Separator getjSeparator1() {
+        return jSeparator1;
+    }
+
+    /**
+     * @param jSeparator1 the jSeparator1 to set
+     */
+    public void setjSeparator1(javax.swing.JPopupMenu.Separator jSeparator1) {
+        this.jSeparator1 = jSeparator1;
+    }
+
+    /**
+     * @return the jSeparator2
+     */
+    public javax.swing.JPopupMenu.Separator getjSeparator2() {
+        return jSeparator2;
+    }
+
+    /**
+     * @param jSeparator2 the jSeparator2 to set
+     */
+    public void setjSeparator2(javax.swing.JPopupMenu.Separator jSeparator2) {
+        this.jSeparator2 = jSeparator2;
+    }
+
+    /**
+     * @return the jSeparator3
+     */
+    public javax.swing.JPopupMenu.Separator getjSeparator3() {
+        return jSeparator3;
+    }
+
+    /**
+     * @param jSeparator3 the jSeparator3 to set
+     */
+    public void setjSeparator3(javax.swing.JPopupMenu.Separator jSeparator3) {
+        this.jSeparator3 = jSeparator3;
+    }
+
+    /**
+     * @return the jSeparator4
+     */
+    public javax.swing.JPopupMenu.Separator getjSeparator4() {
+        return jSeparator4;
+    }
+
+    /**
+     * @param jSeparator4 the jSeparator4 to set
+     */
+    public void setjSeparator4(javax.swing.JPopupMenu.Separator jSeparator4) {
+        this.jSeparator4 = jSeparator4;
+    }
+
+    /**
+     * @return the jSeparator5
+     */
+    public javax.swing.JPopupMenu.Separator getjSeparator5() {
+        return jSeparator5;
+    }
+
+    /**
+     * @param jSeparator5 the jSeparator5 to set
+     */
+    public void setjSeparator5(javax.swing.JPopupMenu.Separator jSeparator5) {
+        this.jSeparator5 = jSeparator5;
+    }
+
+    /**
+     * @return the jSeparator6
+     */
+    public javax.swing.JPopupMenu.Separator getjSeparator6() {
+        return jSeparator6;
+    }
+
+    /**
+     * @param jSeparator6 the jSeparator6 to set
+     */
+    public void setjSeparator6(javax.swing.JPopupMenu.Separator jSeparator6) {
+        this.jSeparator6 = jSeparator6;
+    }
+
+    /**
+     * @param jTabbedPane2 the jTabbedPane2 to set
+     */
+    public void setjTabbedPane2(javax.swing.JTabbedPane jTabbedPane2) {
+        this.jTabbedPane2 = jTabbedPane2;
+    }
+
+    /**
+     * @return the jToggleButton1
+     */
+    public javax.swing.JToggleButton getjToggleButton1() {
+        return jToggleButton1;
+    }
+
+    /**
+     * @param jToggleButton1 the jToggleButton1 to set
+     */
+    public void setjToggleButton1(javax.swing.JToggleButton jToggleButton1) {
+        this.jToggleButton1 = jToggleButton1;
+    }
+
+    /**
+     * @return the jToggleButton2
+     */
+    public javax.swing.JToggleButton getjToggleButton2() {
+        return jToggleButton2;
+    }
+
+    /**
+     * @param jToggleButton2 the jToggleButton2 to set
+     */
+    public void setjToggleButton2(javax.swing.JToggleButton jToggleButton2) {
+        this.jToggleButton2 = jToggleButton2;
+    }
+
+    /**
+     * @return the jToolBar1
+     */
+    public javax.swing.JToolBar getjToolBar1() {
+        return jToolBar1;
+    }
+
+    /**
+     * @param jToolBar1 the jToolBar1 to set
+     */
+    public void setjToolBar1(javax.swing.JToolBar jToolBar1) {
+        this.jToolBar1 = jToolBar1;
+    }
 }
